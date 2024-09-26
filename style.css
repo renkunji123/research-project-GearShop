@@ -3,8 +3,7 @@ h1 {
 }
 
 .header {
-    color: aqua;
-    width: 200px;
+    color: rgb(0, 0, 0);
     height: 200px;
     background-color: rgb(15, 15, 15);
 }
