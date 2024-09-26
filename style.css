@@ -1,5 +1,12 @@
 h1 {
-    color: red;
+    color: rgb(0, 255, 157);
+}
+
+.header {
+    color: aqua;
+    width: 200px;
+    height: 200px;
+    background-color: rgb(15, 15, 15);
 }
 body {
 
