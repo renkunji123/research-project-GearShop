@@ -1,3 +1,103 @@
 h1 {
     color: red;
 }
+body {
+
+}
+.overview {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(100, 230, 107);
+    height: 200px;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    
+}
+.menu {
+    flex: 1;
+    background-color: blanchedalmond;
+    margin: 15px;
+}
+.banner {
+    flex: 2;
+    background-color: antiquewhite;
+    margin: 15px;
+}
+.header {
+    background-color: rgb(84, 226, 252);
+    height: 50px;
+
+}
+.ai-search {
+    background-color: rgb(247, 201, 115);
+    height: 100px;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    
+}
+.hot-deal {
+    background-color: rgb(252, 185, 123);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    height: 100px;
+    width: 75%;
+
+}
+.product-type-1 {
+    background-color: rgb(230, 158, 111);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    height: 100px;
+    width: 75%;
+
+}
+.product-type-2 {
+    background-color: rgb(231, 192, 18);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    height: 100px;
+    width: 75%;
+
+}
+.product-type-3 {
+    background-color: rgb(207, 153, 252);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    height: 100px;
+    width: 75%;
+
+}
+.product-type-4 {
+    background-color: rgb(252, 69, 109);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    height: 100px;
+    width: 75%;
+
+}
+.orther-product {
+    background-color: rgb(161, 145, 255);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    height: 100px;
+    width: 75%;
+
+}
+.footer {
+    background-color: rgb(215, 184, 223);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    height: 50px;
+
+}
