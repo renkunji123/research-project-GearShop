@@ -1,109 +1,135 @@
-h1 {
-    color: rgb(0, 255, 157);
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.header {
-    color: rgb(0, 0, 0);
-    height: 200px;
-    background-color: rgb(15, 15, 15);
-}
+/* Body Styling */
 body {
-
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    line-height: 1.6;
+    padding: 20px;
 }
+
+/* Header */
+.header {
+    background-color: #0a74da;
+    color: white;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Overview Section (Menu & Banner) */
 .overview {
     display: flex;
     justify-content: space-between;
-    background-color: rgb(100, 230, 107);
-    height: 200px;
-    width: 75%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    
+    background-color: #64e66b;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.menu, .banner {
+    border-radius: 10px;
+    padding: 15px;
+}
+
 .menu {
     flex: 1;
     background-color: blanchedalmond;
-    margin: 15px;
+    margin-right: 15px;
 }
+
 .banner {
     flex: 2;
     background-color: antiquewhite;
-    margin: 15px;
 }
-.header {
-    background-color: rgb(84, 226, 252);
-    height: 50px;
 
+/* AI Search */
+.ai-search, .hot-deal, .product-type-1, .product-type-2, .product-type-3, .product-type-4, .other-product, .footer {
+    width: 100%;
+    max-width: 1200px;
+    margin: 10px auto;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1.2rem;
+    text-align: center;
 }
+
 .ai-search {
-    background-color: rgb(247, 201, 115);
-    height: 100px;
-    width: 75%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    
+    background-color: #f7c973;
 }
+
 .hot-deal {
-    background-color: rgb(252, 185, 123);
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    height: 100px;
-    width: 75%;
-
+    background-color: #fcb97b;
 }
+
 .product-type-1 {
-    background-color: rgb(230, 158, 111);
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    height: 100px;
-    width: 75%;
-
+    background-color: #e69e6f;
 }
+
 .product-type-2 {
-    background-color: rgb(231, 192, 18);
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    height: 100px;
-    width: 75%;
-
+    background-color: #e7c012;
 }
+
 .product-type-3 {
-    background-color: rgb(207, 153, 252);
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    height: 100px;
-    width: 75%;
-
+    background-color: #cf99fc;
 }
+
 .product-type-4 {
-    background-color: rgb(252, 69, 109);
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    height: 100px;
-    width: 75%;
-
+    background-color: #fc456d;
 }
-.orther-product {
-    background-color: rgb(161, 145, 255);
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    height: 100px;
-    width: 75%;
 
+.other-product {
+    background-color: #a191ff;
 }
+
+/* Footer */
 .footer {
-    background-color: rgb(215, 184, 223);
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    height: 50px;
+    background-color: #d7b8df;
+    font-size: 1rem;
+}
 
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .overview {
+        flex-direction: column;
+    }
+
+    .menu {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .header {
+        font-size: 1.2rem;
+    }
+
+    .ai-search, .hot-deal, .product-type-1, .product-type-2, .product-type-3, .product-type-4, .other-product, .footer {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        font-size: 1rem;
+        height: 50px;
+    }
+
+    .ai-search, .hot-deal, .product-type-1, .product-type-2, .product-type-3, .product-type-4, .other-product, .footer {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
 }
