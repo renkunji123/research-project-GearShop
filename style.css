@@ -14,7 +14,7 @@ body {
 }
 
 /* Header */
-.header {
+.header, .footer {
     background-color: #0a74da;
     color: white;
     height: 60px;
@@ -56,8 +56,8 @@ body {
 }
 
 /* AI Search */
-.ai-search, .hot-deal, .product-type-1, .product-type-2, .product-type-3, .product-type-4, .other-product, .footer {
-    width: 100%;
+.ai-search, .hot-deal, .product-type-1, .product-type-2, .product-type-3, .product-type-4, .other-product {
+    width:75%;
     max-width: 1200px;
     margin: 10px auto;
     padding: 15px;
@@ -132,4 +132,47 @@ body {
         padding: 10px;
         font-size: 0.9rem;
     }
+}
+/* Dropdown container styling */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown button styling */
+.dropdown button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Dropdown content links */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change the color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show the dropdown when the button is clicked */
+.dropdown:hover .dropdown-content {
+    display: block;
 }
