@@ -219,6 +219,17 @@ option {
     border-radius: 5px;
 }
 
+.cart-items {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .cart-items div {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+  
+
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     .overview {
