@@ -14,14 +14,14 @@ body {
 }
 
 /* Header */
-.header, .footer {
+.header {
     background-color: #0a74da;
     color: white;
-    height: 60px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    height: max-content; 
+    padding: 10px;
     font-size: 1.5rem;
+    align-items: center;
     font-weight: bold;
     text-transform: uppercase;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -96,6 +96,91 @@ body {
     background-color: #a191ff;
 }
 
+/* Khung pop-up chat */
+.chat-popup {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    display: none; /* Ẩn mặc định */
+    border: 1px solid #0a74da;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    z-index: 1000;
+  }
+
+  /* Header của khung chat */
+  .chat-header {
+    background-color: #0a74da;
+    color: white;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Nút đóng khung chat */
+  .chat-header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  /* Nội dung chat */
+  .chat-body {
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  /* Thanh nhập tin nhắn */
+  .chat-footer {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+  }
+
+  .chat-footer input {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+    margin-right: 5px;
+  }
+
+  .chat-footer button {
+    background-color: #0a74da;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  /* Nút mở chat */
+  .chat-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #0a74da;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+  }
+
 /* Footer */
 .footer {
     background-color: #d7b8df;
@@ -103,7 +188,7 @@ body {
 }
 
 input[type="text"], .getPrice, input[list] {
-    width: 300px;
+    width: 37%;
     padding: 10px;
     font-size: 16px;
     border: 2px solid #4CAF50;
@@ -120,6 +205,7 @@ input:focus {
 
 /* Customizing the options in the datalist */
 option {
+    
     font-size: 16px;
     color: #333;
     padding: 4px;
@@ -127,7 +213,7 @@ option {
 }
 
 .aiSearchButton {
-    width: 300px;
+    width: 75%;
     padding: 10px;
     margin-top: 10px;
     border-radius: 5px;

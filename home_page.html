@@ -5,9 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <div class="header">header</div>
+    <div class="header">
+        <a>header</a> <br>
+        <div class="container text-center">
+            <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+              Đăng Nhập
+            </button>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#registerModal">
+              Đăng Ký
+            </button>
+        </div>
+    </div>
     <div class="overview">
         <div class="menu">Menu</div>
         <div class="banner">Banner</div>
@@ -32,7 +44,7 @@
             <option value="Outlook">
             <option value="cheapest">
             <option value="All">
-        </datalist>
+        </datalist> <br>
         <button class="aiSearchButton">ai-search</button>
     </div>
     <div class="hot-deal"> HOT DEAL</div>
@@ -41,7 +53,258 @@
     <div class="product-type-3">PRODUCT TYPE 3</div>
     <div class="product-type-4">PRODUCT TYPE 4</div>
     <div class="other-product">OTHER PRODUCT</div>
-    <div class="footer">FOOTER</div>
 
+    <button class="chat-btn" id="openChatBtn">💬</button>
+
+    
+    <div class="footer">
+        <!-- Footer -->
+        <footer class="text-center text-lg-start bg-body-tertiary text-muted">
+        <!-- Section: Social media -->
+        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+        <!-- Left -->
+        <div class="me-5 d-none d-lg-block">
+            <span>Get connected with us on social networks:</span>
+        </div>
+      <!-- Left -->
+        <div></div>
+      <!-- Right -->
+      <div>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-google"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
+  
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i>Company name
+            </h6>
+            <p>
+              Here you can use rows and columns to organize your footer content. Lorem ipsum
+              dolor sit amet, consectetur adipisicing elit.
+            </p>
+          </div>
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Products
+            </h6>
+            <p>
+              <a href="#!" class="text-reset">Angular</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">React</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Vue</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Laravel</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Useful links
+            </h6>
+            <p>
+              <a href="#!" class="text-reset">Pricing</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Settings</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Orders</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Help</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+            <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+            <p>
+              <i class="fas fa-envelope me-3"></i>
+              info@example.com
+            </p>
+            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+            <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+
+  </footer>
+  <!-- Footer -->
+    </div>
+
+    <!-- Khung pop-up chat -->
+    <div class="chat-popup" id="chatPopup">
+        <div class="chat-header">
+          <span>Hỗ trợ trực tuyến</span>
+          <button id="closeChatBtn">&times;</button>
+        </div>
+        <div class="chat-body">
+          <div class="message">
+            <strong>Hỗ trợ viên:</strong> Xin chào, tôi có thể giúp gì cho bạn?
+          </div>
+        </div>
+        <div class="chat-footer">
+          <input type="text" placeholder="Nhập tin nhắn..." id="chatInput">
+          <button id="sendBtn">Gửi</button>
+        </div>
+      </div>
+      
+    
+    
+    
+      <!-- Modal Đăng Nhập -->
+      <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Đăng Nhập</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="loginEmail" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="loginEmail" placeholder="Nhập email">
+                </div>
+                <div class="mb-3">
+                  <label for="loginPassword" class="form-label">Mật khẩu</label>
+                  <input type="password" class="form-control" id="loginPassword" placeholder="Nhập mật khẩu">
+                </div>
+                <button type="submit" class="btn btn-primary mb-3 w-100">Đăng Nhập</button>
+                <a> Bạn chưa có tài khoản? Đăng kí ngay:</a>
+                <button 
+            type="button" 
+            class="btn btn-success w-100 mt-2" 
+            onclick="switchToRegisterModal()">Đăng Ký
+          </button>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Modal Đăng Ký -->
+      <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Đăng Ký</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="registerName" class="form-label">Họ và Tên</label>
+                  <input type="text" class="form-control" id="registerName" placeholder="Nhập họ và tên">
+                </div>
+                <div class="mb-3">
+                  <label for="registerEmail" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="registerEmail" placeholder="Nhập email">
+                </div>
+                <div class="mb-3">
+                  <label for="registerPassword" class="form-label">Mật khẩu</label>
+                  <input type="password" class="form-control" id="registerPassword" placeholder="Nhập mật khẩu">
+                </div>
+                <button type="submit" class="btn btn-success w-100">Đăng Ký</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        function switchToRegisterModal() {
+          // Đóng modal Đăng Nhập trước
+          const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+          loginModal.hide();
+      
+          // Mở modal Đăng Ký
+          const registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
+          registerModal.show();
+        }
+
+        const openChatBtn = document.getElementById('openChatBtn');
+        const closeChatBtn = document.getElementById('closeChatBtn');
+        const chatPopup = document.getElementById('chatPopup');
+        const chatInput = document.getElementById('chatInput');
+        const chatBody = document.querySelector('.chat-body');
+        const sendBtn = document.getElementById('sendBtn');
+
+    // Mở khung chat
+    openChatBtn.addEventListener('click', () => {
+      chatPopup.style.display = 'block';
+      openChatBtn.style.display = 'none'; // Ẩn nút mở chat
+    });
+
+    // Đóng khung chat
+    closeChatBtn.addEventListener('click', () => {
+      chatPopup.style.display = 'none';
+      openChatBtn.style.display = 'flex'; // Hiện lại nút mở chat
+    });
+
+    // Xử lý sự kiện gửi tin nhắn
+    sendBtn.addEventListener('click', sendMessage);
+
+    chatInput.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
+    });
+
+    function sendMessage() {
+      const message = chatInput.value.trim();
+      if (message) {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message');
+        messageElement.innerHTML = `<strong>Bạn:</strong> ${message}`;
+        chatBody.appendChild(messageElement);
+        chatInput.value = ''; // Xóa nội dung input
+        chatBody.scrollTop = chatBody.scrollHeight; // Cuộn xuống cuối khung chat
+      }
+    }
+      </script>
 </body>
 </html>
