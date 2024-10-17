@@ -66,3 +66,76 @@ parent.addEventListener('click', () => {
     }
   });
 });
+
+// Chức năng cho Cart
+const cartItemsContainer = document.querySelector('.cart-items');
+const addProductButton = document.querySelector('.add-product-btn');
+
+// Cập nhật tổng giá khi thay đổi
+function updateTotal() {
+  let total = 0;
+  document.querySelectorAll('.cart-item').forEach((item) => {
+    const price = parseFloat(item.querySelector('.product-price').textContent.replace('$', ''));
+    total += price;
+  });
+  document.querySelector('.checkout-btn').textContent = `Checkout ($${total.toFixed(2)})`;
+}
+
+// Thêm sự kiện cho các nút tăng/giảm và xóa sản phẩm
+function addEventListenersForProduct(item) {
+  const minusButton = item.querySelector('.minus-btn');
+  const plusButton = item.querySelector('.plus-btn');
+  const deleteButton = item.querySelector('.delete-btn');
+  const quantitySpan = item.querySelector('.quantity');
+  const priceDiv = item.querySelector('.product-price');
+
+  let quantity = parseInt(quantitySpan.textContent);
+  const pricePerUnit = parseFloat(priceDiv.textContent.replace('$', '') / quantity);
+
+  minusButton.addEventListener('click', () => {
+    if (quantity > 1) {
+      quantity--;
+      quantitySpan.textContent = quantity;
+      priceDiv.textContent = `$${(quantity * pricePerUnit).toFixed(2)}`;
+      updateTotal();
+    } 
+  });
+
+  plusButton.addEventListener('click', () => {
+    quantity++;
+    quantitySpan.textContent = quantity;
+    priceDiv.textContent = `$${(quantity * pricePerUnit).toFixed(2)}`;
+    updateTotal();
+  });
+
+  deleteButton.addEventListener('click', () => {
+    const confirmDelete = confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');
+    if (confirmDelete) {
+      item.remove();
+      updateTotal();
+    }
+  });
+}
+
+// Thêm sản phẩm mới
+addProductButton.addEventListener('click', () => {
+  const newProduct = document.createElement('div');
+  newProduct.classList.add('d-flex', 'justify-content-between', 'align-items-center', 'mb-3', 'cart-item');
+  newProduct.innerHTML = `
+    <div class="product-name">New Product</div>
+    <div>
+      <button class="btn btn-sm btn-secondary minus-btn">-</button>
+      <span class="quantity">1</span>
+      <button class="btn btn-sm btn-secondary plus-btn">+</button>
+    </div>
+    <div class="product-price">$0.00</div>
+    <button class="btn btn-sm btn-danger delete-btn">X</button>
+  `;
+
+  cartItemsContainer.appendChild(newProduct);
+  addEventListenersForProduct(newProduct);
+  updateTotal();
+});
+
+// Áp dụng sự kiện cho các sản phẩm có sẵn
+document.querySelectorAll('.cart-item').forEach(addEventListenersForProduct);
