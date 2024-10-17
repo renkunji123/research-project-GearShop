@@ -56,7 +56,8 @@ body {
 .menu {
     flex: 1;
     background-color: blanchedalmond;
-    margin-right: 15px;
+    margin-left: 0px;
+    justify-content: left;
 }
 
 .banner {
@@ -233,11 +234,45 @@ option {
     overflow-y: auto;
   }
   
-  .cart-items div {
+.cart-items div {
     border-bottom: 1px solid #ddd;
     padding: 10px 0;
   }
   
+/* Ẩn tất cả các mục con ban đầu */
+/* Ẩn danh sách con ban đầu */
+.sub-list {
+    display: none;
+    margin-left: 20px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Định dạng icon dropdown */
+  .dropdown-icon {
+    float: right;
+    transition: transform 0.2s ease; /* Thêm hiệu ứng xoay */
+  }
+  
+  /* Khi icon xoay xuống */
+  .rotate {
+    transform: rotate(90deg);
+  }
+  
+  .megamenu-ic-right {
+    position: absolute;
+    right: 0px;
+}
+
+  /* Thay đổi con trỏ khi hover vào các thẻ cha */
+  .parent {
+    cursor: pointer;
+    font-weight: bold;
+    
+  }
+
+.nav-item {
+    left: 0px;
+}
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {

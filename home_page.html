@@ -9,54 +9,105 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-    <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-      <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+  <header class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom">
+    <!-- Logo -->
+    <a href="/" class="d-flex align-items-center text-dark text-decoration-none me-4">
+      <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+        <use xlink:href="#bootstrap"></use>
+      </svg>
     </a>
-
-    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+  
+    <!-- Danh sách liên kết điều hướng -->
+    <ul class="nav me-auto">
       <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
       <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
       <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
       <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
       <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
     </ul>
-    <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 container text-center " >
-      <button class="btn btn-info me-2" data-bs-toggle="modal" data-bs-target="#cartModal">🛒 Cart</button>
-    </div>
   
-    <div class="col-md-3 text-end">
-      <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">Sign-up</button>
+    <!-- Khu vực tìm kiếm và các nút -->
+    <div class="d-flex align-items-center gap-3">
+      <!-- Ô tìm kiếm -->
+      <form class="col-8 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+        <input type="search" class="form-control form-control-dark text-bg-light" 
+               placeholder="Search..." aria-label="Search">
+      </form>
+      
+      <!-- Nút Cart -->
+      <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#cartModal">🛒 Cart</button>
+  
+      
+  
+      <!-- Nút Login -->
+      <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+        Login
+      </button>
+  
+      <!-- Nút Sign-up -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
+        Sign-up
+      </button>
     </div>
   </header>
-
+  
   <div class="container-fluid">
     <div class="row full-height">
       <!-- Menu dọc bên trái -->
       <div class="col-md-3 bg-dark">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark flex-column full-height">
-          <a class="navbar-brand mb-3" href="#">BrandName</a>
+          <a class="navbar-brand mb-3" href="#">GGShop</a>
           <button class="navbar-toggler mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                   aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav flex-column w-100">
+              <!-- Thẻ cha Gaming Gear -->
+              <li class="parent nav-item">
+                <a class="nav-link" href="#">Gaming Gear
+                  <span class="dropdown-icon megamenu-ic-right mb-lg-0" >></span>
+                </a>
+                
+              </li>
+              
+              <!-- Danh sách con của Gaming Gear -->
+              <ul class="sub-list">
+                <li>
+                  <a class="nav-link" href="#">Keyboard</a>
+                </li>
+                <li>
+                  <a class="nav-link" href="#">Mouse</a>
+                </li>
+                <li>
+                  <a class="nav-link" href="#">Headphone</a>
+                </li>
+                <li>
+                  <a class="nav-link" href="#">Earphone</a>
+                </li>
+              </ul>
+          
+              <!-- Các mục khác -->
               <li class="nav-item">
-                <a class="nav-link active" href="#">Home</a>
+                <a class="nav-link" href="#">VGA
+                  <span class="dropdown-icon megamenu-ic-right mb-lg-0" >></span>
+                </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Products</a>
+                <a class="nav-link" href="#">Main Board
+                  <span class="dropdown-icon megamenu-ic-right mb-lg-0" >></span>
+                </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">About Us</a>
+                <a class="nav-link" href="#">Monitor
+                  <span class="dropdown-icon megamenu-ic-right mb-lg-0" >></span>
+                </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" href="#">Other</a>
               </li>
             </ul>
-          </div>
+          </div>          
         </nav>
       </div>
   
@@ -264,45 +315,44 @@
       </div>
       
         <!-- Cart Modal -->
-    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="cartModalLabel">Shopping Cart</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="cart-items">
-              <!-- Example of cart item -->
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <div>Product 1</div>
-                <div>
-                  <button class="btn btn-sm btn-secondary">-</button>
-                  <span>1</span>
-                  <button class="btn btn-sm btn-secondary">+</button>
-                </div>
-                <div>$10.00</div>
-              </div>
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <div>Product 2</div>
-                <div>
-                  <button class="btn btn-sm btn-secondary">-</button>
-                  <span>2</span>
-                  <button class="btn btn-sm btn-secondary">+</button>
-                </div>
-                <div>$20.00</div>
-              </div>
-              <!-- Add more products as needed -->
+      <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="cartModalLabel">Shopping Cart</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Checkout</button>
+            <div class="modal-body">
+              <div class="cart-items">
+                <!-- Example of cart item -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div>Product 1</div>
+                  <div>
+                    <button class="btn btn-sm btn-secondary">-</button>
+                    <span>1</span>
+                    <button class="btn btn-sm btn-secondary">+</button>
+                  </div>
+                  <div>$10.00</div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div>Product 2</div>
+                  <div>
+                    <button class="btn btn-sm btn-secondary">-</button>
+                    <span>2</span>
+                    <button class="btn btn-sm btn-secondary">+</button>
+                  </div>
+                  <div>$20.00</div>
+                </div>
+                <!-- Add more products as needed -->
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Checkout</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
       
       <!-- Modal Đăng Nhập -->
       <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
@@ -364,56 +414,6 @@
         </div>
         
       </div>
-      <script>
-        function switchToRegisterModal() {
-          // Đóng modal Đăng Nhập trước
-          const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
-          loginModal.hide();
-      
-          // Mở modal Đăng Ký
-          const registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
-          registerModal.show();
-        }
-
-        const openChatBtn = document.getElementById('openChatBtn');
-        const closeChatBtn = document.getElementById('closeChatBtn');
-        const chatPopup = document.getElementById('chatPopup');
-        const chatInput = document.getElementById('chatInput');
-        const chatBody = document.querySelector('.chat-body');
-        const sendBtn = document.getElementById('sendBtn');
-
-    // Mở khung chat
-    openChatBtn.addEventListener('click', () => {
-      chatPopup.style.display = 'block';
-      openChatBtn.style.display = 'none'; // Ẩn nút mở chat
-    });
-
-    // Đóng khung chat
-    closeChatBtn.addEventListener('click', () => {
-      chatPopup.style.display = 'none';
-      openChatBtn.style.display = 'flex'; // Hiện lại nút mở chat
-    });
-
-    // Xử lý sự kiện gửi tin nhắn
-    sendBtn.addEventListener('click', sendMessage);
-
-    chatInput.addEventListener('keypress', (event) => {
-      if (event.key === 'Enter') {
-        sendMessage();
-      }
-    });
-
-    function sendMessage() {
-      const message = chatInput.value.trim();
-      if (message) {
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('message');
-        messageElement.innerHTML = `<strong>Bạn:</strong> ${message}`;
-        chatBody.appendChild(messageElement);
-        chatInput.value = ''; // Xóa nội dung input
-        chatBody.scrollTop = chatBody.scrollHeight; // Cuộn xuống cuối khung chat
-      }
-    }
-      </script>
+      <script src="script.js"></script>
 </body>
 </html>
