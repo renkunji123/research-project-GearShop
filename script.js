@@ -15,38 +15,9 @@ function switchToRegisterModal() {
   const chatBody = document.querySelector('.chat-body');
   const sendBtn = document.getElementById('sendBtn');
 
-// Mở khung chat
-openChatBtn.addEventListener('click', () => {
-chatPopup.style.display = 'block';
-openChatBtn.style.display = 'none'; // Ẩn nút mở chat
-});
 
-// Đóng khung chat
-closeChatBtn.addEventListener('click', () => {
-chatPopup.style.display = 'none';
-openChatBtn.style.display = 'flex'; // Hiện lại nút mở chat
-});
 
-// Xử lý sự kiện gửi tin nhắn
-sendBtn.addEventListener('click', sendMessage);
 
-chatInput.addEventListener('keypress', (event) => {
-if (event.key === 'Enter') {
-  sendMessage();
-}
-});
-
-function sendMessage() {
-const message = chatInput.value.trim();
-if (message) {
-  const messageElement = document.createElement('div');
-  messageElement.classList.add('message');
-  messageElement.innerHTML = `<strong>Bạn:</strong> ${message}`;
-  chatBody.appendChild(messageElement);
-  chatInput.value = ''; // Xóa nội dung input
-  chatBody.scrollTop = chatBody.scrollHeight; // Cuộn xuống cuối khung chat
-}
-}
 // Lấy tất cả các mục cha có class 'parent'
 const parents = document.querySelectorAll('.parent');
 
