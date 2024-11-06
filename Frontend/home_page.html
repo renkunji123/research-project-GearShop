@@ -116,29 +116,31 @@
   
     
     
-    <div class="ai-search">
-        <a>AI SEARCH</a> <br>
-        <input class="getPrice" placeholder="please input price"></input> <br>
-        <label for="dropdownTextbox">Choose an option or type your own:</label> <br>
+<div class="ai-search">
+  <a>AI SEARCH</a> <br>
+  <input class="getPrice" placeholder="Please input price"></input> <br>
+  <label for="dropdownTextbox">Choose an option or type your own:</label> <br>
 
-        <input list="options1" id="dropdownTextbox1" name="dropdownTextbox1" placeholder="Select gear type">
-    
-        <datalist id="options1">
-            <option value="Keyboard">
-            <option value="mouse/wireless mouse">
-            <option value="headphone">
-            <option value="earphone">
-        </datalist>
-        <input list="options2" id="dropdownTextbox2" name="dropdownTextbox2" placeholder="Select option">
-    
-        <datalist id="options2">
-            <option value="Performent">
-            <option value="Outlook">
-            <option value="cheapest">
-            <option value="All">
-        </datalist> <br>
-        <button class="aiSearchButton">ai-search</button>
-    </div>
+  <input list="options1" id="dropdownTextbox1" name="dropdownTextbox1" placeholder="Select gear type">
+  <datalist id="options1">
+    <option value="Keyboard">
+    <option value="mouse/wireless mouse">
+    <option value="headphone">
+    <option value="earphone">
+  </datalist>
+  <input list="options2" id="dropdownTextbox2" name="dropdownTextbox2" placeholder="Select option">
+  <datalist id="options2">
+    <option value="Performance">
+    <option value="Outlook">
+    <option value="Cheapest">
+    <option value="All">
+  </datalist> <br>
+  <button class="aiSearchButton">ai-search</button>
+  <div id="loading" style="display: none;">Loading...</div>
+
+  <div id="results" style="margin-top: 20px; font-weight: bold;"></div>
+</div>
+</div>
     <div class="hot-deal">
       <h1>Hot deal</h1>
       <div class="container-fluid py-4">
@@ -905,13 +907,29 @@
         <!-- Grid row -->
       </div>
     </section>
-    <!-- Section: Links  -->
+    <!-- chatbot -->
+    <button id="openChatBtn" class="open-chat-btn">💬 Chat với chúng tôi</button>
 
-  </footer>
-  <!-- Footer -->
+    <div class="chat-popup" id="chatPopup">
+        <div class="chat-header">
+            <span>Hỗ trợ trực tuyến</span>
+            <button id="closeChatBtn" class="close-btn">&times;</button>
+        </div>
+        <div class="chat-body" id="chatBody">
+        <div class="message bot">Xin chào! Chúng tôi có thể giúp gì cho bạn?</div>
+          <div class="chat-list"></div>
+        </div>
+            <div class="typing-area">
+                <form action="#" class="typing-form">
+                <div class="input-wrapper">
+                    <input type="text" id="chatInput" class="typing-input" required placeholder="Nhập tin nhắn...">
+                    <button id="send-message-button" class="icon material-symbols-rounded">Gửi</button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <!-- Khung pop-up chat -->
+
       
         <!-- Cart Modal -->
         <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
@@ -1006,7 +1024,157 @@
         </div>
         
       </div>
-      <script src="script.js"></script>
-      <script defer src="https://app.fastbots.ai/embed.js" data-bot-id="cm2wv7c333wm5n8blsup2llg9"></script>
+      <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+      </script>
+      <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+  
+        // Fetch your API_KEY
+        const API_KEY = "AIzaSyDCYRoR8EN8hiq8H7_ol1sHkJCBZ5lS2MU";
+        // Reminder: This should only be for local testing
+  
+        // Access your API key (see "Set up your API key" above)
+        const genAI = new GoogleGenerativeAI(API_KEY);
+  
+        // ...
+  
+        document.querySelector(".aiSearchButton").addEventListener("click", async () => {
+  // Hiển thị "Loading..."
+  document.getElementById("loading").style.display = "block";
+  document.getElementById("results").innerHTML = "";
+
+  try {
+    // Tạo prompt từ các trường đầu vào
+    const prompt = `Gamming gear Giá: ${document.querySelector(".getPrice").value}, Loại: ${document.getElementById("dropdownTextbox1").value}, Tùy chọn: ${document.getElementById("dropdownTextbox2").value}, đưa ra nhiều lựa chọn có mục đích sử dụng, chức năng, các biến thể khác nhau, đưa ra recomment bạn cho là tốt nhất`;
+    
+    // Khởi tạo mô hình AI
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    // Gửi yêu cầu và nhận phản hồi
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = await response.text();
+
+    // Chuyển đổi văn bản có định dạng Markdown sang HTML
+    const htmlContent = convertMarkdownToHTML(text);
+
+    // Hiển thị kết quả với HTML
+    document.getElementById("results").innerHTML = htmlContent;
+  } catch (error) {
+    console.error("Đã xảy ra lỗi:", error);
+    document.getElementById("results").textContent = "Có lỗi xảy ra!";
+  } finally {
+    // Ẩn "Loading..." sau khi hoàn tất
+    document.getElementById("loading").style.display = "none";
+  }
+});
+    function convertMarkdownToHTML(markdown) {
+    return markdown
+        .replace(/^##\s+(.*)/gm, "<h2>$1</h2>")
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // Chuyển đổi in đậm
+        .replace(/^\s*-\s+(.*)/gm, "<ul><li>$1</li></ul>") // Gạch đầu dòng
+        .replace(/\n/g, "<br>"); // Xuống dòng
+    }
+        // ...
+    document.querySelector(".aiSearchButton").addEventListener("click", runAI);
+
+    document.getElementById("open-chat").addEventListener("click", () => {
+   const chatContainer = document.getElementById("chat-container");
+   chatContainer.style.display = chatContainer.style.display === "none" ? "flex" : "none";
+});
+
+document.getElementById("send-button").addEventListener("click", async () => {
+   const userInput = document.getElementById("user-input").value;
+   if (userInput) {
+       // Hiển thị tin nhắn người dùng
+       document.getElementById("chat-box").innerHTML += `<div class="user-message">${userInput}</div>`;
+       document.getElementById("user-input").value = "";
+
+       // Gửi yêu cầu đến AI và nhận phản hồi
+       const botResponse = await chatWithAI(userInput);
+
+       // Hiển thị tin nhắn của chatbot
+       document.getElementById("chat-box").innerHTML += `<div class="bot-message">${botResponse}</div>`;
+   }
+});
+
+async function chatWithAI(userInput) {
+   const response = await fetch('https://api.example.com/chat', { 
+       method: 'POST',
+       body: JSON.stringify({ prompt: userInput }),
+       headers: { 'Content-Type': 'application/json' }
+   });
+
+   const data = await response.json();
+   return data.reply; // Cập nhật này tùy thuộc vào API mà bạn sử dụng
+}
+
+document.getElementById("openChatBtn").addEventListener("click", () => {
+    document.getElementById("chatPopup").style.display = "flex";
+});
+
+document.getElementById("closeChatBtn").addEventListener("click", () => {
+    document.getElementById("chatPopup").style.display = "none";
+});
+
+document.getElementById("sendBtn").addEventListener("click", async () => {
+    const chatInput = document.getElementById("chatInput");
+    const chatBody = document.getElementById("chatBody");
+    const userMessage = chatInput.value.trim();
+
+    if (userMessage) {
+        // Hiển thị tin nhắn người dùng
+        const userMessageDiv = document.createElement("div");
+        userMessageDiv.classList.add("message", "user");
+        userMessageDiv.innerText = userMessage;
+        chatBody.appendChild(userMessageDiv);
+
+        // Gọi API Gemini để lấy phản hồi
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-chat" });
+        chatInput.value = "";
+        
+        // Hiển thị trạng thái đang tải
+        const loadingDiv = document.createElement("div");
+        loadingDiv.classList.add("message", "bot");
+        loadingDiv.innerText = "Đang xử lý...";
+        chatBody.appendChild(loadingDiv);
+
+        try {
+            const result = await model.generateContent(userMessage);
+            const responseText = await result.response.text();
+            
+            // Xóa trạng thái đang tải và hiển thị kết quả
+            chatBody.removeChild(loadingDiv);
+
+            const botMessageDiv = document.createElement("div");
+            botMessageDiv.classList.add("message", "bot");
+            botMessageDiv.innerHTML = formatMessage(responseText);
+            chatBody.appendChild(botMessageDiv);
+
+            chatBody.scrollTop = chatBody.scrollHeight;
+        } catch (error) {
+            loadingDiv.innerText = "Lỗi trong khi gửi yêu cầu!";
+        }
+    }
+});
+
+// Định dạng Markdown
+function formatMessage(message) {
+    return message
+        .replace(/^## (.*$)/gim, "<h2>$1</h2>")
+        .replace(/^# (.*$)/gim, "<h1>$1</h1>")
+        .replace(/\*\*(.*)\*\*/gim, "<b>$1</b>")
+        .replace(/\*(.*)\*/gim, "<i>$1</i>")
+        .replace(/- (.*)/gim, "<li>$1</li>")
+        .replace(/\n/gim, "<br>");
+}
+    </script>
+    <script src="script.js"></script>
+      <!-- <script defer src="https://app.fastbots.ai/embed.js" data-bot-id="cm2wv7c333wm5n8blsup2llg9"></script> -->
 </body>
 </html>
