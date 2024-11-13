@@ -173,6 +173,8 @@ body {
   margin-bottom: 1.5rem;
   transition: transform 0.3s;
   position: relative;
+  /* background-color: #ffffff; */
+  /* border-radius: 5px; */
 }
 
 .custom-product-card:hover {
@@ -185,6 +187,8 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 5px;
   overflow: hidden;
 }
 
@@ -205,7 +209,7 @@ body {
 
 .custom-quick-view {
   position: absolute;
-  top: 50%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 0;
@@ -225,6 +229,7 @@ body {
   font-size: 1.25rem;
   font-weight: bold;
   color: #2c3e50;
+  margin: 15px;
 }
 
 @media (max-width: 768px) {

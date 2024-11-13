@@ -148,21 +148,11 @@
             <div class="d-flex overflow-auto product-wrapper" tabindex="0">
                 <div class="product-card" role="article" aria-label="Product Item">
                     <div class="card h-100">
-                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" class="card-img-top" alt="Sport Shoes">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e" class="card-img-top" alt="Headphones">
                         <div class="card-body">
-                            <h5 class="card-title">Sport Shoes</h5>
-                            <p class="card-text">$99.99</p>
-                            <button class="btn btn-primary" aria-label="Add Sport Shoes to Cart">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card" role="article" aria-label="Product Item">
-                    <div class="card h-100">
-                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30" class="card-img-top" alt="Smart Watch">
-                        <div class="card-body">
-                            <h5 class="card-title">Smart Watch</h5>
-                            <p class="card-text">$199.99</p>
-                            <button class="btn btn-primary" aria-label="Add Smart Watch to Cart">Add to Cart</button>
+                            <h5 class="card-title">Wireless Headphones</h5>
+                            <p class="card-text">$149.99</p>
+                            <button class="btn btn-primary" aria-label="Add Wireless Headphones to Cart">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -178,17 +168,27 @@
                 </div>
                 <div class="product-card" role="article" aria-label="Product Item">
                     <div class="card h-100">
-                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f" class="card-img-top" alt="Camera">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e" class="card-img-top" alt="Headphones">
                         <div class="card-body">
-                            <h5 class="card-title">Digital Camera</h5>
-                            <p class="card-text">$499.99</p>
-                            <button class="btn btn-primary" aria-label="Add Digital Camera to Cart">Add to Cart</button>
+                            <h5 class="card-title">Wireless Headphones</h5>
+                            <p class="card-text">$149.99</p>
+                            <button class="btn btn-primary" aria-label="Add Wireless Headphones to Cart">Add to Cart</button>
                         </div>
                     </div>
                 </div>
                 <div class="product-card" role="article" aria-label="Product Item">
                     <div class="card h-100">
-                        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad" class="card-img-top" alt="Tablet">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e" class="card-img-top" alt="Headphones">
+                        <div class="card-body">
+                            <h5 class="card-title">Wireless Headphones</h5>
+                            <p class="card-text">$149.99</p>
+                            <button class="btn btn-primary" aria-label="Add Wireless Headphones to Cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" role="article" aria-label="Product Item">
+                    <div class="card h-100">
+                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2" class="card-img-top" alt="Tablet">
                         <div class="card-body">
                             <h5 class="card-title">Tablet Pro</h5>
                             <p class="card-text">$799.99</p>
@@ -1050,7 +1050,22 @@
 
   try {
     // Tạo prompt từ các trường đầu vào
-    const prompt = `Gamming gear Giá: ${document.querySelector(".getPrice").value}, Loại: ${document.getElementById("dropdownTextbox1").value}, Tùy chọn: ${document.getElementById("dropdownTextbox2").value}, đưa ra nhiều lựa chọn có mục đích sử dụng, chức năng, các biến thể khác nhau, đưa ra recomment bạn cho là tốt nhất`;
+    const prompt = `Gamming gear Giá: ${document.querySelector(".getPrice").value}, Loại: ${document.getElementById("dropdownTextbox1").value}, Tùy chọn: ${document.getElementById("dropdownTextbox2").value},
+        đưa ra nhiều lựa chọn có mục đích sử dụng, chức năng, các biến thể khác nhau, đưa ra recomment bạn cho là tốt nhất, đưa ra từ chối yêu cầu trả lời cho những sản phẩm không thuộc gaming gear, các sản phẩm thuộc gaming gear bao gồm(Chuột gaming
+        Bàn phím gaming
+        Tai nghe gaming
+        Màn hình gaming
+        Ghế gaming
+        Bàn gaming
+        Card đồ họa
+        Case máy tính gaming
+        Tản nhiệt
+        Bàn di chuột gaming
+        Tay cầm console
+        Phụ kiện trang trí (LED RGB, quạt RGB),
+        Nếu loại sản phẩm không nằm trong danh sách hãy trả lời 'xin lỗi sản phẩm bạn tìm không nằm trong phạm vi hỗ trợ vui lòng chọn đúng loại sản phẩm khả dụng' kèm theo danh sách sản phẩm có thể thực hiện và không trả thêm bất kì câu trả lời nào khác
+        ),
+        `;
     
     // Khởi tạo mô hình AI
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
