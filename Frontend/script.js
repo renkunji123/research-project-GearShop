@@ -327,3 +327,64 @@ typingForm.addEventListener("submit", (e) => {
 });
 
 loadDataFromLocalstorage();
+
+const quickViewBtn = document.querySelector('.quick-view');
+const modal = document.getElementById('quickViewModal');
+const backdrop = document.getElementById('backdrop');
+const closeModal = document.getElementById('closeModal');
+const decreaseQty = document.getElementById('decreaseQty');
+const increaseQty = document.getElementById('increaseQty');
+const productQty = document.getElementById('productQty');
+const addToCartBtn = document.getElementById('addToCart');
+
+// Open modal
+quickViewBtn.addEventListener('click', () => {
+    modal.style.display = 'block';
+    backdrop.style.display = 'block';
+});
+
+// Close modal
+closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+    backdrop.style.display = 'none';
+});
+
+backdrop.addEventListener('click', () => {
+    modal.style.display = 'none';
+    backdrop.style.display = 'none';
+});
+
+// Adjust quantity
+decreaseQty.addEventListener('click', () => {
+    if (productQty.value > 1) {
+        productQty.value = parseInt(productQty.value) - 1;
+    }
+});
+
+increaseQty.addEventListener('click', () => {
+    productQty.value = parseInt(productQty.value) + 1;
+});
+
+// Add to Cart
+addToCartBtn.addEventListener('click', () => {
+    const qty = productQty.value;
+    alert(`Added ${qty} item(s) to cart!`);
+    modal.style.display = 'none';
+    backdrop.style.display = 'none';
+});
+
+document.querySelectorAll('#increaseQty').forEach(button => {
+  button.addEventListener('click', function () {
+      const input = this.parentElement.querySelector('#productQty');
+      input.value = parseInt(input.value) + 1;
+  });
+});
+
+document.querySelectorAll('#decreaseQty').forEach(button => {
+  button.addEventListener('click', function () {
+      const input = this.parentElement.querySelector('#productQty');
+      if (parseInt(input.value) > 1) {
+          input.value = parseInt(input.value) - 1;
+      }
+  });
+});

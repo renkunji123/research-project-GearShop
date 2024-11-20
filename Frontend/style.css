@@ -77,7 +77,68 @@ body {
   transform: translateY(-50%);
   margin: auto;
 }
+a {
+  text-decoration: none; 
+}
 
+.btn a {
+  color: inherit; 
+  text-decoration: none; 
+}
+
+.btn a:hover {
+  text-decoration: none;
+}
+.form-label {
+  margin: 0; 
+  padding: 0; 
+  text-align: left; 
+}
+
+/* cart */
+.cart-items {
+  background-color: #f8f9fa; /* Màu nền nhẹ */
+  border-radius: 8px; /* Bo góc mềm mại */
+  padding: 20px;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Hiệu ứng đổ bóng */
+  background-color: #ffffff; /* Màu nền nổi bật khi hover */
+  transition: all 0.3s ease-in-out; /* Chuyển động mượt */
+}
+
+.price {
+  font-size: 1.2rem; /* Phông chữ lớn hơn cho giá */
+}
+
+button {
+  border-radius: 5px; /* Bo góc cho nút */
+}
+
+.btn-outline-secondary:hover {
+  background-color: #ddd; /* Hiệu ứng khi hover nút tăng giảm số lượng */
+}
+
+input[type="number"] {
+  font-size: 0.9rem; /* Kích thước phông chữ nhỏ hơn */
+  padding: 5px;
+  text-align: center;
+}
+
+.btn-danger {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
 
 @media (max-width: 768px) {
   .vertical-menu {
@@ -121,15 +182,6 @@ body {
   object-fit: cover;
 }
 
-.quick-view {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.3s;
-  z-index: 2;
-}
 
 .product-card:hover .quick-view {
   opacity: 1;
@@ -207,7 +259,7 @@ body {
   justify-content: space-between;
 }
 
-.custom-quick-view {
+.quick-view {
   position: absolute;
   top: 20%;
   left: 50%;
@@ -217,7 +269,7 @@ body {
   z-index: 2;
 }
 
-.custom-product-card:hover .custom-quick-view {
+.custom-product-card:hover .quick-view {
   opacity: 1;
 }
 
@@ -481,6 +533,43 @@ option {
 
 .btn-primary:hover {
   transform: scale(1.05);
+}
+
+.quick-view-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1050;
+  width: 80%;
+  max-width: 500px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-footer {
+  border-top: 1px solid #e5e5e5;
+}
+
+.quick-view-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+}
+
+.product-card {
+  margin: 20px;
 }
 
 @media (max-width: 768px) {
