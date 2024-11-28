@@ -290,7 +290,8 @@ input[type="number"] {
   }
 }
 
-/* chatbot */
+/* Chatbot */
+
 .chatbot-toggler {
   position: fixed;
   bottom: 30px;
@@ -304,7 +305,7 @@ input[type="number"] {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #724ae8;
+  background: #3f8002;
   transition: all 0.2s ease;
 }
 
@@ -354,7 +355,7 @@ body.show-chatbot .chatbot {
   position: relative;
   text-align: center;
   color: #fff;
-  background: #724ae8;
+  background: #3f8002;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -409,7 +410,7 @@ header h2 {
   text-align: center;
   line-height: 32px;
   align-self: flex-end;
-  background: #724ae8;
+  background:  #3f8002;
   border-radius: 4px;
   margin: 0 10px 7px 0;
 }
@@ -421,7 +422,7 @@ header h2 {
   max-width: 75%;
   color: #fff;
   font-size: 0.95rem;
-  background: #724ae8;
+  background:  #3f8002;
 }
 
 .chatbox .incoming p {
@@ -462,7 +463,7 @@ header h2 {
 
 .chat-input span {
   align-self: flex-end;
-  color: #724ae8;
+  color:  #3f8002;
   cursor: pointer;
   height: 55px;
   display: flex;
@@ -502,6 +503,7 @@ header h2 {
     display: block;
   }
 }
+
 /* AI Search */
 .ai-search, .hot-deal, .product-type-1, .product-type-2, .product-type-3, .product-type-4, .other-product {
     width:75%;

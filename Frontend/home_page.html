@@ -537,13 +537,13 @@
               </button>
               <div class="chatbot">
                 <header>
-                  <h2>Chatbot</h2>
+                  <h2>GGShop AI Support</h2>
                   <span class="close-btn material-symbols-outlined">close</span>
                 </header>
                 <ul class="chatbox">
                   <li class="chat incoming">
                     <span class="material-symbols-outlined">smart_toy</span>
-                    <p>Hi there 👋<br />How can I help you today?</p>
+                    <p>Chào bạn 👋<br />Bạn cần tôi Giúp gì nào?</p>
                   </li>
                 </ul>
                 <div class="chat-input">
@@ -671,74 +671,158 @@
         </div>
     </div>
     <div class="quick-view-backdrop" id="backdrop"></div>
-            <script type="importmap">
+    <script type="importmap">
         {
-          "imports": {
-            "@google/generative-ai": "https://esm.run/@google/generative-ai"
-          }
+            "imports": {
+                "@google/generative-ai": "https://esm.run/@google/generative-ai"
+            }
         }
-      </script>
-            <script type="module">
-                import { GoogleGenerativeAI } from "@google/generative-ai";
-
-                // Fetch your API_KEY
-                const API_KEY = "AIzaSyDCYRoR8EN8hiq8H7_ol1sHkJCBZ5lS2MU";
-                // Reminder: This should only be for local testing
-
-                // Access your API key (see "Set up your API key" above)
-                const genAI = new GoogleGenerativeAI(API_KEY);
-
-                // ...
-
-                document.querySelector(".aiSearchButton").addEventListener("click", async () => {
-                    // Hiển thị "Loading..."
-                    document.getElementById("loading").style.display = "block";
-                    document.getElementById("results").innerHTML = "";
-
-                    try {
-                        // Tạo prompt từ các trường đầu vào
-                        const prompt = `Gamming gear Giá: ${document.querySelector(".getPrice").value}, Loại: ${document.getElementById("dropdownTextbox1").value}, Tùy chọn: ${document.getElementById("dropdownTextbox2").value},
-        đưa ra nhiều lựa chọn có mục đích sử dụng, chức năng, các biến thể khác nhau, đưa ra recomment bạn cho là tốt nhất, đưa ra từ chối yêu cầu trả lời cho những sản phẩm không thuộc gaming gear, các sản phẩm thuộc gaming gear bao gồm(Chuột gaming
-        Bàn phím gaming
-        Tai nghe gaming
-        Màn hình gaming
-        Ghế gaming
-        Bàn gaming,
-        Nếu loại sản phẩm không nằm trong danh sách hãy trả lời 'xin lỗi sản phẩm bạn tìm không nằm trong phạm vi hỗ trợ vui lòng chọn đúng loại sản phẩm khả dụng' kèm theo danh sách sản phẩm có thể thực hiện và không trả thêm bất kì câu trả lời nào khác
-        ),
-        `;
-
-                        // Khởi tạo mô hình AI
-                        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-                        // Gửi yêu cầu và nhận phản hồi
-                        const result = await model.generateContent(prompt);
-                        const response = await result.response;
-                        const text = await response.text();
-
-                        // Chuyển đổi văn bản có định dạng Markdown sang HTML
-                        const htmlContent = convertMarkdownToHTML(text);
-
-                        // Hiển thị kết quả với HTML
-                        document.getElementById("results").innerHTML = htmlContent;
-                    } catch (error) {
-                        console.error("Đã xảy ra lỗi:", error);
-                        document.getElementById("results").textContent = "Có lỗi xảy ra!";
-                    } finally {
-                        // Ẩn "Loading..." sau khi hoàn tất
-                        document.getElementById("loading").style.display = "none";
-                    }
-                });
-                function convertMarkdownToHTML(markdown) {
-                    return markdown
-                        .replace(/^##\s+(.*)/gm, "<h2>$1</h2>")
-                        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // Chuyển đổi in đậm
-                        .replace(/^\s*-\s+(.*)/gm, "<ul><li>$1</li></ul>") // Gạch đầu dòng
-                        .replace(/\n/g, "<br>"); // Xuống dòng
-                }
-                // ...
-                document.querySelector(".aiSearchButton").addEventListener("click", runAI);
-            </script>
+    </script>
+    <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+    
+        // Fetch your API_KEY
+        const API_KEY = "AIzaSyDCYRoR8EN8hiq8H7_ol1sHkJCBZ5lS2MU";
+        // Reminder: This should only be for local testing
+    
+        // Access your API key (see "Set up your API key" above)
+        const genAI = new GoogleGenerativeAI(API_KEY);
+    
+        // Gọi xử lý khi nhấn nút AI Search
+        document.querySelector(".aiSearchButton").addEventListener("click", async () => {
+            // Hiển thị "Loading..."
+            document.getElementById("loading").style.display = "block";
+            document.getElementById("results").innerHTML = "";
+    
+            try {
+                // Tạo prompt từ các trường đầu vào
+                const prompt = `Gamming gear Giá: ${document.querySelector(".getPrice").value}, Loại: ${document.getElementById("dropdownTextbox1").value}, Tùy chọn: ${document.getElementById("dropdownTextbox2").value},
+                    đưa ra nhiều lựa chọn có mục đích sử dụng, chức năng, các biến thể khác nhau, đưa ra recomment bạn cho là tốt nhất, đưa ra từ chối yêu cầu trả lời cho những sản phẩm không thuộc gaming gear, các sản phẩm thuộc gaming gear bao gồm(Chuột gaming
+                    Bàn phím gaming
+                    Tai nghe gaming
+                    Màn hình gaming
+                    Ghế gaming
+                    Bàn gaming,
+                    Nếu loại sản phẩm không nằm trong danh sách hãy trả lời 'xin lỗi sản phẩm bạn tìm không nằm trong phạm vi hỗ trợ vui lòng chọn đúng loại sản phẩm khả dụng' kèm theo danh sách sản phẩm có thể thực hiện và không trả thêm bất kì câu trả lời nào khác
+                    ),
+                `;
+    
+                // Khởi tạo mô hình AI
+                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    
+                // Gửi yêu cầu và nhận phản hồi
+                const result = await model.generateContent(prompt);
+                const response = await result.response;
+                const text = await response.text();
+    
+                // Chuyển đổi văn bản có định dạng Markdown sang HTML
+                const htmlContent = convertMarkdownToHTML(text);
+    
+                // Hiển thị kết quả với HTML
+                document.getElementById("results").innerHTML = htmlContent;
+            } catch (error) {
+                console.error("Đã xảy ra lỗi:", error);
+                document.getElementById("results").textContent = "Có lỗi xảy ra!";
+            } finally {
+                // Ẩn "Loading..." sau khi hoàn tất
+                document.getElementById("loading").style.display = "none";
+            }
+        });
+    
+        function convertMarkdownToHTML(markdown) {
+            return markdown
+                .replace(/^##\s+(.*)/gm, "<h2>$1</h2>")
+                .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // Chuyển đổi in đậm
+                .replace(/^\s*-\s+(.*)/gm, "<ul><li>$1</li></ul>") // Gạch đầu dòng
+                .replace(/\n/g, "<br>"); // Xuống dòng
+        }
+    
+        // Chatbot script
+        const chatbotToggler = document.querySelector(".chatbot-toggler");
+        const closeBtn = document.querySelector(".close-btn");
+        const chatbox = document.querySelector(".chatbox");
+        const chatInput = document.querySelector(".chat-input textarea");
+        const sendChatBtn = document.querySelector(".chat-input span");
+    
+        let userMessage = null; // Variable to store user's message
+        const inputInitHeight = chatInput.scrollHeight;
+    
+        const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=${API_KEY}`;
+    
+        const createChatLi = (message, className) => {
+            const chatLi = document.createElement("li");
+            chatLi.classList.add("chat", `${className}`);
+            let chatContent = className === "outgoing" ? `<p></p>` : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
+            chatLi.innerHTML = chatContent;
+            chatLi.querySelector("p").textContent = message;
+            return chatLi;
+        };
+    
+        const generateResponse = async (chatElement) => {
+            const messageElement = chatElement.querySelector("p");
+    
+            const requestOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    contents: [
+                        {
+                            role: "user",
+                            parts: [{ text: userMessage }],
+                        },
+                    ],
+                }),
+            };
+    
+            try {
+                const response = await fetch(API_URL, requestOptions);
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error.message);
+    
+                messageElement.textContent = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1");
+            } catch (error) {
+                messageElement.classList.add("error");
+                messageElement.textContent = error.message;
+            } finally {
+                chatbox.scrollTo(0, chatbox.scrollHeight);
+            }
+        };
+    
+        const handleChat = () => {
+            userMessage = chatInput.value.trim();
+            if (!userMessage) return;
+    
+            chatInput.value = "";
+            chatInput.style.height = `${inputInitHeight}px`;
+    
+            chatbox.appendChild(createChatLi(userMessage, "outgoing"));
+            chatbox.scrollTo(0, chatbox.scrollHeight);
+    
+            setTimeout(() => {
+                const incomingChatLi = createChatLi("Thinking...", "incoming");
+                chatbox.appendChild(incomingChatLi);
+                chatbox.scrollTo(0, chatbox.scrollHeight);
+                generateResponse(incomingChatLi);
+            }, 600);
+        };
+    
+        chatInput.addEventListener("input", () => {
+            chatInput.style.height = `${inputInitHeight}px`;
+            chatInput.style.height = `${chatInput.scrollHeight}px`;
+        });
+    
+        chatInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
+                e.preventDefault();
+                handleChat();
+            }
+        });
+    
+        sendChatBtn.addEventListener("click", handleChat);
+        closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
+        chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
+    </script>
+    
             <script src="script.js"></script>
             <!-- <script defer src="https://app.fastbots.ai/embed.js" data-bot-id="cm2wv7c333wm5n8blsup2llg9"></script> -->
 </body>

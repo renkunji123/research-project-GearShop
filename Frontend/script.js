@@ -8,16 +8,6 @@ function switchToRegisterModal() {
     registerModal.show();
   }
 
-  const openChatBtn = document.getElementById('openChatBtn');
-  const closeChatBtn = document.getElementById('closeChatBtn');
-  const chatPopup = document.getElementById('chatPopup');
-  const chatInput = document.getElementById('chatInput');
-  const chatBody = document.querySelector('.chat-body');
-  const sendBtn = document.getElementById('sendBtn');
-
-
-
-
 // Lấy tất cả các mục cha có class 'parent'
 const parents = document.querySelectorAll('.parent');
 
@@ -111,93 +101,9 @@ addProductButton.addEventListener('click', () => {
 // Áp dụng sự kiện cho các sản phẩm có sẵn
 document.querySelectorAll('.cart-item').forEach(addEventListenersForProduct);
 
-  openChatBtn.addEventListener('click', () => {
-  chatPopup.style.display = 'block';
-  openChatBtn.style.display = 'none';
-  console.log("Toggle button clicked"); // Ẩn nút mở chat
-  });
-  
-  // Đóng khung chat
-  closeChatBtn.addEventListener('click', () => {
-  chatPopup.style.display = 'none';
-  openChatBtn.style.display = 'flex';
-  console.log("Toggle button clicked"); // Hiện lại nút mở chat
-  });
-  
-  // Xử lý sự kiện gửi tin nhắn
-  sendBtn.addEventListener('click', sendMessage);
-  
-  chatInput.addEventListener('keypress', (event) => {
-  if (event.key === 'Enter') {
-    sendMessage();
-  }
-  });
-  
-  function sendMessage() {
-  const message = chatInput.value.trim();
-  if (message) {
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('message');
-    messageElement.innerHTML = `<strong>Bạn:</strong> ${message}`;
-    chatBody.appendChild(messageElement);
-    chatInput.value = ''; // Xóa nội dung input
-    chatBody.scrollTop = chatBody.scrollHeight; // Cuộn xuống cuối khung chat
-  }
-}
-
-document.getElementById("chatToggleBtn").addEventListener("click", () => {
-  const chatPopup = document.getElementById("chatPopup");
-  chatPopup.style.display = chatPopup.style.display === "flex" ? "none" : "flex";
-});
-
-document.getElementById("closeChatBtn").addEventListener("click", () => {
-  document.getElementById("chatPopup").style.display = "none";
-});
-
-document.getElementById("sendBtn").addEventListener("click", () => {
-  const inputField = document.getElementById("chatInput");
-  const userMessage = inputField.value;
-
-  if (userMessage.trim()) {
-      // Hiển thị tin nhắn người dùng
-      const userMessageEl = document.createElement("div");
-      userMessageEl.className = "message user";
-      userMessageEl.innerHTML = `<strong>Bạn:</strong> ${userMessage}`;
-      document.getElementById("chatBody").appendChild(userMessageEl);
-
-      inputField.value = ""; // Xóa tin nhắn sau khi gửi
-      document.getElementById("chatBody").scrollTop = document.getElementById("chatBody").scrollHeight;
-  }
-});
-
-const typingForm = document.querySelector(".typing-form");
-const chatContainer = document.querySelector(".chat-list");
-const suggestions = document.querySelectorAll(".suggestion");
-const toggleThemeButton = document.querySelector("#theme-toggle-button");
-const deleteChatButton = document.querySelector("#delete-chat-button");
-
-// State variables
-let userMessage = null;
-let isResponseGenerating = false;
 
 // API configuration // Your API key here
 const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`;
-
-// Load theme and chat data from local storage on page load
-const loadDataFromLocalstorage = () => {
-  const savedChats = localStorage.getItem("saved-chats");
-  const isLightMode = (localStorage.getItem("themeColor") === "light_mode");
-
-  // Apply the stored theme
-  document.body.classList.toggle("light_mode", isLightMode);
-  toggleThemeButton.innerText = isLightMode ? "dark_mode" : "light_mode";
-
-  // Restore saved chats or clear the chat container
-  chatContainer.innerHTML = savedChats || '';
-  document.body.classList.toggle("hide-header", savedChats);
-
-  chatContainer.scrollTo(0, chatContainer.scrollHeight); // Scroll to the bottom
-}
 
 // Create a new message element and return it
 const createMessageElement = (content, ...classes) => {
@@ -289,44 +195,6 @@ const copyMessage = (copyButton) => {
   setTimeout(() => copyButton.innerText = "content_copy", 1000); // Revert icon after 1 second
 }
 
-// Handle sending outgoing chat messages
-const handleOutgoingChat = () => {
-  userMessage = typingForm.querySelector(".typing-input").value.trim() || userMessage;
-  if(!userMessage || isResponseGenerating) return; // Exit if there is no message or response is generating
-
-  isResponseGenerating = true;
-
-  const html = `<div class="message-content">
-                  <img class="avatar" src="images/user.jpg" alt="User avatar">
-                  <p class="text"></p>
-                </div>`;
-
-  const outgoingMessageDiv = createMessageElement(html, "outgoing");
-  outgoingMessageDiv.querySelector(".text").innerText = userMessage;
-  chatContainer.appendChild(outgoingMessageDiv);
-  
-  typingForm.reset(); // Clear input field
-  document.body.classList.add("hide-header");
-  chatContainer.scrollTo(0, chatContainer.scrollHeight); // Scroll to the bottom
-  setTimeout(showLoadingAnimation, 500); // Show loading animation after a delay
-}
-
-
-// Set userMessage and handle outgoing chat when a suggestion is clicked
-suggestions.forEach(suggestion => {
-  suggestion.addEventListener("click", () => {
-    userMessage = suggestion.querySelector(".text").innerText;
-    handleOutgoingChat();
-  });
-});
-
-// Prevent default form submission and handle outgoing chat
-typingForm.addEventListener("submit", (e) => {
-  e.preventDefault(); 
-  handleOutgoingChat();
-});
-
-loadDataFromLocalstorage();
 
 const quickViewBtn = document.querySelector('.quick-view');
 const modal = document.getElementById('quickViewModal');
@@ -388,3 +256,100 @@ document.querySelectorAll('#decreaseQty').forEach(button => {
       }
   });
 });
+
+// chatbot
+const chatbotToggler = document.querySelector(".chatbot-toggler");
+const closeBtn = document.querySelector(".close-btn");
+const chatbox = document.querySelector(".chatbox");
+const chatInput = document.querySelector(".chat-input textarea");
+const sendChatBtn = document.querySelector(".chat-input span");
+
+let userMessage = null; // Variable to store user's message
+const inputInitHeight = chatInput.scrollHeight;
+
+// API configuration
+const API_KEY = "AIzaSyDCYRoR8EN8hiq8H7_ol1sHkJCBZ5lS2MU"; // Your API key here
+
+const createChatLi = (message, className) => {
+  // Create a chat <li> element with passed message and className
+  const chatLi = document.createElement("li");
+  chatLi.classList.add("chat", `${className}`);
+  let chatContent = className === "outgoing" ? `<p></p>` : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
+  chatLi.innerHTML = chatContent;
+  chatLi.querySelector("p").textContent = message;
+  return chatLi; // return chat <li> element
+};
+
+const generateResponse = async (chatElement) => {
+  const messageElement = chatElement.querySelector("p");
+
+  // Define the properties and message for the API request
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      contents: [
+        {
+          role: "user",
+          parts: [{ text: userMessage }],
+        },
+      ],
+    }),
+  };
+
+  // Send POST request to API, get response and set the reponse as paragraph text
+  try {
+    const response = await fetch(API_URL, requestOptions);
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error.message);
+
+    // Get the API response text and update the message element
+    messageElement.textContent = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1");
+  } catch (error) {
+    // Handle error
+    messageElement.classList.add("error");
+    messageElement.textContent = error.message;
+  } finally {
+    chatbox.scrollTo(0, chatbox.scrollHeight);
+  }
+};
+
+const handleChat = () => {
+  userMessage = chatInput.value.trim(); // Get user entered message and remove extra whitespace
+  if (!userMessage) return;
+
+  // Clear the input textarea and set its height to default
+  chatInput.value = "";
+  chatInput.style.height = `${inputInitHeight}px`;
+
+  // Append the user's message to the chatbox
+  chatbox.appendChild(createChatLi(userMessage, "outgoing"));
+  chatbox.scrollTo(0, chatbox.scrollHeight);
+
+  setTimeout(() => {
+    // Display "Thinking..." message while waiting for the response
+    const incomingChatLi = createChatLi("Thinking...", "incoming");
+    chatbox.appendChild(incomingChatLi);
+    chatbox.scrollTo(0, chatbox.scrollHeight);
+    generateResponse(incomingChatLi);
+  }, 600);
+};
+
+chatInput.addEventListener("input", () => {
+  // Adjust the height of the input textarea based on its content
+  chatInput.style.height = `${inputInitHeight}px`;
+  chatInput.style.height = `${chatInput.scrollHeight}px`;
+});
+
+chatInput.addEventListener("keydown", (e) => {
+  // If Enter key is pressed without Shift key and the window
+  // width is greater than 800px, handle the chat
+  if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
+    e.preventDefault();
+    handleChat();
+  }
+});
+
+sendChatBtn.addEventListener("click", handleChat);
+closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
+chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));

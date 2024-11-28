@@ -36,8 +36,6 @@
                     aria-label="Search">
             </form>
 
-
-
             <!-- Nút Login -->
             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
                 Login
@@ -49,57 +47,6 @@
             </button>
         </div>
     </header>
-
-    <div class="container my-5">
-        <h2 class="mb-4">Giỏ hàng của bạn</h2>
-    
-        <div class="cart-items bg-light p-3 rounded">
-            <div class="row align-items-center mb-4 border-bottom pb-3 hover-shadow">
-                <!-- Ảnh sản phẩm -->
-                <div class="col-2">
-                    <img src="https://via.placeholder.com/100" alt="Sản phẩm" class="img-fluid rounded shadow-sm">
-                </div>
-        
-                <!-- Thông tin sản phẩm -->
-                <div class="col-4">
-                    <h5 class="mb-1 fw-bold">Tên sản phẩm</h5>
-                    <p class="text-muted small">Mô tả ngắn</p>
-                </div>
-        
-                <!-- Giá sản phẩm -->
-                <div class="col-2">
-                    <span class="price text-success fw-bold fs-5">300 đ</span>
-                </div>
-        
-                <!-- Số lượng -->
-                <div class="col-2 d-flex align-items-center">
-                    <button class="btn btn-outline-secondary btn-sm" id="decreaseQty">-</button>
-                    <input type="number" class="form-control mx-2 text-center border-0 shadow-sm" id="productQty" value="1" min="1" style="width: 60px;">
-                    <button class="btn btn-outline-secondary btn-sm" id="increaseQty">+</button>
-                </div>
-        
-                <!-- Nút xóa -->
-                <div class="col-2 text-end">
-                    <button class="btn btn-danger btn-sm shadow-sm"><i class="fas fa-trash"></i> Xóa</button>
-                </div>
-            </div>
-        </div>
-        
-        
-    
-        <!-- Tổng cộng -->
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <a href="/Frontend/home_page.html" class="btn btn-outline-primary">Tiếp tục mua sắm</a>
-            </div>
-            <div class="col-md-6 text-end">
-                <h4><div  class="fw-bold" id="totalPrice">Tổng tiền: 0 VND</div></h4>
-                <button class="btn btn-primary btn-lg mt-3">Thanh toán</button>
-            </div>
-            
-        </div>
-    </div>
-    
 
 
     <div class="footer">
@@ -332,43 +279,6 @@
           }
         }
       </script>
-      <script>
-        // Giá cố định của sản phẩm (VD: 299.99)
-        const fixedPrice = 299.99;
-    
-        // Lấy các phần tử DOM
-        const quantityInput = document.getElementById('productQty'); // Input số lượng
-        const totalPriceDisplay = document.getElementById('totalPrice'); // Nơi hiển thị tổng tiền
-    
-        // Hàm tính toán và hiển thị tổng tiền
-        const calculateTotalPrice = () => {
-            const quantity = parseInt(quantityInput.value) || 0; // Đảm bảo giá trị là số nguyên
-            const total = fixedPrice * quantity; // Tính tổng tiền
-            totalPriceDisplay.textContent = `Tổng tiền: ${total.toLocaleString('vi-VN', {
-                style: 'currency',
-                currency: 'VND'
-            })}`;
-        };
-    
-        // Sự kiện thay đổi số lượng
-        quantityInput.addEventListener('input', calculateTotalPrice);
-    
-        // Nút tăng/giảm số lượng
-        document.getElementById('increaseQty').addEventListener('click', () => {
-            quantityInput.value = parseInt(quantityInput.value || 0) + 1;
-            calculateTotalPrice();
-        });
-    
-        document.getElementById('decreaseQty').addEventListener('click', () => {
-            const newValue = Math.max(1, parseInt(quantityInput.value || 1) - 1); // Không nhỏ hơn 1
-            quantityInput.value = newValue;
-            calculateTotalPrice();
-        });
-    
-        // Tính tổng tiền khi tải trang
-        calculateTotalPrice();
-    </script>
-    
 </body>
 
 </html>
