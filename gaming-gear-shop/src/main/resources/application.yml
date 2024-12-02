@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: gaming-gear-shop
+  datasource:
+    url: jdbc:mysql://localhost:3306/gaming_gear_shop?allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: 16102004
+    driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port: 8081
+  servlet:
+    context-path: /ggshop
