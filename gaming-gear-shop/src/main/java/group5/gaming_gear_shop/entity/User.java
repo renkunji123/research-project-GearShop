@@ -42,6 +42,7 @@ public class User {
     String password;
 
     @Enumerated(EnumType.STRING)
+    @JsonIgnore
     @Column(name = "role")
     Role role;
 
