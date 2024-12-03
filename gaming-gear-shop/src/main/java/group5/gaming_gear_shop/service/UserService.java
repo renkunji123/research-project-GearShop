@@ -6,14 +6,17 @@ import group5.gaming_gear_shop.dto.user.RegisterRequest;
 import group5.gaming_gear_shop.dto.user.UpdateRequest;
 import group5.gaming_gear_shop.dto.user.login.LoginRequest;
 import group5.gaming_gear_shop.dto.user.login.LoginResponse;
+import group5.gaming_gear_shop.entity.Cart;
 import group5.gaming_gear_shop.entity.User;
 import group5.gaming_gear_shop.exception.handler.ErrorCode;
 import group5.gaming_gear_shop.exception.user.ExistedEmailException;
 import group5.gaming_gear_shop.exception.user.IncorrectPasswordException;
 import group5.gaming_gear_shop.exception.user.InvalidEmailOrPasswordException;
 import group5.gaming_gear_shop.exception.user.UserNotFoundException;
+import group5.gaming_gear_shop.repository.CartRepository;
 import group5.gaming_gear_shop.repository.UserRepository;
 import group5.gaming_gear_shop.utils.UserDetailsServiceImpl;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,22 +32,16 @@ import java.util.List;
 
 public class UserService {
     private final UserRepository userRepository;
+    private final CartRepository cartRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final UserDetailsServiceImpl userDetailsService;
 
-    // 1. Lấy thông tin người dùng hiện tại
-    public User getMyInfo(String userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException(ErrorCode.USER_NOT_FOUND));
-    }
-
-    // 2. Lấy danh sách người dùng
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    // 3. Đăng ký
+    @Transactional
     public User registerUser(RegisterRequest request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new ExistedEmailException(ErrorCode.EXISTED_EMAIL);
@@ -59,10 +56,17 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(User.Role.CUSTOMER);
 
-        return userRepository.save(user);
+        // Lưu user
+        User savedUser = userRepository.save(user);
+
+        // Tạo giỏ hàng cho user
+        Cart cart = new Cart();
+        cart.setUser(savedUser);
+        cartRepository.save(cart);
+
+        return savedUser;
     }
 
-    // 4. Đăng nhập
     public LoginResponse login(LoginRequest request) {
         // Lấy thông tin UserDetails từ UserDetailsService
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
@@ -83,11 +87,12 @@ public class UserService {
         return new LoginResponse(token);
     }
 
+    @Transactional
+    public User updateUser(UpdateRequest request) {
+        // Lấy user hiện tại từ SecurityContext
+        User user = getCurrentUser();
 
-    // 5. Cập nhật thông tin người dùng
-    public User updateUser(String userId, UpdateRequest request) {
-        User user = getMyInfo(userId);
-
+        // Cập nhật từng trường thông tin nếu được cung cấp
         if (request.getFullname() != null) user.setUserFullname(request.getFullname());
         if (request.getEmail() != null) user.setEmail(request.getEmail());
         if (request.getAddress() != null) user.setUserAddress(request.getAddress());
@@ -98,22 +103,27 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    // 6. Đổi mật khẩu
-    public void changePassword(String userId, ChangePasswordRequest request) {
-        User user = getMyInfo(userId);
+    @Transactional
+    public void changePassword(ChangePasswordRequest request) {
+        // Lấy user hiện tại từ SecurityContext
+        User user = getCurrentUser();
 
+        // Kiểm tra mật khẩu cũ
         if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
             throw new IncorrectPasswordException(ErrorCode.INCORRECT_PASSWORD);
         }
 
+        // Mã hóa và cập nhật mật khẩu mới
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
     }
 
-    // 7. Xóa người dùng
     public void deleteUser(String userId) {
-        User user = getMyInfo(userId);
-        userRepository.delete(user);
+        userRepository.findById(userId).ifPresentOrElse(userRepository::delete,
+                () -> {
+                    throw new UserNotFoundException(ErrorCode.USER_NOT_FOUND);
+                }
+                );
     }
 
     public String getCurrentUserId() {

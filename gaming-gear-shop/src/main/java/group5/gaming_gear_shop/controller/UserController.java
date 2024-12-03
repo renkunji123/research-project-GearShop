@@ -46,15 +46,13 @@ public class UserController {
     // 5. Cập nhật thông tin
     @PutMapping("/users/update")
     public ApiResponse<User> updateUser( @RequestBody UpdateRequest request) {
-        String currentUserId = userService.getCurrentUserId();
-        return ApiResponse.success(userService.updateUser(currentUserId, request));
+        return ApiResponse.success(userService.updateUser(request));
     }
 
     // 6. Đổi mật khẩu
     @PutMapping("/users/change-password")
     public ApiResponse<String> changePassword( @RequestBody ChangePasswordRequest request) {
-        String currentUserId = userService.getCurrentUserId();
-        userService.changePassword(currentUserId, request);
+        userService.changePassword(request);
         return ApiResponse.success("Password updated successfully.");
     }
 
