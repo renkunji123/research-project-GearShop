@@ -7,10 +7,12 @@ import group5.gaming_gear_shop.entity.Category;
 import group5.gaming_gear_shop.entity.Product;
 import group5.gaming_gear_shop.exception.handler.ErrorCode;
 import group5.gaming_gear_shop.exception.product.ExistedProductException;
+import group5.gaming_gear_shop.exception.product.OutOfStockException;
 import group5.gaming_gear_shop.exception.product.ProductNotFoundException;
 import group5.gaming_gear_shop.repository.BrandRepository;
 import group5.gaming_gear_shop.repository.CategoryRepository;
 import group5.gaming_gear_shop.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -100,5 +102,20 @@ public class ProductService {
                 () -> {
                     throw new ProductNotFoundException(ErrorCode.PRODUCT_NOT_FOUND);
                 });
+    }
+
+
+    @Transactional
+    public void updateProductStock(String productId, int quantityChange) {
+        Product product = getProductById(productId);
+
+        // Kiểm tra số lượng đủ để trừ không
+        if (quantityChange > 0 && product.getStockQuantity() < quantityChange) {
+            throw new OutOfStockException(ErrorCode.OUT_OF_STOCK);
+        }
+
+        // Cập nhật số lượng
+        product.setStockQuantity(product.getStockQuantity() - quantityChange);
+        productRepository.save(product);
     }
 }
