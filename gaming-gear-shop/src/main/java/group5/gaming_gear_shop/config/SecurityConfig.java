@@ -31,7 +31,7 @@ public class SecurityConfig {
                 // Cho phép truy cập không cần xác thực
                 .requestMatchers("/auth/register", "/auth/login").permitAll()
                 // Các endpoint yêu cầu xác thực
-                .requestMatchers("/cart/**", "/orders/**", "/products/**", "/users/{userId}").authenticated()
+                .requestMatchers("/cart/**", "/orders/**", "/products/**", "/users/**").authenticated()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and()
