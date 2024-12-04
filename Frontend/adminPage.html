@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <header class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom">
+        <!-- Logo -->
+        <a href="/" class="d-flex align-items-center text-dark text-decoration-none me-4">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                <use xlink:href="#bootstrap"></use>
+            </svg>
+        </a>
+
+        <!-- Danh sách liên kết điều hướng -->
+        <ul class="nav me-auto">
+            <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+        </ul>
+
+        <!-- Khu vực tìm kiếm và các nút -->
+        <div class="d-flex align-items-center gap-3">
+            <!-- Ô tìm kiếm -->
+            <form class="col-8 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                <input type="search" class="form-control form-control-dark text-bg-light" placeholder="Search..."
+                    aria-label="Search">
+            </form>
+
+            <!-- Nút Login -->
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                Login
+            </button>
+
+            <!-- Nút Sign-up -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
+                Sign-up
+            </button>
+        </div>
+        
+      
+    </header>
+    <div class="admin-page">
+        <h1>Quản lý sản phẩm và người dùng</h1>
+
+        <!-- Tabs for switching between Products and Users -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('products')">Sản phẩm</button>
+            <button class="tab-button" onclick="showTab('users')">Người dùng</button>
+        </div>
+
+        <!-- Products Management -->
+        <div class="tab-content" id="products">
+            <h2>Quản lý sản phẩm</h2>
+            <button class="btn btn-primary add-btn" onclick="openModal('product')">➕ Thêm sản phẩm</button>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="product-list">
+                    <!-- Dynamic content will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Users Management -->
+        <div class="tab-content" id="users" style="display: none;">
+            <h2>Quản lý người dùng</h2>
+            <button class="btn btn-primary add-btn" onclick="openModal('user')">➕ Thêm người dùng</button>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên người dùng</th>
+                        <th>Email</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="user-list">
+                    <!-- Dynamic content will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal for Adding/Editing -->
+    <div class="modal" id="admin-modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">×</span>
+            <h3 id="modal-title">Thêm/Sửa</h3>
+            <form id="admin-form">
+                <!-- Dynamic form fields will be added here -->
+            </form>
+        </div>
+    </div>
+    <script>
+        // Handle switching between tabs
+function showTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+    document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+    document.getElementById(tabId).style.display = 'block';
+    document.querySelector(`.tab-button[onclick="showTab('${tabId}')"]`).classList.add('active');
+}
+
+// Open Modal for Adding/Editing
+function openModal(type) {
+    const modal = document.getElementById('admin-modal');
+    const form = document.getElementById('admin-form');
+    const title = document.getElementById('modal-title');
+
+    modal.style.display = 'block';
+    form.innerHTML = ''; // Clear previous form fields
+
+    if (type === 'product') {
+        title.textContent = 'Thêm/Sửa Sản phẩm';
+        form.innerHTML = `
+            <input type="text" id="product-name" placeholder="Tên sản phẩm" class="form-control" required>
+            <input type="number" id="product-price" placeholder="Giá sản phẩm" class="form-control" required>
+            <button type="submit" class="btn">Lưu</button>
+        `;
+    } else if (type === 'user') {
+        title.textContent = 'Thêm/Sửa Người dùng';
+        form.innerHTML = `
+            <input type="text" id="user-name" placeholder="Tên người dùng" class="form-control" required>
+            <input type="email" id="user-email" placeholder="Email" class="form-control" required>
+            <button type="submit" class="btn">Lưu</button>
+        `;
+    }
+
+    // Handle form submission
+    form.onsubmit = function (e) {
+        e.preventDefault();
+        alert(`${type === 'product' ? 'Sản phẩm' : 'Người dùng'} đã được lưu!`);
+        closeModal();
+    };
+    }
+
+    // Close Modal
+    function closeModal() {
+        const modal = document.getElementById('admin-modal');
+        modal.style.display = 'none';
+    }
+
+    </script>
+    <div class="footer">
+        <!-- Footer -->
+        <footer class="text-center text-lg-start bg-body-tertiary text-muted">
+            <!-- Section: Social media -->
+            <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+                <!-- Left -->
+                <div class="me-5 d-none d-lg-block">
+                    <span>Get connected with us on social networks:</span>
+                </div>
+                <!-- Left -->
+                <div></div>
+                <!-- Right -->
+                <div>
+                    <a href="" class="me-4 text-reset">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="" class="me-4 text-reset">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="" class="me-4 text-reset">
+                        <i class="fab fa-google"></i>
+                    </a>
+                    <a href="" class="me-4 text-reset">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="" class="me-4 text-reset">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="" class="me-4 text-reset">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+                <!-- Right -->
+            </section>
+            <!-- Section: Social media -->
+
+            <!-- Section: Links  -->
+            <section class="">
+                <div class="container text-center text-md-start mt-5">
+                    <!-- Grid row -->
+                    <div class="row mt-3">
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                            <!-- Content -->
+                            <h6 class="text-uppercase fw-bold mb-4">
+                                <i class="fas fa-gem me-3"></i>Company name
+                            </h6>
+                            <p>
+                                Here you can use rows and columns to organize your footer content. Lorem ipsum
+                                dolor sit amet, consectetur adipisicing elit.
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold mb-4">
+                                Products
+                            </h6>
+                            <p>
+                                <a href="#!" class="text-reset">Angular</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">React</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Vue</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Laravel</a>
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold mb-4">
+                                Useful links
+                            </h6>
+                            <p>
+                                <a href="#!" class="text-reset">Pricing</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Settings</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Orders</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Help</a>
+                            </p>
+                        </div>
+
+                        <!-- Grid column -->
+                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                            <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+                            <p>
+                                <i class="fas fa-envelope me-3"></i>
+                                info@example.com
+                            </p>
+                            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+                            <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+                        </div>
+                        <!-- Grid column -->
+                    </div>
+                    <!-- Grid row -->
+                </div>
+            </section>
+            <!-- chatbot -->
+            <button id="openChatBtn" class="open-chat-btn">💬 Chat với chúng tôi</button>
+
+            <div class="chat-popup" id="chatPopup">
+                <div class="chat-header">
+                    <span>Hỗ trợ trực tuyến</span>
+                    <button id="closeChatBtn" class="close-btn">&times;</button>
+                </div>
+                <div class="chat-body" id="chatBody">
+                    <div class="message bot">Xin chào! Chúng tôi có thể giúp gì cho bạn?</div>
+                    <div class="chat-list"></div>
+                </div>
+                <div class="typing-area">
+                    <form action="#" class="typing-form">
+                        <div class="input-wrapper">
+                            <input type="text" id="chatInput" class="typing-input" required
+                                placeholder="Nhập tin nhắn...">
+                            <button id="send-message-button" class="icon material-symbols-rounded">Gửi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+            <!-- Modal Đăng Nhập -->
+            <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Đăng Nhập</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="loginEmail" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="loginEmail" placeholder="Nhập email">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="loginPassword" class="form-label">Mật khẩu</label>
+                                    <input type="password" class="form-control" id="loginPassword"
+                                        placeholder="Nhập mật khẩu">
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-3 w-100">Đăng Nhập</button>
+                                <a> Bạn chưa có tài khoản? Đăng kí ngay:</a>
+                                <button type="button" class="btn btn-success w-100 mt-2"
+                                    onclick="switchToRegisterModal()">Đăng Ký
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Đăng Ký -->
+            <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Đăng Ký</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="registerName" class="form-label">Họ và Tên</label>
+                                    <input type="text" class="form-control" id="registerName"
+                                        placeholder="Nhập họ và tên">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="registerEmail" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="registerEmail"
+                                        placeholder="Nhập email">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="registerPassword" class="form-label">Mật khẩu</label>
+                                    <input type="password" class="form-control" id="registerPassword"
+                                        placeholder="Nhập mật khẩu">
+                                </div>
+                                <button type="submit" class="btn btn-success w-100">Đăng Ký</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="quick-view-modal" id="quickViewModal">
+        <div class="modal-header">
+            <h5 class="modal-title">Wireless Headphones</h5>
+            <button type="button" class="btn-close" id="closeModal"></button>
+        </div>
+        <div class="modal-body">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e" class="img-fluid mb-3"
+                alt="Wireless Headphones">
+            <p>Wireless headphones with noise cancellation.</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="price">$299.99</span>
+                <div class="quantity d-flex align-items-center">
+                    <button class="btn btn-outline-secondary btn-sm" id="decreaseQty">-</button>
+                    <input type="number" class="form-control mx-2 text-center" id="productQty" value="1" min="1"
+                        style="width: 60px;">
+                    <button class="btn btn-outline-secondary btn-sm" id="increaseQty">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary w-100" id="addToCart">Add to Cart</button>
+        </div>
+    </div>
+    <div class="quick-view-backdrop" id="backdrop"></div>
+        <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+      </script>
+</body>
+
+</html>

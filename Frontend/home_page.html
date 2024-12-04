@@ -751,7 +751,14 @@
         const createChatLi = (message, className) => {
             const chatLi = document.createElement("li");
             chatLi.classList.add("chat", `${className}`);
-            let chatContent = className === "outgoing" ? `<p></p>` : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
+
+            const urlRegex = /(https:)/g;
+            const formattedMessage = message.replace(urlRegex, (url) => {
+                return `<a href="${url}" target="_blank" style="color: blue; text-decoration: underline;">${url}</a>`;
+            });
+            let chatContent = className === "outgoing" 
+            ? `<p>${formattedMessage}</p>` 
+            : `<span class="material-symbols-outlined">smart_toy</span><p>${formattedMessage}</p>`;
             chatLi.innerHTML = chatContent;
             chatLi.querySelector("p").textContent = message;
             return chatLi;
@@ -779,7 +786,13 @@
                 const data = await response.json();
                 if (!response.ok) throw new Error(data.error.message);
     
-                messageElement.textContent = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1");
+                // messageElement.textContent = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1");
+                const rawResponse = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1");
+                const formattedResponse = rawResponse.replace(/(https?:\/\/[^\s]+)/g, (url) => {
+                    return `<a href="${url}" target="_blank" style="color: blue; text-decoration: underline;">${url}</a>`;
+                });
+                messageElement.innerHTML = formattedResponse;
+
             } catch (error) {
                 messageElement.classList.add("error");
                 messageElement.textContent = error.message;

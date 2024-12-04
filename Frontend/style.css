@@ -81,12 +81,12 @@ a {
   text-decoration: none; 
 }
 
-.btn a {
+ a {
   color: inherit; 
   text-decoration: none; 
 }
 
-.btn a:hover {
+ a:hover {
   text-decoration: none;
 }
 .form-label {
@@ -747,4 +747,239 @@ option {
         padding: 10px;
         font-size: 0.9rem;
     }
+}
+
+.profile-container {
+  width: 100%;
+
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+.profile-header {
+  margin-bottom: 20px;
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.avatar-upload-label {
+  position: relative;
+  cursor: pointer;
+}
+
+.avatar-upload {
+  display: none;
+}
+
+.profile-name {
+  margin: 10px 0 5px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.profile-role {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.profile-details {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.detail-item {
+  margin-bottom: 15px;
+}
+
+.detail-item h4 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #495057;
+}
+
+.detail-item p,
+.detail-item select {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #6c757d;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #f8f9fa;
+  outline: none;
+  cursor: pointer;
+}
+
+.password-change {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.password-change h4 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #495057;
+}
+
+.password-change input {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.profile-actions {
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  padding: 10px 15px;
+  border: #000;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.save-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #218838;
+}
+
+.logout-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.logout-btn:hover {
+  background-color: #a71d2a;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  display: none;
+}
+
+.success-message {
+  color: green;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  display: none;
+}
+.add-btn {
+  background-color: #0056b3;
+}
+
+.admin-page {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  background: #f4f4f4;
+  cursor: pointer;
+  outline: none;
+}
+
+.tab-button.active {
+  background: #007bff;
+  color: #fff;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.data-table th, .data-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.data-table th {
+  background: #007bff;
+  color: #fff;
+}
+
+
+.btn:hover {
+  background: #0056b3;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #333;
 }

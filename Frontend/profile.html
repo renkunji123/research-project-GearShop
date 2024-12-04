@@ -18,7 +18,7 @@
                 <use xlink:href="#bootstrap"></use>
             </svg>
         </a>
-
+    
         <!-- Danh sách liên kết điều hướng -->
         <ul class="nav me-auto">
             <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
@@ -47,7 +47,61 @@
             </button>
         </div>
     </header>
-
+    <div class="profile-container">
+        <!-- Header -->
+        <div class="profile-header">
+            <label for="avatar-upload" class="avatar-upload-label">
+                <img src="https://via.placeholder.com/100" alt="User Avatar" class="profile-avatar" id="avatar-preview">
+                <input type="file" id="avatar-upload" class="avatar-upload" accept="image/*">
+            </label>
+            <h2 class="profile-name">Nguyễn Văn A</h2>
+            <p class="profile-role">Quản trị viên</p>
+        </div>
+    
+        <!-- Details -->
+        <div class="profile-details">
+            <div class="detail-item">
+                <h4>Email</h4>
+                <p>nguyenvana@example.com</p>
+            </div>
+            <div class="detail-item">
+                <h4>Số điện thoại</h4>
+                <p>+84 123 456 789</p>
+            </div>
+            <div class="detail-item">
+                <h4>Địa chỉ</h4>
+                <p>123 Đường ABC, Quận 1, TP.HCM</p>
+            </div>
+            <div class="detail-item">
+                <h4>Giới tính</h4>
+                <select class="gender-select">
+                    <option value="male" selected>Nam</option>
+                    <option value="female">Nữ</option>
+                    <option value="other">Khác</option>
+                </select>
+            </div>
+        </div>
+    
+        <!-- Password Change -->
+        <div class="password-change">
+            <h4>Đổi mật khẩu</h4>
+            <input type="password" id="old-password" class="form-control" placeholder="Mật khẩu cũ">
+            <input type="password" id="new-password" class="form-control" placeholder="Mật khẩu mới">
+            <input type="password" id="confirm-password" class="form-control" placeholder="Nhập lại mật khẩu mới">
+            <!-- Thông báo lỗi -->
+            <p id="error-message" class="error-message" style="display: none;">Mật khẩu mới và xác nhận không trùng khớp!</p>
+            <!-- Thông báo thành công -->
+            <p id="success-message" class="success-message" style="display: none;">Mật khẩu đã được cập nhật thành công!</p>
+        </div>
+        </div>
+    
+        <!-- Actions -->
+        <div class="profile-actions">
+            <button class="btn btn-info save-btn" onclick="saveChanges()">Lưu thay đổi</button>
+            <button class="btn btn-secondary logout-btn">Đăng xuất</button>
+        </div>
+    </div>
+    
 
     <div class="footer">
         <!-- Footer -->
@@ -109,41 +163,21 @@
                             <h6 class="text-uppercase fw-bold mb-4">
                                 Products
                             </h6>
-                            <p>
-                                <a href="#!" class="text-reset">Angular</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">React</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Vue</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Laravel</a>
-                            </p>
+                            <p><a href="#!" class="text-reset">Angular</a></p>
+                            <p><a href="#!" class="text-reset">React</a></p>
+                            <p><a href="#!" class="text-reset">Vue</a></p>
+                            <p><a href="#!" class="text-reset">Laravel</a></p>
                         </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
                         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                             <!-- Links -->
                             <h6 class="text-uppercase fw-bold mb-4">
                                 Useful links
                             </h6>
-                            <p>
-                                <a href="#!" class="text-reset">Pricing</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Settings</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Orders</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Help</a>
-                            </p>
+                            <p><a href="#!" class="text-reset">Pricing</a></p>
+                            <p><a href="#!" class="text-reset">Settings</a></p>
+                            <p><a href="#!" class="text-reset">Orders</a></p>
+                            <p><a href="#!" class="text-reset">Help</a></p>
                         </div>
-
                         <!-- Grid column -->
                         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                             <!-- Links -->
@@ -161,30 +195,6 @@
                     <!-- Grid row -->
                 </div>
             </section>
-            <!-- chatbot -->
-            <button id="openChatBtn" class="open-chat-btn">💬 Chat với chúng tôi</button>
-
-            <div class="chat-popup" id="chatPopup">
-                <div class="chat-header">
-                    <span>Hỗ trợ trực tuyến</span>
-                    <button id="closeChatBtn" class="close-btn">&times;</button>
-                </div>
-                <div class="chat-body" id="chatBody">
-                    <div class="message bot">Xin chào! Chúng tôi có thể giúp gì cho bạn?</div>
-                    <div class="chat-list"></div>
-                </div>
-                <div class="typing-area">
-                    <form action="#" class="typing-form">
-                        <div class="input-wrapper">
-                            <input type="text" id="chatInput" class="typing-input" required
-                                placeholder="Nhập tin nhắn...">
-                            <button id="send-message-button" class="icon material-symbols-rounded">Gửi</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-
 
             <!-- Modal Đăng Nhập -->
             <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
@@ -272,50 +282,35 @@
         </div>
     </div>
     <div class="quick-view-backdrop" id="backdrop"></div>
-        <script type="importmap">
-        {
-          "imports": {
-            "@google/generative-ai": "https://esm.run/@google/generative-ai"
-          }
-        }
-      </script>
-      <script>
-        // Giá cố định của sản phẩm (VD: 299.99)
-        const fixedPrice = 299.99;
-    
-        // Lấy các phần tử DOM
-        const quantityInput = document.getElementById('productQty'); // Input số lượng
-        const totalPriceDisplay = document.getElementById('totalPrice'); // Nơi hiển thị tổng tiền
-    
-        // Hàm tính toán và hiển thị tổng tiền
-        const calculateTotalPrice = () => {
-            const quantity = parseInt(quantityInput.value) || 0; // Đảm bảo giá trị là số nguyên
-            const total = fixedPrice * quantity; // Tính tổng tiền
-            totalPriceDisplay.textContent = `Tổng tiền: ${total.toLocaleString('vi-VN', {
-                style: 'currency',
-                currency: 'VND'
-            })}`;
+    <script>
+        document.getElementById('avatar-upload').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('avatar-preview').src = e.target.result;
         };
-    
-        // Sự kiện thay đổi số lượng
-        quantityInput.addEventListener('input', calculateTotalPrice);
-    
-        // Nút tăng/giảm số lượng
-        document.getElementById('increaseQty').addEventListener('click', () => {
-            quantityInput.value = parseInt(quantityInput.value || 0) + 1;
-            calculateTotalPrice();
-        });
-    
-        document.getElementById('decreaseQty').addEventListener('click', () => {
-            const newValue = Math.max(1, parseInt(quantityInput.value || 1) - 1); // Không nhỏ hơn 1
-            quantityInput.value = newValue;
-            calculateTotalPrice();
-        });
-    
-        // Tính tổng tiền khi tải trang
-        calculateTotalPrice();
-    </script>
-    
-</body>
+        reader.readAsDataURL(file);
+        }
+    });
+    function saveChanges() {
+    const newPassword = document.getElementById('new-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
 
-</html>
+    const errorMessage = document.getElementById('error-message');
+    const successMessage = document.getElementById('success-message');
+
+    // Ẩn thông báo lỗi và thành công cũ
+    errorMessage.style.display = 'none';
+    successMessage.style.display = 'none';
+
+    // Kiểm tra nếu mật khẩu mới và xác nhận mật khẩu không trùng khớp
+    if (newPassword !== confirmPassword) {
+        errorMessage.style.display = 'block'; // Hiển thị thông báo lỗi
+    } else {
+        successMessage.style.display = 'block'; // Hiển thị thông báo thành công
+    }
+}
+
+
+    </script>

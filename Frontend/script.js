@@ -136,3 +136,4 @@ document.querySelectorAll('#decreaseQty').forEach(button => {
       }
   });
 });
+
