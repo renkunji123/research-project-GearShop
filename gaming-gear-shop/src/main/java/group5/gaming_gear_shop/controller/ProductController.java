@@ -44,7 +44,7 @@ public class ProductController {
     }
 
     // Create
-    @PostMapping("admin/products")
+    @PostMapping("/admin/products")
     public ApiResponse<Product> createProduct(@RequestBody @Valid CreateProductRequest product){
         ApiResponse<Product> apiResponse = new ApiResponse<>();
         apiResponse.setResult(productService.createNewProduct(product));
@@ -52,13 +52,13 @@ public class ProductController {
     }
 
     // Update
-    @PutMapping("admin/{productId}")
+    @PutMapping("/admin/{productId}")
     public Product updateProduct(@PathVariable String productId, @RequestBody UpdateProductRequest request) {
         return productService.updateProduct(productId, request);
     }
 
     // Delete
-    @DeleteMapping("admin/{productId}")
+    @DeleteMapping("/admin/{productId}")
     public String deleteProduct(@PathVariable String productId) {
         productService.deleteProduct(productId);
         return "Deleted Product!";

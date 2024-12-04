@@ -7,17 +7,14 @@ import lombok.Data;
 @Data
 public class RegisterRequest {
     @NotBlank(message = "Full name cannot be blank.")
-    private String fullname;
-
-    @NotBlank(message = "Username cannot be blank.")
-    private String username;
+    private String userFullname;
 
     @Email(message = "Invalid email format.")
     private String email;
 
-    private String address;
+    private String userAddress;
     private String phoneNumber;
-    private String gender; // MALE, FEMALE, OTHER
+    private String userGender; // MALE, FEMALE, OTHER
 
     @NotBlank(message = "Password cannot be blank.")
     private String password;

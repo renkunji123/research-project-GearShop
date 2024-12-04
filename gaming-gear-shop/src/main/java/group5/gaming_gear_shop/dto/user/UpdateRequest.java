@@ -5,14 +5,9 @@ import lombok.Data;
 
 @Data
 public class UpdateRequest {
-    private String fullname;
+    private String userFullname;
 
-    private String username;
-
-    @Email(message = "Invalid email format.")
-    private String email;
-
-    private String address;
+    private String userAddress;
 
     private String phoneNumber;
 

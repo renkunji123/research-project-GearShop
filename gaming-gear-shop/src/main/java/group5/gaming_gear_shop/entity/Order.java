@@ -19,7 +19,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
-    Long orderId;  // Sử dụng kiểu int và tự tăng (AUTO_INCREMENT)
+    Long orderId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

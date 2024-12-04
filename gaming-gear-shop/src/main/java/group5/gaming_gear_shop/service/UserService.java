@@ -48,11 +48,11 @@ public class UserService {
         }
 
         User user = new User();
-        user.setUserFullname(request.getFullname());
+        user.setUserFullname(request.getUserFullname());
         user.setEmail(request.getEmail());
-        user.setUserAddress(request.getAddress());
+        user.setUserAddress(request.getUserAddress());
         user.setPhoneNumber(request.getPhoneNumber());
-        user.setUserGender(User.Gender.valueOf(request.getGender().toUpperCase()));
+        user.setUserGender(User.Gender.valueOf(request.getUserGender().toUpperCase()));
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(User.Role.CUSTOMER);
 
@@ -93,9 +93,8 @@ public class UserService {
         User user = getCurrentUser();
 
         // Cập nhật từng trường thông tin nếu được cung cấp
-        if (request.getFullname() != null) user.setUserFullname(request.getFullname());
-        if (request.getEmail() != null) user.setEmail(request.getEmail());
-        if (request.getAddress() != null) user.setUserAddress(request.getAddress());
+        if (request.getUserFullname() != null) user.setUserFullname(request.getUserFullname());
+        if (request.getUserAddress() != null) user.setUserAddress(request.getUserAddress());
         if (request.getPhoneNumber() != null) user.setPhoneNumber(request.getPhoneNumber());
         if (request.getGender() != null)
             user.setUserGender(User.Gender.valueOf(request.getGender().toUpperCase()));
