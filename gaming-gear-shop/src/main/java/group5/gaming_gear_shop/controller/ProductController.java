@@ -38,8 +38,8 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @GetMapping("/products/{productId}")
-    public Product getProductById(@PathVariable String productId) {
+    @GetMapping("/products/view/{productId}")
+    public Product getProductDetailView(@PathVariable String productId) {
         return productService.getProductById(productId);
     }
 
