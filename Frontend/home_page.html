@@ -45,13 +45,13 @@
 
 
             <!-- Nút Login -->
-            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
-                Login
+            <button type="button" class="btn btn-outline-primary" >
+                <a  href="login.html" >Login </a>
             </button>
 
             <!-- Nút Sign-up -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
-                Sign-up
+            <button type="button" class="btn btn-primary" >
+                <a  href="registerview.html" >Sign Up </a>
             </button>
         </div>
     </header>
@@ -583,69 +583,7 @@
             </div>
 
 
-            <!-- Modal Đăng Nhập -->
-            <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Đăng Nhập</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="loginEmail" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="loginEmail" placeholder="Nhập email">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="loginPassword" class="form-label">Mật khẩu</label>
-                                    <input type="password" class="form-control" id="loginPassword"
-                                        placeholder="Nhập mật khẩu">
-                                </div>
-                                <button type="submit" class="btn btn-primary mb-3 w-100">Đăng Nhập</button>
-                                <a> Bạn chưa có tài khoản? Đăng kí ngay:</a>
-                                <button type="button" class="btn btn-success w-100 mt-2"
-                                    onclick="switchToRegisterModal()">Đăng Ký
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Modal Đăng Ký -->
-            <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Đăng Ký</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                
-                                <div class="mb-3">
-                                    <label for="registerEmail" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="registerEmail"
-                                        placeholder="Nhập email">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="registerPassword" class="form-label">Mật khẩu</label>
-                                    <input type="password" class="form-control" id="registerPassword"
-                                        placeholder="Nhập mật khẩu">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="confirmPassword" class="form-label">Xác Nhận Mật Khẩu</label>
-                                    <input type="password" class="form-control" id="confirmPassword"
-                                        placeholder="Xác Nhận Mật Khẩu">
-                                </div>
-                                <button type="submit" class="btn btn-success w-100">Đăng Ký</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
             <div class="quick-view-modal" id="quickViewModal">
         <div class="modal-header">
             <h5 class="modal-title">Wireless Headphones</h5>

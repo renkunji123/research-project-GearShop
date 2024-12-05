@@ -1,12 +1,4 @@
-function switchToRegisterModal() {
-    // Đóng modal Đăng Nhập trước
-    const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
-    loginModal.hide();
 
-    // Mở modal Đăng Ký
-    const registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
-    registerModal.show();
-  }
 
 // Lấy tất cả các mục cha có class 'parent'
 const parents = document.querySelectorAll('.parent');

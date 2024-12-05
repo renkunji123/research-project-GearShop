@@ -983,3 +983,179 @@ h1, h2 {
   font-size: 20px;
   color: #333;
 }
+
+/* Register style css */
+
+.registration-container {
+  background: #fff;
+  border-radius: 10px;
+  /* display: flex; */
+  justify-content: center;
+  /* align-items: center; */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 600px;
+  height: 800px;
+  margin: auto;
+}
+
+.registration-form h2 {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  color: #333;
+  padding: 5%;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  padding: 0px 10%;
+  
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.radio-group {
+  display: flex;
+  justify-content: space-between;
+ 
+  align-items: center;
+  text-align: center;
+}
+
+.radio-group label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+}
+ 
+
+.submit-button {
+  display: flex;
+  width: 90%;
+  background: linear-gradient(to right, #2575fc, #6a11cb);
+  color: #fff;
+  font-size: 16px;
+  padding: 10px ;
+  justify-content:center;
+  margin: auto;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-button:hover {
+  background: linear-gradient(to right, #ff512f, #f09819);
+}
+
+.login-container {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px 30px;
+  width:600px;
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.login-button,
+.register-button {
+  width: 48%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  transition: background 0.3s ease;
+}
+
+.login-button {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+}
+
+.register-button {
+  background: linear-gradient(to right, #ff512f, #f09819);
+}
+
+.login-button:hover {
+  background: linear-gradient(to right, #2575fc, #6a11cb);
+}
+
+.register-button:hover {
+  background: linear-gradient(to right, #f09819, #ff512f);
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.form-footer p {
+  font-size: 14px;
+  color: #666;
+}
+
+.form-footer a {
+  color: #6a11cb;
+  text-decoration: none;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+.overlogin {
+  width: 100%;
+  background: linear-gradient(to right, #2575fc, #6a11cb);
+  height: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
