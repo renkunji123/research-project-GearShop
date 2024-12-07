@@ -1,6 +1,8 @@
 <?php
 // Kết nối đến database
-$conn = new mysqli('localhost', 'root', '', 'ggshopdb');
+// $conn = new mysqli('localhost', 'root', '', 'ggshopdb');
+$conn = new mysqli('127.0.0.1', 'usera', 'passa', 'ggshopdb');
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
