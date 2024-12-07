@@ -67,7 +67,7 @@ $conn->close();
                 <p><strong>Mô tả:</strong> <?php echo $product['product_decription']; ?></p>
                 <p class="text-muted"><strong>Danh mục:</strong> <?php echo $product['category_id']; ?></p>
                 <p class="text-muted"><strong>Thương hiệu:</strong> <?php echo $product['brand_id']; ?></p>
-                <p class="text-success fw-bold fs-4"><strong>Giá:</strong> <?php echo number_format($product['product_price'], 0, ',', '.'); ?> VND</p>
+                <p class="text-success fw-bold fs-4"><strong>Giá:</strong> <?php echo number_format($product['product_price'], 0, ',', '.'); ?> $</p>
                 <p class="text-muted"><strong>Tồn kho:</strong> <?php echo $product['stock_quantity']; ?> sản phẩm</p>
 
                 <!-- Action Buttons -->
@@ -83,7 +83,7 @@ $conn->close();
                 <a href="../research-project-GearShop/Frontend/home_page.html" class="btn btn-outline-primary">Tiếp tục mua sắm</a>
             </div>
             <div class="col-md-6 text-end">
-                <h4 class="fw-bold">Tổng tiền: <?php echo number_format($product['product_price'], 0, ',', '.'); ?> VND</h4>
+                <h4 class="fw-bold">Tổng tiền: <?php echo number_format($product['product_price'], 0, ',', '.'); ?> $</h4>
                 <button class="btn btn-primary btn-lg mt-3">Thanh toán</button>
             </div>
         </div>
