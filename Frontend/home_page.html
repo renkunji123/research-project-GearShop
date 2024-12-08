@@ -105,12 +105,12 @@
 
 <body>
     <header class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom">
-        <!-- Logo -->
+        <!-- Logo
         <a href="/" class="d-flex align-items-center text-dark text-decoration-none me-4">
             <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
                 <use xlink:href="#bootstrap"></use>
             </svg>
-        </a>
+        </a> -->
 
         <!-- Danh sách liên kết điều hướng -->
         <ul class="nav me-auto">
@@ -122,28 +122,37 @@
         </ul>
 
         <!-- Khu vực tìm kiếm và các nút -->
-        <div class="d-flex align-items-center gap-3">
-            <!-- Ô tìm kiếm -->
-            <form class="col-8 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                <input type="search" class="form-control form-control-dark text-bg-light" placeholder="Search..."
-                    aria-label="Search">
-            </form>
-
-            <!-- Nút Cart -->
-            <div class="btn btn-info ">
-                <a href="/Frontend/cart.html">🛒</a>
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <!-- Ô tìm kiếm -->
+                <div class="col-12 col-md-6 col-lg-8 mb-3 mb-md-0">
+                    <form class="d-flex" role="search">
+                        <input type="search" class="form-control form-control-dark text-bg-light" 
+                               placeholder="Search..." aria-label="Search">
+                    </form>
+                </div>
+        
+                <!-- Các nút hành động -->
+                <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-end gap-2">
+                    <!-- Nút Cart -->
+                    <a href="/Frontend/cart.html" class="btn btn-info d-flex align-items-center">
+                        🛒 <span class="ms-2 d-none d-md-inline">Cart</span>
+                    </a>
+        
+                    <!-- Nút Login -->
+                    <button type="button" class="btn btn-outline-primary" 
+                            onclick="window.location.href='login.html';">
+                        Login
+                    </button>
+        
+                    <!-- Nút Sign-up -->
+                    <button type="button" class="btn btn-primary" 
+                            onclick="window.location.href='registerview.html';">
+                        Register
+                    </button>
+                </div>
             </div>
-
-
-            <!-- Nút Login -->
-            <button type="button" class="btn btn-outline-primary" onclick="window.location.href='login.html';">Login</button>
-
-
-            <!-- Nút Sign-up -->
-            <button type="buttonSignup" class="btn btn-primary" onclick="window.location.href='registerview.html';" >
-                Register
-            </button>
-        </div>
+        </div>        
     </header>
 
     <div class="container-fluid mt-4">
