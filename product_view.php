@@ -1,13 +1,13 @@
 <?php
-// Kết nối cơ sở dữ liệu
-// $servername = "localhost";
-// $username = "root";
-// $password = "";
-// $dbname = "ggshopdb"; 
-$servername = "127.0.0.1";
-$username = "usera";
-$password = "passa";
-$dbname = "ggshopdb";
+Kết nối cơ sở dữ liệu
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "ggshopdb"; 
+// $servername = "127.0.0.1";
+// $username = "usera";
+// $password = "passa";
+// $dbname = "ggshopdb";
 // Tạo kết nối
 $conn = new mysqli($servername, $username, $password, $dbname);
 
