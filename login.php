@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'name' => $user['user_fullname'],
                 'role' => $user['role']
             ];
-            header("refresh:5; url=../research-project-GearShop/Frontend/home_page.html");
+            header("refresh:5; url=/homepage.php");
         } else {
             $message = "Sai mật khẩu!";
             $message_type = "alert-danger";
@@ -232,7 +232,7 @@ $conn->close();
 
                 if (countdown === 0) {
                     clearInterval(interval);
-                    window.location.href = '../research-project-GearShop/Frontend/home_page.html'; // Đổi thành đường dẫn về trang chủ của bạn
+                    window.location.href = 'homepage.php'; // Đổi thành đường dẫn về trang chủ của bạn
                 }
             }, 1000);
         </script>
