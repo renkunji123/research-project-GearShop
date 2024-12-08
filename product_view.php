@@ -1,13 +1,10 @@
 <?php
-Kết nối cơ sở dữ liệu
+// Kết nối cơ sở dữ liệu
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "ggshopdb"; 
-// $servername = "127.0.0.1";
-// $username = "usera";
-// $password = "passa";
-// $dbname = "ggshopdb";
+
 // Tạo kết nối
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -19,8 +16,13 @@ if ($conn->connect_error) {
 // Lấy product_id từ URL
 $product_id = isset($_GET['product_id']) ? $_GET['product_id'] : 1;  // Mặc định product_id = 1 nếu không có trong URL
 
-// Truy vấn dữ liệu sản phẩm từ cơ sở dữ liệu
-$sql = "SELECT * FROM products WHERE product_id = $product_id";
+// Truy vấn dữ liệu sản phẩm từ cơ sở dữ liệu và JOIN với bảng categories và brands
+$sql = "SELECT p.*, c.category_name, b.brand_name 
+        FROM products p
+        JOIN categories c ON p.category_id = c.category_id
+        JOIN brands b ON p.brand_id = b.brand_id
+        WHERE p.product_id = $product_id";
+
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -39,10 +41,12 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Product View</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        
+    </style>
 </head>
 
 <body>
@@ -64,9 +68,9 @@ $conn->close();
             <div class="col-md-8">
                 <h3 class="fw-bold"><?php echo $product['product_name']; ?></h3>
                 <p class="text-muted"><strong>ID sản phẩm:</strong> <?php echo $product['product_id']; ?></p>
-                <p><strong>Mô tả:</strong> <?php echo $product['product_decription']; ?></p>
-                <p class="text-muted"><strong>Danh mục:</strong> <?php echo $product['category_id']; ?></p>
-                <p class="text-muted"><strong>Thương hiệu:</strong> <?php echo $product['brand_id']; ?></p>
+                <p><strong>Mô tả:</strong> <?php echo $product['product_description']; ?></p>
+                <p class="text-muted"><strong>Danh mục:</strong> <?php echo $product['category_name']; ?></p> <!-- Tên danh mục -->
+                <p class="text-muted"><strong>Thương hiệu:</strong> <?php echo $product['brand_name']; ?></p> <!-- Tên thương hiệu -->
                 <p class="text-success fw-bold fs-4"><strong>Giá:</strong> <?php echo number_format($product['product_price'], 0, ',', '.'); ?> $</p>
                 <p class="text-muted"><strong>Tồn kho:</strong> <?php echo $product['stock_quantity']; ?> sản phẩm</p>
 
