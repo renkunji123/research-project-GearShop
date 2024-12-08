@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +16,6 @@
         .then(response => response.json())
         .then(data => {
             let hotDealProductsContainer = document.querySelector('.product-wrapper');
-            
             data.forEach(product => {
                 let productCard = `
                     <div class="product-card" role="article" aria-label="Product Item">
@@ -38,13 +36,10 @@
             });
         })
         .catch(error => console.error('Error fetching products:', error));
-
         fetch('../fetch_products.php')  // Đảm bảo rằng đường dẫn đúng với cấu trúc thư mục của bạn
         .then(response => response.json())
         .then(data => {
             let featureProductContainer = document.querySelector('.product-container');
-            
-            // Duyệt qua từng sản phẩm và chèn HTML vào container
             data.forEach(product => {
                 let productCard = `
                     <div class="product-card">
@@ -72,9 +67,7 @@
         .then(response => response.json())  // Chuyển dữ liệu nhận về từ PHP thành định dạng JSON
         .then(data => {
             const productList = document.querySelector('.product-list');
-
             data.forEach(product => {
-            
             let productCard = `
                 <div class="col-md-3 custom-product-card">
                     <div class="custom-card">
@@ -111,7 +104,6 @@
                 <use xlink:href="#bootstrap"></use>
             </svg>
         </a> -->
-
         <!-- Danh sách liên kết điều hướng -->
         <ul class="nav me-auto">
             <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
@@ -120,7 +112,6 @@
             <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
         </ul>
-
         <!-- Khu vực tìm kiếm và các nút -->
         <div class="container-fluid">
             <div class="row align-items-center">
@@ -141,7 +132,7 @@
         
                     <!-- Nút Login -->
                     <button type="button" class="btn btn-outline-primary" 
-                            onclick="window.location.href='login.html';">
+                            onclick="window.location.href='../login.php';">
                         Login
                     </button>
         
@@ -316,9 +307,7 @@
                 <!-- product list view -->
             </div>
         </div>
-
     </div>
-
     <div class="footer">
         <!-- Footer -->
         <footer class="text-center text-lg-start bg-body-tertiary text-muted">
@@ -353,9 +342,6 @@
                 </div>
                 <!-- Right -->
             </section>
-            <!-- Section: Social media -->
-
-            <!-- Section: Links  -->
             <section class="">
                 <div class="container text-center text-md-start mt-5">
                     <!-- Grid row -->
