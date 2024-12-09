@@ -1,25 +1,47 @@
 <?php
 session_start(); 
-$isLoggedIn = isset($_SESSION['user']);
-$userName = $isLoggedIn ? $_SESSION['user']['name'] : null;
-$userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ggshopdb";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Nhận thông tin đăng nhập từ form
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    // Kết nối cơ sở dữ liệu
+    $conn = new mysqli("localhost", "root", "", "ggshopdb");
+    if ($conn->connect_error) {
+        die("Kết nối thất bại: " . $conn->connect_error);
+    }
+    $sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $username, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows == 1) {
+        $user = $result->fetch_assoc();
+        $_SESSION['user_id'] = $user['user_id'];
+        $_SESSION['user'] = array(
+            'name' => $user['name'],
+            'role' => $user['role']
+        );
+        header("Location: adminPage.php");
+        exit();
+    } else {
+        echo "Tên đăng nhập hoặc mật khẩu không đúng.";
+    }
 }
 
-// Truy vấn lấy danh sách sản phẩm
-$sql = "SELECT p.product_id, p.product_name, p.product_description,  p.product_image, p.product_price, p.stock_quantity, c.category_name, b.brand_name 
-        FROM products p 
-        JOIN categories c ON p.category_id = c.category_id 
-        JOIN brands b ON p.brand_id = b.brand_id";
-$result = $conn->query($sql);
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "ggshopdb";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+        die("Kết nối thất bại: " . $conn->connect_error);
+    }
+    $sql = "SELECT p.product_id, p.product_name, p.product_description,  p.product_image, p.product_price, p.stock_quantity, c.category_name, b.brand_name 
+            FROM products p 
+            JOIN categories c ON p.category_id = c.category_id 
+            JOIN brands b ON p.brand_id = b.brand_id";
+    $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,7 +88,7 @@ $result = $conn->query($sql);
     <header class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom">
         <!-- Danh sách liên kết điều hướng -->
         <ul class="nav me-auto">
-            <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+            <li><a href="homepage.php" class="nav-link px-2 link-secondary">Home</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
@@ -197,26 +219,7 @@ $result = $conn->query($sql);
             <span class="close-btn" onclick="closeModal()">×</span>
             <h3 id="modal-title">Thêm/Sửa Sản Phẩm</h3>
             <form id="admin-form" method="POST" enctype="multipart/form-data">
-                <input type="hidden" id="product_id" name="product_id">
-                <label for="product_name">Tên Sản Phẩm:</label>
-                <input type="text" id="product_name" name="product_name" required="">
-                <label for="product_description">Mô Tả:</label>
-                <textarea id="product_description" name="product_description" rows="4" required=""></textarea>
-                <label for="product_price">Giá:</label>
-                <input type="number" id="product_price" name="product_price" required="">
-                <label for="stock_quantity">Số Lượng:</label>
-                <input type="number" id="stock_quantity" name="stock_quantity" required="">
-                <label for="category_id">Danh Mục:</label>
-                <select id="category_id" name="category_id" required="">
-                    <option value="">Chọn Danh Mục</option>
-                </select>
-                <label for="brand_id">Thương Hiệu:</label>
-                <select id="brand_id" name="brand_id" required="">
-                    <option value="">Chọn Thương Hiệu</option>
-                </select>
-                <label for="product_image">Ảnh Sản Phẩm:</label>
-                <input type="file" id="product_image" name="product_image">
-                <button type="submit" id="submit-button">Lưu</button>
+                
             </form>
         </div>
     </div>
@@ -241,39 +244,118 @@ $result = $conn->query($sql);
                         .then(response => response.json())
                         .then(data => {
                             form.innerHTML = `
-                                <input type="text" id="product_name" value="${data.product_name}" placeholder="Tên sản phẩm" class="form-control" required>
+                                <label for="product_image">Hình Ảnh:</label>
+                                <img src='${data.product_image}' alt='Product Image' style='display: flex; width: 400px; height: 400px; margin:auto; object-fit: cover;'>
+
+                                <label for="product_image">Sửa URL hình ảnh:</label>
+                                <input id="product_image" value="${data.product_image}" class="form-control" placeholder="Nhập link hình ảnh cần đổi">
+
+                                <label for="product_name">Tên Sản Phẩm:</label>
+                                <input id="product_name" value="${data.product_name}" placeholder="Tên sản phẩm" class="form-control" required>
+
+                                <label for="product_description">Mô Tả:</label>
+                                <textarea type="text" id="product_description" value="" placeholder="Mô tả" class="form-control" required>${data.product_description}</textarea>
+                                
+                                <label for="product_price">Giá:</label>
                                 <input type="number" id="product_price" value="${data.product_price}" placeholder="Giá sản phẩm" class="form-control" required>
+                                
+                                <label for="stock_quantity">Số Lượng:</label>
                                 <input type="number" id="product_stock" value="${data.stock_quantity}" placeholder="Số lượng" class="form-control" required>
-                                <input type="text" id="product_category" value="${data.category_name}" placeholder="Danh mục" class="form-control" required>
-                                <input type="text" id="product_brand" value="${data.brand_name}" placeholder="Thương hiệu" class="form-control" required>
+                                
+                                <label for="category_id">Danh Mục:</label>
+                                <select id="category_id" class="form-control" required>
+                                    <option value='${data.category_id}'>${data.category_name} </option>
+                                </select>
+                                <label for="brand_id">Thương Hiệu:</label>
+                                <select id="brand_id" class="form-control" required>
+                                    <option value='${data.brand_id}'>${data.brand_name} </option>
+                                </select>
                                 <input type="hidden" id="product_id" value="${data.product_id}">
-                                <button type="submit" class="btn">Lưu</button>
+                                <button type="submit" class="btn" style="background-color: green; color: white;">Lưu</button>
                             `;
+                            fetch('get_categories.php')
+                            .then(response => response.json())
+                            .then(categories => {
+                                const categorySelect = document.getElementById('category_id');
+                                categories.forEach(category => {
+                                    if (category.category_id != data.category_id) {
+                                        categorySelect.innerHTML += `<option value="${category.category_id}">${category.category_name}</option>`;
+                                    }
+                                });
+                            });
+                            fetch('get_brands.php')
+                            .then(response => response.json())
+                            .then(brands => {
+                                const brandSelect = document.getElementById('brand_id');
+                                brands.forEach(brand => {
+                                    if (brand.brand_id != data.brand_id) {
+                                        brandSelect.innerHTML += `<option value="${brand.brand_id}">${brand.brand_name}</option>`;
+                                    }
+                                });
+                            });
                         });
-                } else {
-                    form.innerHTML = `
-                        <input type="text" id="product_name" placeholder="Tên sản phẩm" class="form-control" required>
-                        <input type="number" id="product_price" placeholder="Giá sản phẩm" class="form-control" required>
-                        <input type="number" id="product_stock" placeholder="Số lượng" class="form-control" required>
-                        <input type="text" id="product_category" placeholder="Danh mục" class="form-control" required>
-                        <input type="text" id="product_brand" placeholder="Thương hiệu" class="form-control" required>
-                        <button type="submit" class="btn">Lưu</button>
-                    `;
+                    } else {
+                        form.innerHTML = `
+                            <label for="product_image">Hình Ảnh:</label>
+                            <input id="product_image" class="form-control" placeholder="Nhập URL hình ảnh">
+
+                            <label for="product_name">Tên Sản Phẩm:</label>
+                            <input id="product_name" class="form-control" placeholder="Tên sản phẩm" required>
+
+                            <label for="product_description">Mô Tả:</label>
+                            <textarea id="product_description" placeholder="Mô tả" class="form-control" required></textarea>
+                            
+                            <label for="product_price">Giá:</label>
+                            <input type="number" id="product_price" class="form-control" placeholder="Giá sản phẩm" required>
+                            
+                            <label for="product_stock">Số Lượng:</label>
+                            <input type="number" id="product_stock" class="form-control" placeholder="Số lượng" required>
+                            
+                            <label for="category_id">Danh Mục:</label>
+                            <select id="category_id" class="form-control" required></select>
+
+                            <label for="brand_id">Thương Hiệu:</label>
+                            <select id="brand_id" class="form-control" required></select>
+
+                            <input type="hidden" id="product_id">
+                            <button type="submit" class="btn" style="background-color: green; color: white;">Lưu</button>
+                        `;
+                        fetch('get_categories.php')
+                            .then(response => response.json())
+                            .then(categories => {
+                                const categorySelect = document.getElementById('category_id');
+                                categories.forEach(category => {
+                                    categorySelect.innerHTML += `<option value="${category.category_id}">${category.category_name}</option>`;
+                                });
+                            });
+
+                        fetch('get_brands.php')
+                            .then(response => response.json())
+                            .then(brands => {
+                                const brandSelect = document.getElementById('brand_id');
+                                brands.forEach(brand => {
+                                    brandSelect.innerHTML += `<option value="${brand.brand_id}">${brand.brand_name}</option>`;
+                                });
+                            });
                 } 
                 form.onsubmit = function (e) {
                     e.preventDefault();
                     const productName = document.getElementById('product_name').value;
+                    const productImage = document.getElementById('product_image').value;
+                    const productDescription = document.getElementById('product_description').value;
                     const productPrice = document.getElementById('product_price').value;
                     const productStock = document.getElementById('product_stock').value;
-                    const productCategory = document.getElementById('category_id').value;
-                    const productBrand = document.getElementById('brand_id').value;
+                    const productCategory = document.querySelector('#category_id').value;
+                    const productBrand = document.querySelector('#brand_id').value;
                     const productId = document.getElementById('product_id') ? document.getElementById('product_id').value : null;
                     const formData = new FormData();
-                    formData.append('name', productName);
-                    formData.append('price', productPrice);
-                    formData.append('stock', productStock);
-                    formData.append('category', productCategory);
-                    formData.append('brand', productBrand);
+                    formData.append('product_name', productName);
+                    formData.append('product_image', productImage);
+                    formData.append('product_description', productDescription);
+                    formData.append('product_price', productPrice);
+                    formData.append('product_stock', productStock);
+                    formData.append('category_id', productCategory);
+                    formData.append('brand_id', productBrand);
                     if (productId) formData.append('product_id', productId);
                     fetch('save_product.php', {
                         method: 'POST',
@@ -282,7 +364,7 @@ $result = $conn->query($sql);
                     .then(data => {
                         alert(data.message);
                         closeModal();
-                        location.reload(); // Tải lại trang để cập nhật danh sách sản phẩm
+                        location.reload(); 
                     });
                 };
             } else {
@@ -299,16 +381,33 @@ $result = $conn->query($sql);
             const modal = document.getElementById('admin-modal');
             modal.style.display = 'none';
         }
-        function deleteProduct(productId) {
-        if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
-            fetch('delete_product.php?id=' + productId)
+        function deleteProduct(product_id) {
+            if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
+                fetch('delete_product.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `product_id=${product_id}`,
+                })
                 .then(response => response.json())
                 .then(data => {
-                    alert(data.message);
-                    location.reload();
+                    if (data.status === 'success') {
+                        alert(data.message);
+                        // Xóa dòng sản phẩm trong bảng
+                        const row = document.querySelector(`#product-list tr[data-product-id="${product_id}"]`);
+                        if (row) row.remove();
+                        location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Có lỗi xảy ra:', error);
+                    alert('Không thể xóa sản phẩm. Vui lòng thử lại.');
                 });
+            }
         }
-    }
     </script>
     <div class="footer">
         <footer class="text-center text-lg-start bg-body-tertiary text-muted">
