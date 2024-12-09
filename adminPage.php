@@ -262,7 +262,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Người dùng</th>
+                    <th>ID Người dùng</th>
                     <th>Ngày đặt</th>
                     <th>Tổng tiền</th>
                     <th>Trạng thái đơn hàng</th>
