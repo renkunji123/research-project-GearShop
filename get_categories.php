@@ -1,29 +1,30 @@
 <?php
-// Thông tin kết nối cơ sở dữ liệu
+// Kết nối đến cơ sở dữ liệu
 $servername = "localhost";
 $username = "root";
 $password = "";
-$database = "ggshopdb";
+$dbname = "ggshopdb";
 
-// Kết nối cơ sở dữ liệu
-$conn = new mysqli($servername, $username, $password, $database);
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Kiểm tra kết nối
 if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
 }
 
-// Truy vấn danh sách các danh mục
+// Truy vấn danh sách categories
 $sql = "SELECT category_id, category_name FROM categories";
 $result = $conn->query($sql);
 
 $categories = [];
+
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $categories[] = $row;
+        $categories[] = $row; // Thêm category vào danh sách
     }
 }
 
-// Trả về dữ liệu dạng JSON
-header('Content-Type: application/json');
+// Trả về danh sách categories dưới dạng JSON
 echo json_encode($categories);
 
 $conn->close();

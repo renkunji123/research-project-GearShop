@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             JOIN categories c ON p.category_id = c.category_id 
             JOIN brands b ON p.brand_id = b.brand_id";
     $result = $conn->query($sql);
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <script src="path/to/jquery.min.js"></script>
     <style>
         .modal {
         display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4); overflow: auto;
@@ -151,6 +151,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="tabs">
             <button class="tab-button active" onclick="showTab('products')">Sản phẩm</button>
             <button class="tab-button" onclick="showTab('users')">Người dùng</button>
+            <button class="tab-button" onclick="showTab('categories')"> Danh mục</button>
+            <button class="tab-button" onclick="showTab('brands')"> Thương hiệu</button>
+            <button class="tab-button" onclick="showTab('orders')"> Đơn hàng</button>
         </div>
         <div class="tab-content" id="products" style="display: block;">
             <h2>Quản lý sản phẩm</h2>
@@ -204,23 +207,86 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tên người dùng</th>
+                            <th>Họ tên</th>
                             <th>Email</th>
+                            <th>Số điện thoại</th>
+                            <th>Địa chỉ</th>
+                            <th>Giới tính</th>
+                            <th>Vai trò</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody id="user-list">
+                        
                     </tbody>
-            </table>
+                </table>
+            </div>
+            <div class="tab-content" id="categories" style="display: none;">
+                <h2>Quản lý Danh mục</h2>
+                <button class="btn btn-primary add-btn" onclick="openModal('category')">➕ Thêm danh mục</button>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên danh mục</th>
+                            <th>Mô tả</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="category-list">
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-content" id="brands" style="display: none;">
+                <h2>Quản lý Thương hiệu</h2>
+                <button class="btn btn-primary add-btn" onclick="openModal('brand')">➕ Thêm thương hiệu</button>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên Thương hiệu</th>
+                            <th>Mô tả</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="brand-list">
+                    
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <div class="tab-content" id="orders" style="display: none;">
+        <h2>Quản lý Đơn hàng</h2>
+        <button class="btn btn-primary add-btn" onclick="openModal('order')">➕ Thêm đơn hàng</button>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Người dùng</th>
+                    <th>Ngày đặt</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái đơn hàng</th>
+                    <th>Phương thức thanh toán</th>
+                    <th>Ngày thanh toán</th>
+                    <th>Trạng thái thanh toán</th>
+                    <th>Địa chỉ giao hàng</th>
+                    <th>Ngày giao hàng</th>
+                    <th>Trạng thái giao hàng</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody id="order-list">
+                <!-- Dữ liệu đơn hàng sẽ được thêm vào đây bởi JavaScript -->
+            </tbody>
+        </table>
     </div>
-    <div class="modal" id="admin-modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">×</span>
-            <h3 id="modal-title">Thêm/Sửa Sản Phẩm</h3>
-            <form id="admin-form" method="POST" enctype="multipart/form-data">
-                
-            </form>
+        <div class="modal" id="admin-modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">×</span>
+                <h3 id="modal-title">Thêm/Sửa Sản Phẩm</h3>
+                <form id="admin-form" method="POST" enctype="multipart/form-data">
+                </form>
+            </div>
         </div>
     </div>
     <script>
@@ -408,6 +474,171 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 });
             }
         }
+        function loadCategories() {
+            fetch('getCategories.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Lỗi khi lấy dữ liệu từ API');
+                    }
+                    return response.json();
+                })
+                .then(categories => {
+                    const categoryList = document.getElementById('category-list');
+                    categoryList.innerHTML = ''; // Xóa dữ liệu cũ trước khi thêm mới
+
+                    if (categories.length > 0) {
+                        categories.forEach(category => {
+                            const row = `
+                                <tr>
+                                    <td>${category.category_id}</td>
+                                    <td>${category.category_name}</td>
+                                    <td>${category.category_description}</td>
+                                    <td>
+                                        <button class='btn btn-warning' onclick="editCategory(${category.category_id})">Sửa</button>
+                                        <button class='btn btn-danger' onclick="deleteCategory(${category.category_id})">Xóa</button>
+                                    </td>
+                                </tr>`;
+                            categoryList.insertAdjacentHTML('beforeend', row);
+                        });
+                    } else {
+                        categoryList.innerHTML = '<tr><td colspan="4">Không có danh mục nào.</td></tr>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    document.getElementById('category-list').innerHTML = '<tr><td colspan="4">Lỗi khi tải danh mục.</td></tr>';
+                });
+        }
+        // Gọi hàm loadCategories() khi tab được hiển thị
+        document.querySelector('.tab-button[onclick="showTab(\'categories\')"]').addEventListener('click', loadCategories);
+
+        function loadBrands() {
+            fetch('getBrands.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Lỗi khi lấy dữ liệu từ API');
+                    }
+                    return response.json();
+                })
+                .then(brands => {
+                    const brandList = document.getElementById('brand-list');
+                    brandList.innerHTML = ''; // Xóa dữ liệu cũ trước khi thêm mới
+
+                    if (brands.length > 0) {
+                        brands.forEach(brand => {
+                            const row = `
+                                <tr>
+                                    <td>${brand.brand_id}</td>
+                                    <td>${brand.brand_name}</td>
+                                    <td>${brand.brand_description}</td>
+                                    <td>
+                                        <button class='btn btn-warning' onclick="editBrand(${brand.brand_id})">Sửa</button>
+                                        <button class='btn btn-danger' onclick="deleteBrand(${brand.brand_id})">Xóa</button>
+                                    </td>
+                                </tr>`;
+                            brandList.insertAdjacentHTML('beforeend', row);
+                        });
+                    } else {
+                        brandList.innerHTML = '<tr><td colspan="4">Không có thương hiệu nào.</td></tr>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    document.getElementById('brand-list').innerHTML = '<tr><td colspan="4">Lỗi khi tải thương hiệu.</td></tr>';
+                });
+        }
+
+        // Gọi hàm loadBrands() khi tab được hiển thị
+        document.querySelector('.tab-button[onclick="showTab(\'brands\')"]').addEventListener('click', loadBrands);
+
+        function loadUsers() {
+            fetch('getUsers.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Lỗi khi lấy dữ liệu từ API');
+                    }
+                    return response.json();
+                })
+                .then(users => {
+                    const userList = document.getElementById('user-list');
+                    userList.innerHTML = ''; // Xóa dữ liệu cũ trước khi thêm mới
+
+                    if (users.length > 0) {
+                        users.forEach(user => {
+                            const row = `
+                                <tr>
+                                    <td>${user.user_id}</td>
+                                    <td>${user.user_fullname}</td>
+                                    <td>${user.email}</td>
+                                    <td>${user.phone_number || 'Không có'}</td>
+                                    <td>${user.user_address || 'Không có'}</td>
+                                    <td>${user.user_gender || 'Không xác định'}</td>
+                                    <td>${user.role}</td>
+                                    <td>
+                                        <button class='btn btn-warning' onclick="editUser(${user.user_id})">Sửa</button>
+                                        <button class='btn btn-danger' onclick="deleteUser(${user.user_id})">Xóa</button>
+                                    </td>
+                                </tr>`;
+                            userList.insertAdjacentHTML('beforeend', row);
+                        });
+                    } else {
+                        userList.innerHTML = '<tr><td colspan="8">Không có người dùng nào.</td></tr>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    document.getElementById('user-list').innerHTML = '<tr><td colspan="8">Lỗi khi tải người dùng.</td></tr>';
+                });
+        }
+
+        // Gọi hàm loadUsers() khi tab được hiển thị
+        document.querySelector('.tab-button[onclick="showTab(\'users\')"]').addEventListener('click', loadUsers);
+        function loadOrders() {
+            fetch('getOrders.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Lỗi khi lấy dữ liệu từ API');
+                    }
+                    return response.json();
+                })
+                .then(orders => {
+                    const orderList = document.getElementById('order-list');
+                    orderList.innerHTML = ''; // Xóa dữ liệu cũ trước khi thêm mới
+
+                    if (orders.length > 0) {
+                        orders.forEach(order => {
+                            const row = `
+                                <tr>
+                                    <td>${order.order_id}</td>
+                                    <td>${order.user_id}</td>
+                                    <td>${order.order_date}</td>
+                                    <td>${order.total_amount}</td>
+                                    <td>${order.order_status}</td>
+                                    <td>${order.payment_method_id}</td>
+                                    <td>${order.payment_date || 'Chưa thanh toán'}</td>
+                                    <td>${order.payment_status}</td>
+                                    <td>${order.shipment_address}</td>
+                                    <td>${order.delivery_date || 'Chưa giao'}</td>
+                                    <td>${order.shipment_status}</td>
+                                    <td>
+                                        <button class='btn btn-warning' onclick="editOrder(${order.order_id})">Sửa</button>
+                                        <button class='btn btn-danger' onclick="deleteOrder(${order.order_id})">Xóa</button>
+                                    </td>
+                                </tr>`;
+                            orderList.insertAdjacentHTML('beforeend', row);
+                        });
+                    } else {
+                        orderList.innerHTML = '<tr><td colspan="12">Không có đơn hàng nào.</td></tr>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    document.getElementById('order-list').innerHTML = '<tr><td colspan="12">Lỗi khi tải đơn hàng.</td></tr>';
+                });
+        }
+
+        // Gọi hàm loadOrders() khi tab được hiển thị
+        document.querySelector('.tab-button[onclick="showTab(\'orders\')"]').addEventListener('click', loadOrders);
     </script>
     <div class="footer">
         <footer class="text-center text-lg-start bg-body-tertiary text-muted">
