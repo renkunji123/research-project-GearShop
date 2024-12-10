@@ -29,12 +29,12 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                         <div class="card h-100">
                             <img src="${product.product_image}" class="card-img-top" alt="${product.product_name}">
                              <div >
-                                <a href="../product_view.php?product_id=${product.product_id}" class="btn quick-view btn-light">Quick View</a>
+                                <a href="product_view.php?product_id=${product.product_id}" class="btn quick-view btn-light">Quick View</a>
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">${product.product_name}</h5>
                                 <p class="card-text">$${product.product_price}</p>
-                                <button class="btn btn-primary" aria-label="Add ${product.product_name} to Cart">➕🛒</button>
+                                <button class="btn btn-primary" aria-label="Add  to Cart">  ➕🛒</button>
                             </div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                         <div class="custom-card">
                             <img src="${product.product_image}" class="card-img-top" alt="${product.product_name}">
                              <div >
-                                <a href="../product_view.php?product_id=${product.product_id}" class="btn quick-view btn-light">Quick View</a>
+                                <a href="product_view.php?product_id=${product.product_id}" class="btn quick-view btn-light">Quick View</a>
                             </div>
                             <div class="custom-card-body">
                                 <h5 class="card-title">${product.product_name}</h5>
@@ -80,7 +80,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                     <div class="custom-card">
                         <img src="${product.product_image}" class="custom-card-img-top" alt="${product.product_name}">
                         <div >
-                            <a href="../product_view.php?product_id=${product.product_id}" class="btn quick-view btn-light">Quick View</a>
+                            <a href="product_view.php?product_id=${product.product_id}" class="btn quick-view btn-light">Quick View</a>
                         </div>
                         <div class="custom-card-body">
                             <h5 class="custom-card-title">${product.product_name}</h5>
@@ -100,6 +100,31 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
             console.error('Có lỗi xảy ra khi lấy dữ liệu:', error);
         });
 
+        document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('.product-wrapper').addEventListener('click', (e) => {
+            if (e.target.classList.contains('add-to-cart-btn')) {
+                const productId = e.target.getAttribute('data-product-id');
+                const productName = e.target.getAttribute('data-product-name');
+                const productPrice = e.target.getAttribute('data-product-price');
+
+                // Gửi yêu cầu tới server để thêm sản phẩm vào giỏ hàng
+                fetch('add_to_cart.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ product_id: productId, quantity: 1, price: productPrice })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(`Đã thêm ${productName} vào giỏ hàng!`);
+                    } else {
+                        alert('Có lỗi xảy ra, vui lòng thử lại.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        });
+    });
     </script>
 </head>
 
