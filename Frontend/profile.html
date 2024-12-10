@@ -18,7 +18,7 @@
                 <use xlink:href="#bootstrap"></use>
             </svg>
         </a>
-    
+
         <!-- Danh sách liên kết điều hướng -->
         <ul class="nav me-auto">
             <li><a href="home_page.html" class="nav-link px-2 link-secondary">Home</a></li>
@@ -50,14 +50,10 @@
     <div class="profile-container">
         <!-- Header -->
         <div class="profile-header">
-            <label for="avatar-upload" class="avatar-upload-label">
-                <img src="https://via.placeholder.com/100" alt="User Avatar" class="profile-avatar" id="avatar-preview">
-                <input type="file" id="avatar-upload" class="avatar-upload" accept="image/*">
-            </label>
             <h2 class="profile-name">Nguyễn Văn A</h2>
             <p class="profile-role">Quản trị viên</p>
         </div>
-    
+
         <!-- Details -->
         <div class="profile-details">
             <div class="detail-item">
@@ -81,7 +77,7 @@
                 </select>
             </div>
         </div>
-    
+
         <!-- Password Change -->
         <div class="password-change">
             <h4>Đổi mật khẩu</h4>
@@ -89,19 +85,21 @@
             <input type="password" id="new-password" class="form-control" placeholder="Mật khẩu mới">
             <input type="password" id="confirm-password" class="form-control" placeholder="Nhập lại mật khẩu mới">
             <!-- Thông báo lỗi -->
-            <p id="error-message" class="error-message" style="display: none;">Mật khẩu mới và xác nhận không trùng khớp!</p>
+            <p id="error-message" class="error-message" style="display: none;">Mật khẩu mới và xác nhận không trùng
+                khớp!</p>
             <!-- Thông báo thành công -->
-            <p id="success-message" class="success-message" style="display: none;">Mật khẩu đã được cập nhật thành công!</p>
-        </div>
-        </div>
-    
-        <!-- Actions -->
-        <div class="profile-actions">
-            <button class="btn btn-info save-btn" onclick="saveChanges()">Lưu thay đổi</button>
-            <button class="btn btn-secondary logout-btn">Đăng xuất</button>
+            <p id="success-message" class="success-message" style="display: none;">Mật khẩu đã được cập nhật thành công!
+            </p>
         </div>
     </div>
-    
+
+    <!-- Actions -->
+    <div class="profile-actions">
+        <button class="btn btn-info save-btn" onclick="saveChanges()">Lưu thay đổi</button>
+        <button class="btn btn-secondary logout-btn">Đăng xuất</button>
+    </div>
+    </div>
+
 
     <div class="footer">
         <!-- Footer -->
@@ -196,121 +194,9 @@
                 </div>
             </section>
 
-            <!-- Modal Đăng Nhập -->
-            <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Đăng Nhập</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="loginEmail" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="loginEmail" placeholder="Nhập email">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="loginPassword" class="form-label">Mật khẩu</label>
-                                    <input type="password" class="form-control" id="loginPassword"
-                                        placeholder="Nhập mật khẩu">
-                                </div>
-                                <button type="submit" class="btn btn-primary mb-3 w-100">Đăng Nhập</button>
-                                <a> Bạn chưa có tài khoản? Đăng kí ngay:</a>
-                                <button type="button" class="btn btn-success w-100 mt-2"
-                                    onclick="switchToRegisterModal()">Đăng Ký
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Modal Đăng Ký -->
-            <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Đăng Ký</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="registerName" class="form-label">Họ và Tên</label>
-                                    <input type="text" class="form-control" id="registerName"
-                                        placeholder="Nhập họ và tên">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="registerEmail" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="registerEmail"
-                                        placeholder="Nhập email">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="registerPassword" class="form-label">Mật khẩu</label>
-                                    <input type="password" class="form-control" id="registerPassword"
-                                        placeholder="Nhập mật khẩu">
-                                </div>
-                                <button type="submit" class="btn btn-success w-100">Đăng Ký</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
 
-            </div>
-            <div class="quick-view-modal" id="quickViewModal">
-        <div class="modal-header">
-            <h5 class="modal-title">Wireless Headphones</h5>
-            <button type="button" class="btn-close" id="closeModal"></button>
-        </div>
-        <div class="modal-body">
-            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e" class="img-fluid mb-3"
-                alt="Wireless Headphones">
-            <p>Wireless headphones with noise cancellation.</p>
-            <div class="d-flex justify-content-between align-items-center">
-                <span class="price">$299.99</span>
-                <div class="quantity d-flex align-items-center">
-                    <button class="btn btn-outline-secondary btn-sm" id="decreaseQty">-</button>
-                    <input type="number" class="form-control mx-2 text-center" id="productQty" value="1" min="1"
-                        style="width: 60px;">
-                    <button class="btn btn-outline-secondary btn-sm" id="increaseQty">+</button>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary w-100" id="addToCart">Add to Cart</button>
-        </div>
     </div>
     <div class="quick-view-backdrop" id="backdrop"></div>
     <script>
-        document.getElementById('avatar-upload').addEventListener('change', function (event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            document.getElementById('avatar-preview').src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-        }
-    });
-    function saveChanges() {
-    const newPassword = document.getElementById('new-password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
-
-    const errorMessage = document.getElementById('error-message');
-    const successMessage = document.getElementById('success-message');
-
-    // Ẩn thông báo lỗi và thành công cũ
-    errorMessage.style.display = 'none';
-    successMessage.style.display = 'none';
-
-    // Kiểm tra nếu mật khẩu mới và xác nhận mật khẩu không trùng khớp
-    if (newPassword !== confirmPassword) {
-        errorMessage.style.display = 'block'; // Hiển thị thông báo lỗi
-    } else {
-        successMessage.style.display = 'block'; // Hiển thị thông báo thành công
-    }
-}
-
-
     </script>

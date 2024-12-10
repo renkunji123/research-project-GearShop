@@ -456,39 +456,39 @@ $result = $conn->query($sql);
             } else if (tyle === 'user') {
                 title.textContent = 'Thêm Người Dùng';
                 modal.style.display = 'block';
-
                 form.innerHTML = `
-            <label for="user_fullname">Họ tên:</label>
-            <input type="text" id="user_fullname" placeholder="Họ tên" class="form-control" required>
-            
-            <label for="email">Email:</label>
-            <input type="email" id="email" placeholder="Email" class="form-control" required>
-            
-            <label for="password">Mật khẩu:</label>
-            <input type="password" id="password" placeholder="Mật khẩu" class="form-control" required>
-            
-            <label for="phone_number">Số điện thoại:</label>
-            <input type="tel" id="phone_number" placeholder="Số điện thoại" class="form-control">
-            
-            <label for="user_address">Địa chỉ:</label>
-            <input type="text" id="user_address" placeholder="Địa chỉ" class="form-control">
-            
-            <label for="user_gender">Giới tính:</label>
-            <select id="user_gender" class="form-control">
-                <option value="MALE">Nam</option>
-                <option value="FEMALE">Nữ</option>
-                <option value="OTHER">Khác</option>
-            </select>
-            
-            <label for="role">Vai trò:</label>
-            <select id="role" class="form-control">
-                <option value="CUSTOMER">CUSTOMER</option>
-                <option value="ADMIN">ADMIN</option>
-            </select>
-            
-            <button type="submit" class="btn btn-primary mt-3">Lưu</button>
-        `;
-        form.onsubmit = function (e) {
+                <label for="user_fullname">Họ tên:</label>
+                <input type="text" id="user_fullname" placeholder="Họ tên" class="form-control" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Email" class="form-control" required>
+                
+                <label for="password">Mật khẩu:</label>
+                <input type="password" id="password" placeholder="Mật khẩu" class="form-control" required>
+                
+                <label for="phone_number">Số điện thoại:</label>
+                <input type="tel" id="phone_number" placeholder="Số điện thoại" class="form-control">
+                
+                <label for="user_address">Địa chỉ:</label>
+                <input type="text" id="user_address" placeholder="Địa chỉ" class="form-control">
+                
+                <label for="user_gender">Giới tính:</label>
+                <select id="user_gender" class="form-control">
+                    <option value="MALE">Nam</option>
+                    <option value="FEMALE">Nữ</option>
+                    <option value="OTHER">Khác</option>
+                </select>
+                
+                <label for="role">Vai trò:</label>
+                <select id="role" class="form-control">
+                    <option value="CUSTOMER">CUSTOMER</option>
+                    <option value="ADMIN">ADMIN</option>
+                </select>
+                
+                <button type="submit" class="btn btn-primary mt-3">Lưu</button>
+                `;
+
+                form.onsubmit = function(e) {
                     e.preventDefault();
                     const formData = new FormData();
                     formData.append('user_fullname', document.getElementById('user_fullname').value);
@@ -500,9 +500,9 @@ $result = $conn->query($sql);
                     formData.append('role', document.getElementById('role').value);
 
                     fetch('save_user.php', {
-                        method: 'POST',
-                        body: formData
-                    })
+                            method: 'POST',
+                            body: formData
+                        })
                         .then(response => response.json())
                         .then(data => {
                             alert(data.message);
@@ -512,8 +512,43 @@ $result = $conn->query($sql);
                             }
                         });
                 };
+            } else if (tyle ==='category') {
+                title.textContent = 'Thêm Người Dùng';
+                modal.style.display = 'block';
+                form.innerHTML = `
+                <label for="user_fullname">Họ tên:</label>
+                <input type="text" id="user_fullname" placeholder="Họ tên" class="form-control" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Email" class="form-control" required>
+                
+                <label for="password">Mật khẩu:</label>
+                <input type="password" id="password" placeholder="Mật khẩu" class="form-control" required>
+                
+                <label for="phone_number">Số điện thoại:</label>
+                <input type="tel" id="phone_number" placeholder="Số điện thoại" class="form-control">
+                
+                <label for="user_address">Địa chỉ:</label>
+                <input type="text" id="user_address" placeholder="Địa chỉ" class="form-control">
+                
+                <label for="user_gender">Giới tính:</label>
+                <select id="user_gender" class="form-control">
+                    <option value="MALE">Nam</option>
+                    <option value="FEMALE">Nữ</option>
+                    <option value="OTHER">Khác</option>
+                </select>
+                
+                <label for="role">Vai trò:</label>
+                <select id="role" class="form-control">
+                    <option value="CUSTOMER">CUSTOMER</option>
+                    <option value="ADMIN">ADMIN</option>
+                </select>
+                
+                <button type="submit" class="btn btn-primary mt-3">Lưu</button>
+                `;
             }
         }
+
         function closeModal() {
             const modal = document.getElementById('admin-modal');
             modal.style.display = 'none';

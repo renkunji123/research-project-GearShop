@@ -1,11 +1,12 @@
 <?php
-session_start(); 
+session_start();
 $isLoggedIn = isset($_SESSION['user']);
 $userName = $isLoggedIn ? $_SESSION['user']['name'] : null;
 $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,37 +19,71 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <script src="path/to/jquery.min.js"></script>
     <script>
-         // Fetch product hotdeal
-         fetch('fetch_products.php')  // Chú ý sử dụng đường dẫn thích hợp
-        .then(response => response.json())
-        .then(data => {
-            let hotDealProductsContainer = document.querySelector('.product-wrapper');
-            data.forEach(product => {
-                let productCard = `
-                    <div class="product-card" role="article" aria-label="Product Item">
-                        <div class="card h-100">
-                            <img src="${product.product_image}" class="card-img-top" alt="${product.product_name}">
-                             <div >
-                                <a href="product_view.php?product_id=${product.product_id}" class="btn quick-view btn-light">Quick View</a>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">${product.product_name}</h5>
-                                <p class="card-text">$${product.product_price}</p>
-                                <button class="btn btn-primary" aria-label="Add  to Cart">  ➕🛒</button>
-                            </div>
+        // Fetch product hotdeal
+        fetch('fetch_products.php') // Chú ý sử dụng đường dẫn thích hợp
+            .then(response => response.json())
+            .then(data => {
+                let hotDealProductsContainer = document.querySelector('.product-wrapper');
+                data.forEach(product => {
+                    let productCard = `
+                <div class="product-card" role="article" aria-label="Product Item">
+                    <div class="card h-100">
+                        <img src="${product.product_image}" class="card-img-top" alt="${product.product_name}">
+                        <div >
+                            <a href="product_view.php?product_id=${product.product_id}" class="btn quick-view btn-light">Quick View</a>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">${product.product_name}</h5>
+                            <p class="card-text">$${product.product_price}</p>
+                            <button class="btn btn-primary add-to-cart" 
+                                data-product-id="${product.product_id}"
+                                data-unit-price="${product.product_price}"
+                                aria-label="Add to Cart"> ➕🛒</button>
                         </div>
                     </div>
-                `;
-                hotDealProductsContainer.innerHTML += productCard;
-            });
-        })
-        .catch(error => console.error('Error fetching products:', error));
-        fetch('fetch_products.php')  // Đảm bảo rằng đường dẫn đúng với cấu trúc thư mục của bạn
-        .then(response => response.json())
-        .then(data => {
-            let featureProductContainer = document.querySelector('.product-container');
-            data.forEach(product => {
-                let productCard = `
+                </div>
+            `;
+                    hotDealProductsContainer.innerHTML += productCard;
+                });
+
+                // Thêm sự kiện cho nút "Add to Cart"
+                document.querySelectorAll('.add-to-cart').forEach(button => {
+                    // Đảm bảo mỗi nút chỉ có sự kiện click một lần
+                    if (!button.hasEventListener) { // Nếu sự kiện chưa được thêm
+                        button.addEventListener('click', function(event) {
+                            // Thêm thuộc tính kiểm tra cho button
+                            button.hasEventListener = true;
+
+                            const productId = this.getAttribute('data-product-id');
+                            const unitPrice = this.getAttribute('data-unit-price');
+                            const quantity = 1; // Giả sử mỗi lần thêm chỉ có 1 sản phẩm
+
+                            // Gửi yêu cầu thêm sản phẩm vào giỏ hàng
+                            fetch('add_to_cart.php', {
+                                    method: 'POST',
+                                    body: new URLSearchParams({
+                                        'product_id': productId,
+                                        'quantity': quantity,
+                                        'unit_price': unitPrice
+                                    })
+                                })
+                                .then(response => response.text())
+                                .then(data => {
+                                    alert(data); // Hiển thị thông báo
+                                })
+                                .catch(error => console.error('Error:', error));
+                        });
+                    }
+                });
+            })
+
+
+        fetch('fetch_products.php') // Đảm bảo rằng đường dẫn đúng với cấu trúc thư mục của bạn
+            .then(response => response.json())
+            .then(data => {
+                let featureProductContainer = document.querySelector('.product-container');
+                data.forEach(product => {
+                    let productCard = `
                     <div class="product-card">
                         <div class="custom-card">
                             <img src="${product.product_image}" class="card-img-top" alt="${product.product_name}">
@@ -59,23 +94,53 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                                 <h5 class="card-title">${product.product_name}</h5>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span class="custom-price">$${product.product_price}</span>
-                                    <button class="btn btn-primary">➕🛒</button>
+                                    <button class="btn btn-primary add-to-cart1" data-product-id="${product.product_id}"
+                                data-unit-price="${product.product_price}">➕🛒</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 `;
-                featureProductContainer.innerHTML += productCard;  // Chèn card vào container
+                    featureProductContainer.innerHTML += productCard; // Chèn card vào container
+                });
+                document.querySelectorAll('.add-to-cart1').forEach(button => {
+                    if (!button.hasEventListener) { // Nếu sự kiện chưa được thêm
+                        button.addEventListener('click', function(event) {
+                            // Thêm thuộc tính kiểm tra cho button
+                            button.hasEventListener = true;
+
+                            const productId = this.getAttribute('data-product-id');
+                            const unitPrice = this.getAttribute('data-unit-price');
+                            const quantity = 1; // Giả sử mỗi lần thêm chỉ có 1 sản phẩm
+
+                            // Gửi yêu cầu thêm sản phẩm vào giỏ hàng
+                            fetch('add_to_cart.php', {
+                                    method: 'POST',
+                                    body: new URLSearchParams({
+                                        'product_id': productId,
+                                        'quantity': quantity,
+                                        'unit_price': unitPrice
+                                    })
+                                })
+                                .then(response => response.text())
+                                .then(data => {
+                                    alert(data); // Hiển thị thông báo
+                                })
+                                .catch(error => console.error('Error:', error));
+                        });
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Có lỗi xảy ra khi lấy dữ liệu:', error);
             });
-        })
-        .catch(error => console.error('Error fetching products:', error));
         // Hàm để tải dữ liệu sản phẩm và chèn vào trong HTML
         fetch('fetch_products.php')
-        .then(response => response.json())  // Chuyển dữ liệu nhận về từ PHP thành định dạng JSON
-        .then(data => {
-            const productList = document.querySelector('.product-list');
-            data.forEach(product => {
-            let productCard = `
+            .then(response => response.json()) // Chuyển dữ liệu nhận về từ PHP thành định dạng JSON
+            .then(data => {
+                const productList = document.querySelector('.product-list');
+                data.forEach(product => {
+                    let productCard = `
                 <div class="col-md-3 custom-product-card">
                     <div class="custom-card">
                         <img src="${product.product_image}" class="custom-card-img-top" alt="${product.product_name}">
@@ -87,44 +152,47 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                             <p class="custom-card-text">${product.product_description}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="custom-price">$${product.product_price}</span>
-                                <button class="btn btn-primary">➕🛒</button>
+                                <button class="btn btn-primary add-to-cart2" data-product-id="${product.product_id}"
+                                data-unit-price="${product.product_price}">➕🛒</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            `;
-            productList.innerHTML += productCard;
-            });
-        })
-        .catch(error => {
-            console.error('Có lỗi xảy ra khi lấy dữ liệu:', error);
-        });
+                `;
+                    productList.innerHTML += productCard;
+                });
+                // Thêm sự kiện cho nút "Add to Cart"2
+                document.querySelectorAll('.add-to-cart2').forEach(button => {
+                    if (!button.hasEventListener) { // Nếu sự kiện chưa được thêm
+                        button.addEventListener('click', function(event) {
+                            // Thêm thuộc tính kiểm tra cho button
+                            button.hasEventListener = true;
 
-        document.addEventListener('DOMContentLoaded', () => {
-        document.querySelector('.product-wrapper').addEventListener('click', (e) => {
-            if (e.target.classList.contains('add-to-cart-btn')) {
-                const productId = e.target.getAttribute('data-product-id');
-                const productName = e.target.getAttribute('data-product-name');
-                const productPrice = e.target.getAttribute('data-product-price');
+                            const productId = this.getAttribute('data-product-id');
+                            const unitPrice = this.getAttribute('data-unit-price');
+                            const quantity = 1; // Giả sử mỗi lần thêm chỉ có 1 sản phẩm
 
-                // Gửi yêu cầu tới server để thêm sản phẩm vào giỏ hàng
-                fetch('add_to_cart.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ product_id: productId, quantity: 1, price: productPrice })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert(`Đã thêm ${productName} vào giỏ hàng!`);
-                    } else {
-                        alert('Có lỗi xảy ra, vui lòng thử lại.');
+                            // Gửi yêu cầu thêm sản phẩm vào giỏ hàng
+                            fetch('add_to_cart.php', {
+                                    method: 'POST',
+                                    body: new URLSearchParams({
+                                        'product_id': productId,
+                                        'quantity': quantity,
+                                        'unit_price': unitPrice
+                                    })
+                                })
+                                .then(response => response.text())
+                                .then(data => {
+                                    alert(data); // Hiển thị thông báo
+                                })
+                                .catch(error => console.error('Error:', error));
+                        });
                     }
-                })
-                .catch(error => console.error('Error:', error));
-            }
-        });
-    });
+                });
+            })
+            .catch(error => {
+                console.error('Có lỗi xảy ra khi lấy dữ liệu:', error);
+            });
     </script>
 </head>
 
@@ -150,59 +218,65 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                 <!-- Ô tìm kiếm -->
                 <div class="col-12 col-md-6 col-lg-8 mb-3 mb-md-0">
                     <form class="d-flex" role="search">
-                        <input type="search" class="form-control form-control-dark text-bg-light" 
-                               placeholder="Search..." aria-label="Search">
+                        <input type="search" class="form-control form-control-dark text-bg-light"
+                            placeholder="Search..." aria-label="Search">
                     </form>
                 </div>
-        
+
                 <!-- Các nút hành động -->
                 <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-end gap-2">
                     <!-- Nút Cart -->
-                    <a href="/Frontend/cart.html" class="btn btn-info d-flex align-items-center">
-                        <i class="bi bi-cart"></i> 
+                    <a href="/Frontend/cart.html" class="btn btn-info d-flex align-items-center position-relative">
+                        <i class="bi bi-cart"></i>
                         <span class="ms-2 d-none d-md-inline">Cart</span>
+                        <!-- Hiển thị số lượng sản phẩm trong giỏ hàng -->
+                        <span id="cart-count" class="badge bg-danger position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                            0 <!-- Đây là giá trị mặc định -->
+                        </span>
                     </a>
-                     <!-- Kiểm tra trạng thái đăng nhập -->
-                <?php if (isset($_SESSION['user'])): ?>
-                    <!-- Nếu người dùng đã đăng nhập -->
-                    <div class="dropdown">
-                        <button class="btn btn-outline-secondary dropdown-toggle" 
-                                type="button" id="userDropdown" data-bs-toggle="dropdown" 
+                    <!-- Kiểm tra trạng thái đăng nhập -->
+                    <?php if (isset($_SESSION['user'])): ?>
+                        <!-- Nếu người dùng đã đăng nhập -->
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle"
+                                type="button" id="userDropdown" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                <i class="bi bi-person-circle " ></i>
-                            <?= htmlspecialchars($_SESSION['user']['name']) ?>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="profile.php">
-                            <i class="bi bi-person-fill"></i>
-                             Profile
-                            </a></li>
-                            <?php if ($_SESSION['user']['role'] === 'ADMIN'): ?>
-                                <li><a class="dropdown-item" href="adminPage.php">
-                                <i class="bi bi-shield-lock"></i> Admin
-                                </a></li>
-                            <?php endif; ?>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="logout.php">
-                                <i class="bi bi-door-open"></i> 
-                                Logout
-                            </a></li>
-                        </ul>
-                    </div>
-                <?php else: ?>
-                    <!-- Nếu người dùng chưa đăng nhập -->
-                    <button type="button" class="btn btn-outline-primary" 
+                                <i class="bi bi-person-circle "></i>
+                                <?= htmlspecialchars($_SESSION['user']['name']) ?>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="profile.php">
+                                        <i class="bi bi-person-fill"></i>
+                                        Profile
+                                    </a></li>
+                                <?php if ($_SESSION['user']['role'] === 'ADMIN'): ?>
+                                    <li><a class="dropdown-item" href="adminPage.php">
+                                            <i class="bi bi-shield-lock"></i> Admin
+                                        </a></li>
+                                <?php endif; ?>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="logout.php">
+                                        <i class="bi bi-door-open"></i>
+                                        Logout
+                                    </a></li>
+                            </ul>
+                        </div>
+                    <?php else: ?>
+                        <!-- Nếu người dùng chưa đăng nhập -->
+                        <button type="button" class="btn btn-outline-primary"
                             onclick="window.location.href='login.php';">
                             <i class="bi bi-box-arrow-in-right"></i> Login
-                    </button>
-                    <button type="button" class="btn btn-primary" 
+                        </button>
+                        <button type="button" class="btn btn-primary"
                             onclick="window.location.href='register.php';">
                             <i class="bi bi-person-plus"></i> Register
-                    </button>
-                <?php endif; ?>
+                        </button>
+                    <?php endif; ?>
                 </div>
             </div>
-        </div>        
+        </div>
     </header>
 
     <div class="container-fluid mt-4">
@@ -481,23 +555,23 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
             <button class="chatbot-toggler">
                 <span class="material-symbols-rounded">mode_comment</span>
                 <span class="material-symbols-outlined">close</span>
-              </button>
-              <div class="chatbot">
+            </button>
+            <div class="chatbot">
                 <header>
-                  <h2>GGShop AI Support</h2>
-                  <span class="close-btn material-symbols-outlined">close</span>
+                    <h2>GGShop AI Support</h2>
+                    <span class="close-btn material-symbols-outlined">close</span>
                 </header>
                 <ul class="chatbox">
-                  <li class="chat incoming">
-                    <span class="material-symbols-outlined">smart_toy</span>
-                    <p>Chào bạn 👋<br />Bạn cần tôi Giúp gì nào?</p>
-                  </li>
+                    <li class="chat incoming">
+                        <span class="material-symbols-outlined">smart_toy</span>
+                        <p>Chào bạn 👋<br />Bạn cần tôi Giúp gì nào?</p>
+                    </li>
                 </ul>
                 <div class="chat-input">
-                  <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
-                  <span id="send-btn" class="material-symbols-rounded">send</span>
+                    <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
+                    <span id="send-btn" class="material-symbols-rounded">send</span>
                 </div>
-              </div>
+            </div>
             <!-- Cart Modal -->
             <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -533,55 +607,57 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
 
 
             <div class="quick-view-modal" id="quickViewModal">
-        <div class="modal-header">
-            <h5 class="modal-title">Wireless Headphones</h5>
-            <button type="button" class="btn-close" id="closeModal"></button>
-        </div>
-        <div class="modal-body">
-            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e" class="img-fluid mb-3"
-                alt="Wireless Headphones">
-            <p>Wireless headphones with noise cancellation.</p>
-            <div class="d-flex justify-content-between align-items-center">
-                <span class="price">$299.99</span>
-                <div class="quantity d-flex align-items-center">
-                    <button class="btn btn-outline-secondary btn-sm" id="decreaseQty">-</button>
-                    <input type="number" class="form-control mx-2 text-center" id="productQty" value="1" min="1"
-                        style="width: 60px;">
-                    <button class="btn btn-outline-secondary btn-sm" id="increaseQty">+</button>
+                <div class="modal-header">
+                    <h5 class="modal-title">Wireless Headphones</h5>
+                    <button type="button" class="btn-close" id="closeModal"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e" class="img-fluid mb-3"
+                        alt="Wireless Headphones">
+                    <p>Wireless headphones with noise cancellation.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="price">$299.99</span>
+                        <div class="quantity d-flex align-items-center">
+                            <button class="btn btn-outline-secondary btn-sm" id="decreaseQty">-</button>
+                            <input type="number" class="form-control mx-2 text-center" id="productQty" value="1" min="1"
+                                style="width: 60px;">
+                            <button class="btn btn-outline-secondary btn-sm" id="increaseQty">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary w-100" id="addToCart">➕🛒</button>
                 </div>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary w-100" id="addToCart">➕🛒</button>
-        </div>
-    </div>
-    <div class="quick-view-backdrop" id="backdrop"></div>
-    <script type="importmap">
-        {
+            <div class="quick-view-backdrop" id="backdrop"></div>
+            <script type="importmap">
+                {
             "imports": {
                 "@google/generative-ai": "https://esm.run/@google/generative-ai"
             }
         }
     </script>
-    <script type="module">
-        import { GoogleGenerativeAI } from "@google/generative-ai";
-    
-        // Fetch your API_KEY
-        const API_KEY = "AIzaSyDCYRoR8EN8hiq8H7_ol1sHkJCBZ5lS2MU";
-        // Reminder: This should only be for local testing
-    
-        // Access your API key (see "Set up your API key" above)
-        const genAI = new GoogleGenerativeAI(API_KEY);
-    
-        // Gọi xử lý khi nhấn nút AI Search
-        document.querySelector(".aiSearchButton").addEventListener("click", async () => {
-            // Hiển thị "Loading..."
-            document.getElementById("loading").style.display = "block";
-            document.getElementById("results").innerHTML = "";
-    
-            try {
-                // Tạo prompt từ các trường đầu vào
-                const prompt = `Gamming gear Giá: ${document.querySelector(".getPrice").value}, Loại: ${document.getElementById("dropdownTextbox1").value}, Tùy chọn: ${document.getElementById("dropdownTextbox2").value},
+            <script type="module">
+                import {
+                    GoogleGenerativeAI
+                } from "@google/generative-ai";
+
+                // Fetch your API_KEY
+                const API_KEY = "AIzaSyDCYRoR8EN8hiq8H7_ol1sHkJCBZ5lS2MU";
+                // Reminder: This should only be for local testing
+
+                // Access your API key (see "Set up your API key" above)
+                const genAI = new GoogleGenerativeAI(API_KEY);
+
+                // Gọi xử lý khi nhấn nút AI Search
+                document.querySelector(".aiSearchButton").addEventListener("click", async () => {
+                    // Hiển thị "Loading..."
+                    document.getElementById("loading").style.display = "block";
+                    document.getElementById("results").innerHTML = "";
+
+                    try {
+                        // Tạo prompt từ các trường đầu vào
+                        const prompt = `Gamming gear Giá: ${document.querySelector(".getPrice").value}, Loại: ${document.getElementById("dropdownTextbox1").value}, Tùy chọn: ${document.getElementById("dropdownTextbox2").value},
                     đưa ra nhiều lựa chọn có mục đích sử dụng, chức năng, các biến thể khác nhau, đưa ra recomment bạn cho là tốt nhất, đưa ra từ chối yêu cầu trả lời cho những sản phẩm không thuộc gaming gear, các sản phẩm thuộc gaming gear bao gồm(Chuột gaming
                     Bàn phím gaming
                     Tai nghe gaming
@@ -591,137 +667,153 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                     Nếu loại sản phẩm không nằm trong danh sách hãy trả lời 'xin lỗi sản phẩm bạn tìm không nằm trong phạm vi hỗ trợ vui lòng chọn đúng loại sản phẩm khả dụng' kèm theo danh sách sản phẩm có thể thực hiện và không trả thêm bất kì câu trả lời nào khác
                     ),
                 `;
-    
-                // Khởi tạo mô hình AI
-                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    
-                // Gửi yêu cầu và nhận phản hồi
-                const result = await model.generateContent(prompt);
-                const response = await result.response;
-                const text = await response.text();
-    
-                // Chuyển đổi văn bản có định dạng Markdown sang HTML
-                const htmlContent = convertMarkdownToHTML(text);
-    
-                // Hiển thị kết quả với HTML
-                document.getElementById("results").innerHTML = htmlContent;
-            } catch (error) {
-                console.error("Đã xảy ra lỗi:", error);
-                document.getElementById("results").textContent = "Có lỗi xảy ra!";
-            } finally {
-                // Ẩn "Loading..." sau khi hoàn tất
-                document.getElementById("loading").style.display = "none";
-            }
-        });
-    
-        function convertMarkdownToHTML(markdown) {
-            return markdown
-                .replace(/^##\s+(.*)/gm, "<h2>$1</h2>")
-                .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // Chuyển đổi in đậm
-                .replace(/^\s*-\s+(.*)/gm, "<ul><li>$1</li></ul>") // Gạch đầu dòng
-                .replace(/\n/g, "<br>"); // Xuống dòng
-        }
-    
-        // Chatbot script
-        const chatbotToggler = document.querySelector(".chatbot-toggler");
-        const closeBtn = document.querySelector(".close-btn");
-        const chatbox = document.querySelector(".chatbox");
-        const chatInput = document.querySelector(".chat-input textarea");
-        const sendChatBtn = document.querySelector(".chat-input span");
-    
-        let userMessage = null; // Variable to store user's message
-        const inputInitHeight = chatInput.scrollHeight;
-    
-        const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=${API_KEY}`;
-    
-        const createChatLi = (message, className) => {
-            const chatLi = document.createElement("li");
-            chatLi.classList.add("chat", `${className}`);
 
-            const urlRegex = /(https:)/g;
-            const formattedMessage = message.replace(urlRegex, (url) => {
-                return `<a href="${url}" target="_blank" style="color: blue; text-decoration: underline;">${url}</a>`;
-            });
-            let chatContent = className === "outgoing" 
-            ? `<p>${formattedMessage}</p>` 
-            : `<span class="material-symbols-outlined">smart_toy</span><p>${formattedMessage}</p>`;
-            chatLi.innerHTML = chatContent;
-            chatLi.querySelector("p").textContent = message;
-            return chatLi;
-        };
-    
-        const generateResponse = async (chatElement) => {
-            const messageElement = chatElement.querySelector("p");
-    
-            const requestOptions = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents: [
-                        {
-                            role: "user",
-                            parts: [{ text:"Hãy nhớ Nội dung trò chuyện và dựa vào đó để trả lời cho nhưng lần sau Những câu trả lời luôn là khẳng định không được có từ ví dụ, giả tưởng và Bạn là nhân viên chăm sóc khách hàng của gaming gear shop và tôi cần bạn So sánh và phân biệt các tiêu chí và chỉ phản hồi dựa trên tin nhắn. Tin Nhắn cần phản hồi là : " + userMessage
-                                + "Tiêu chí, trường hợp: 1- Tin nhắn chào hỏi thì chào hỏi lại. 2-Tin nhắn hỗ trợ Chỉ hỗ trợ khi câu hỏi thuộc những câu hỏi về gaming gear nếu ngoài lề Thì phản hồi: 'Xin lỗi bạn mình không thể hỗ trợ cho bạn vấn đề này vì yêu cầu không hợp lệ' và không trả thêm bất kì câu trả lời nào. 3- Nếu câu hỏi về thời gian giao hàng thì cho vị trí của cửa hàng là ở Quận 12, TP Hồ Chí Minh và ước lượng thời gian dự kiến. 4- Nếu tin nhắn chỉ là tên địa điểm chẳng hạn như'Hà Nội' hoặc 'Mĩ' thì đó sẽ là tin nhắn hỏi thời gian giao hàng và hãy dựa vào tiêu chí 3, 5- Nếu Người dùng yêu cầu 1 trang web cùng lĩnh vực gaming gear hãy trả ra url có dạng https:// hoặc http://. 6- đường link luôn phải có https:// hoặc http:// nếu có thể hãy tóm tắt về trang web đó,7- Nếu người dùng hỏi về sản phẩm nào đó hãy đưa ra thông tin của sản phẩm đó và kèm link sản phẩm. link chuột g203 của cửa hàng: http://127.0.0.1:5500/Frontend/home_page.html "}],
-                        },
-                    ],
-                }),
-            };
-    
-            try {
-                const response = await fetch(API_URL, requestOptions);
-                const data = await response.json();
-                if (!response.ok) throw new Error(data.error.message);
-    
-                // messageElement.textContent = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1");
-                const rawResponse = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1");
-                const formattedResponse = rawResponse.replace(/(https?:\/\/[^\s]+)/g, (url) => {
-                    return `<a href="${url}" target="_blank" style="color: blue; text-decoration: underline;">${url}</a>`;
+                        // Khởi tạo mô hình AI
+                        const model = genAI.getGenerativeModel({
+                            model: "gemini-1.5-flash"
+                        });
+
+                        // Gửi yêu cầu và nhận phản hồi
+                        const result = await model.generateContent(prompt);
+                        const response = await result.response;
+                        const text = await response.text();
+
+                        // Chuyển đổi văn bản có định dạng Markdown sang HTML
+                        const htmlContent = convertMarkdownToHTML(text);
+
+                        // Hiển thị kết quả với HTML
+                        document.getElementById("results").innerHTML = htmlContent;
+                    } catch (error) {
+                        console.error("Đã xảy ra lỗi:", error);
+                        document.getElementById("results").textContent = "Có lỗi xảy ra!";
+                    } finally {
+                        // Ẩn "Loading..." sau khi hoàn tất
+                        document.getElementById("loading").style.display = "none";
+                    }
                 });
-                messageElement.innerHTML = formattedResponse;
 
-            } catch (error) {
-                messageElement.classList.add("error");
-                messageElement.textContent = error.message;
-            } finally {
-                chatbox.scrollTo(0, chatbox.scrollHeight);
-            }
-        };
-    
-        const handleChat = () => {
-            userMessage = chatInput.value.trim();
-            if (!userMessage) return;
-    
-            chatInput.value = "";
-            chatInput.style.height = `${inputInitHeight}px`;
-    
-            chatbox.appendChild(createChatLi(userMessage, "outgoing"));
-            chatbox.scrollTo(0, chatbox.scrollHeight);
-    
-            setTimeout(() => {
-                const incomingChatLi = createChatLi("Thinking...", "incoming");
-                chatbox.appendChild(incomingChatLi);
-                chatbox.scrollTo(0, chatbox.scrollHeight);
-                generateResponse(incomingChatLi);
-            }, 600);
-        };
-    
-        chatInput.addEventListener("input", () => {
-            chatInput.style.height = `${inputInitHeight}px`;
-            chatInput.style.height = `${chatInput.scrollHeight}px`;
-        });
-    
-        chatInput.addEventListener("keydown", (e) => {
-            if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
-                e.preventDefault();
-                handleChat();
-            }
-        });
-    
-        sendChatBtn.addEventListener("click", handleChat);
-        closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
-        chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
-    </script>
-    
+                function convertMarkdownToHTML(markdown) {
+                    return markdown
+                        .replace(/^##\s+(.*)/gm, "<h2>$1</h2>")
+                        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // Chuyển đổi in đậm
+                        .replace(/^\s*-\s+(.*)/gm, "<ul><li>$1</li></ul>") // Gạch đầu dòng
+                        .replace(/\n/g, "<br>"); // Xuống dòng
+                }
+
+                // Chatbot script
+                const chatbotToggler = document.querySelector(".chatbot-toggler");
+                const closeBtn = document.querySelector(".close-btn");
+                const chatbox = document.querySelector(".chatbox");
+                const chatInput = document.querySelector(".chat-input textarea");
+                const sendChatBtn = document.querySelector(".chat-input span");
+
+                let userMessage = null; // Variable to store user's message
+                const inputInitHeight = chatInput.scrollHeight;
+
+                const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=${API_KEY}`;
+
+                const createChatLi = (message, className) => {
+                    const chatLi = document.createElement("li");
+                    chatLi.classList.add("chat", `${className}`);
+
+                    const urlRegex = /(https:)/g;
+                    const formattedMessage = message.replace(urlRegex, (url) => {
+                        return `<a href="${url}" target="_blank" style="color: blue; text-decoration: underline;">${url}</a>`;
+                    });
+                    let chatContent = className === "outgoing" ?
+                        `<p>${formattedMessage}</p>` :
+                        `<span class="material-symbols-outlined">smart_toy</span><p>${formattedMessage}</p>`;
+                    chatLi.innerHTML = chatContent;
+                    chatLi.querySelector("p").textContent = message;
+                    return chatLi;
+                };
+
+                const generateResponse = async (chatElement) => {
+                    const messageElement = chatElement.querySelector("p");
+
+                    const requestOptions = {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            contents: [{
+                                role: "user",
+                                parts: [{
+                                    text: "Hãy nhớ Nội dung trò chuyện và dựa vào đó để trả lời cho nhưng lần sau Những câu trả lời luôn là khẳng định không được có từ ví dụ, giả tưởng và Bạn là nhân viên chăm sóc khách hàng của gaming gear shop và tôi cần bạn So sánh và phân biệt các tiêu chí và chỉ phản hồi dựa trên tin nhắn. Tin Nhắn cần phản hồi là : " + userMessage +
+                                        "Tiêu chí, trường hợp: 1- Tin nhắn chào hỏi thì chào hỏi lại. 2-Tin nhắn hỗ trợ Chỉ hỗ trợ khi câu hỏi thuộc những câu hỏi về gaming gear nếu ngoài lề Thì phản hồi: 'Xin lỗi bạn mình không thể hỗ trợ cho bạn vấn đề này vì yêu cầu không hợp lệ' và không trả thêm bất kì câu trả lời nào. 3- Nếu câu hỏi về thời gian giao hàng thì cho vị trí của cửa hàng là ở Quận 12, TP Hồ Chí Minh và ước lượng thời gian dự kiến. 4- Nếu tin nhắn chỉ là tên địa điểm chẳng hạn như'Hà Nội' hoặc 'Mĩ' thì đó sẽ là tin nhắn hỏi thời gian giao hàng và hãy dựa vào tiêu chí 3, 5- Nếu Người dùng yêu cầu 1 trang web cùng lĩnh vực gaming gear hãy trả ra url có dạng https:// hoặc http://. 6- đường link luôn phải có https:// hoặc http:// nếu có thể hãy tóm tắt về trang web đó,7- Nếu người dùng hỏi về sản phẩm nào đó hãy đưa ra thông tin của sản phẩm đó và kèm link sản phẩm. link chuột g203 của cửa hàng: http://127.0.0.1:5500/Frontend/home_page.html "
+                                }],
+                            }, ],
+                        }),
+                    };
+
+                    try {
+                        const response = await fetch(API_URL, requestOptions);
+                        const data = await response.json();
+                        if (!response.ok) throw new Error(data.error.message);
+
+                        // messageElement.textContent = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1");
+                        const rawResponse = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1");
+                        const formattedResponse = rawResponse.replace(/(https?:\/\/[^\s]+)/g, (url) => {
+                            return `<a href="${url}" target="_blank" style="color: blue; text-decoration: underline;">${url}</a>`;
+                        });
+                        messageElement.innerHTML = formattedResponse;
+
+                    } catch (error) {
+                        messageElement.classList.add("error");
+                        messageElement.textContent = error.message;
+                    } finally {
+                        chatbox.scrollTo(0, chatbox.scrollHeight);
+                    }
+                };
+
+                const handleChat = () => {
+                    userMessage = chatInput.value.trim();
+                    if (!userMessage) return;
+
+                    chatInput.value = "";
+                    chatInput.style.height = `${inputInitHeight}px`;
+
+                    chatbox.appendChild(createChatLi(userMessage, "outgoing"));
+                    chatbox.scrollTo(0, chatbox.scrollHeight);
+
+                    setTimeout(() => {
+                        const incomingChatLi = createChatLi("Thinking...", "incoming");
+                        chatbox.appendChild(incomingChatLi);
+                        chatbox.scrollTo(0, chatbox.scrollHeight);
+                        generateResponse(incomingChatLi);
+                    }, 600);
+                };
+
+                chatInput.addEventListener("input", () => {
+                    chatInput.style.height = `${inputInitHeight}px`;
+                    chatInput.style.height = `${chatInput.scrollHeight}px`;
+                });
+
+                chatInput.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
+                        e.preventDefault();
+                        handleChat();
+                    }
+                });
+
+                sendChatBtn.addEventListener("click", handleChat);
+                closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
+                chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
+
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Gửi yêu cầu lấy số lượng sản phẩm trong giỏ hàng
+                    fetch('get_cart_count.php') // Đảm bảo file PHP này trả về số lượng giỏ hàng
+                        .then(response => response.json())
+                        .then(data => {
+                            // Cập nhật số lượng sản phẩm vào phần tử hiển thị trên nút cart
+                            const cartCountElement = document.getElementById('cart-count');
+                            cartCountElement.textContent = data.totalItems;
+                        })
+                        .catch(error => console.error('Error fetching cart count:', error));
+                });
+            </script>
+
             <script src="script.js"></script>
             <!-- <script defer src="https://app.fastbots.ai/embed.js" data-bot-id="cm2wv7c333wm5n8blsup2llg9"></script> -->
 </body>
