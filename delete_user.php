@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 $user_id = intval($_POST['user_id']);
 
 // Ngăn admin xóa chính mình
-if (isset($_SESSION['user']) && $_SESSION['user']['user_id'] == $user_id) {
+if (isset($_SESSION['users']) && $_SESSION['users']['user_id'] == $user_id) {
     echo json_encode([
         "status" => "error", 
         "message" => "Không thể xóa tài khoản của chính bạn."

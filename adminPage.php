@@ -315,6 +315,7 @@ $result = $conn->query($sql);
             document.getElementById(tabId).style.display = 'block';
             document.querySelector(`.tab-button[onclick="showTab('${tabId}')"]`).classList.add('active');
         }
+
         function openModal(tyle, product_id = null) {
             const modal = document.getElementById('admin-modal');
             const form = document.getElementById('admin-form');
@@ -423,7 +424,7 @@ $result = $conn->query($sql);
                             });
                         });
                 }
-                form.onsubmit = function (e) {
+                form.onsubmit = function(e) {
                     e.preventDefault();
                     const productName = document.getElementById('product_name').value;
                     const productImage = document.getElementById('product_image').value;
@@ -443,42 +444,90 @@ $result = $conn->query($sql);
                     formData.append('brand_id', productBrand);
                     if (productId) formData.append('product_id', productId);
                     fetch('save_product.php', {
-                        method: 'POST',
-                        body: formData
-                    }).then(response => response.json())
+                            method: 'POST',
+                            body: formData
+                        }).then(response => response.json())
                         .then(data => {
                             alert(data.message);
                             closeModal();
                             location.reload();
                         });
                 };
-            } else if (tyle === 'user'){
-                title.textContent = 'Thêm Người Dùng'; // Nếu bạn muốn cho chức năng thêm người dùng
+            } else if (tyle === 'user') {
+                title.textContent = 'Thêm Người Dùng';
+                modal.style.display = 'block';
+
                 form.innerHTML = `
-                    <input type="text" id="user_name" placeholder="Tên người dùng" class="form-control" required>
-                    <input type="email" id="user_email" placeholder="Email" class="form-control" required>
-                    <button type="submit" class="btn btn-primary">Lưu</button>
-                `;
-            } else if() {
+            <label for="user_fullname">Họ tên:</label>
+            <input type="text" id="user_fullname" placeholder="Họ tên" class="form-control" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Email" class="form-control" required>
+            
+            <label for="password">Mật khẩu:</label>
+            <input type="password" id="password" placeholder="Mật khẩu" class="form-control" required>
+            
+            <label for="phone_number">Số điện thoại:</label>
+            <input type="tel" id="phone_number" placeholder="Số điện thoại" class="form-control">
+            
+            <label for="user_address">Địa chỉ:</label>
+            <input type="text" id="user_address" placeholder="Địa chỉ" class="form-control">
+            
+            <label for="user_gender">Giới tính:</label>
+            <select id="user_gender" class="form-control">
+                <option value="MALE">Nam</option>
+                <option value="FEMALE">Nữ</option>
+                <option value="OTHER">Khác</option>
+            </select>
+            
+            <label for="role">Vai trò:</label>
+            <select id="role" class="form-control">
+                <option value="CUSTOMER">CUSTOMER</option>
+                <option value="ADMIN">ADMIN</option>
+            </select>
+            
+            <button type="submit" class="btn btn-primary mt-3">Lưu</button>
+        `;
+        form.onsubmit = function (e) {
+                    e.preventDefault();
+                    const formData = new FormData();
+                    formData.append('user_fullname', document.getElementById('user_fullname').value);
+                    formData.append('email', document.getElementById('email').value);
+                    formData.append('password', document.getElementById('password').value);
+                    formData.append('phone_number', document.getElementById('phone_number').value);
+                    formData.append('user_address', document.getElementById('user_address').value);
+                    formData.append('user_gender', document.getElementById('user_gender').value);
+                    formData.append('role', document.getElementById('role').value);
 
-            }else {
-
+                    fetch('save_user.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message);
+                            if (data.status === 'success') {
+                                closeModal();
+                                loadUsers();
+                            }
+                        });
+                };
             }
-
         }
         function closeModal() {
             const modal = document.getElementById('admin-modal');
             modal.style.display = 'none';
         }
+
         function deleteProduct(product_id) {
             if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
                 fetch('delete_product.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `product_id=${product_id}`,
-                })
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `product_id=${product_id}`,
+                    })
                     .then(response => response.json())
                     .then(data => {
                         if (data.status === 'success') {
@@ -497,6 +546,7 @@ $result = $conn->query($sql);
                     });
             }
         }
+
         function loadCategories() {
             fetch('getCategories.php')
                 .then(response => {
@@ -616,6 +666,7 @@ $result = $conn->query($sql);
 
         // Gọi hàm loadUsers() khi tab được hiển thị
         document.querySelector('.tab-button[onclick="showTab(\'users\')"]').addEventListener('click', loadUsers);
+
         function loadOrders() {
             fetch('getOrders.php')
                 .then(response => {
@@ -661,8 +712,8 @@ $result = $conn->query($sql);
         document.querySelector('.tab-button[onclick="showTab(\'orders\')"]').addEventListener('click', loadOrders);
 
         // CRUD User fuctions
-        function editUser(userId) {
-            fetch(`get_user.php?user_id=${userId}`)
+        function editUser(user_id) {
+            fetch(`get_user.php?user_id=${user_id}`)
                 .then(response => response.json())
                 .then(user => {
                     const modal = document.getElementById('admin-modal');
@@ -702,7 +753,7 @@ $result = $conn->query($sql);
                 <button type="submit" class="btn btn-primary mt-3">Lưu</button>
             `;
 
-                    form.onsubmit = function (e) {
+                    form.onsubmit = function(e) {
                         e.preventDefault();
                         const formData = new FormData();
                         formData.append('user_id', document.getElementById('user_id').value);
@@ -714,9 +765,9 @@ $result = $conn->query($sql);
                         formData.append('role', document.getElementById('role').value);
 
                         fetch('save_user.php', {
-                            method: 'POST',
-                            body: formData
-                        })
+                                method: 'POST',
+                                body: formData
+                            })
                             .then(response => response.json())
                             .then(data => {
                                 alert(data.message);
@@ -735,9 +786,9 @@ $result = $conn->query($sql);
                 formData.append('user_id', userId);
 
                 fetch('delete_user.php', {
-                    method: 'POST',
-                    body: formData
-                })
+                        method: 'POST',
+                        body: formData
+                    })
                     .then(response => response.json())
                     .then(data => {
                         alert(data.message);
@@ -746,84 +797,85 @@ $result = $conn->query($sql);
                         }
                     })
                     .catch(error => {
-                        console.error('Lỗi:', error);
-                        alert('Không thể xóa người dùng. Vui lòng thử lại.');
+                        alert(data.message);
+                        if (data.status === 'error') {
+                            location.reload();
+                        }
                     });
             }
         }
 
-        function openModal(type) {
-            if (type === 'user') {
-                const modal = document.getElementById('admin-modal');
-                const form = document.getElementById('admin-form');
-                const title = document.getElementById('modal-title');
+        // function openModal(type) {
+        //     if (tyle === 'user') {
+        //         const modal = document.getElementById('admin-modal');
+        //         const form = document.getElementById('admin-form');
+        //         const title = document.getElementById('modal-title');
 
-                title.textContent = 'Thêm Người Dùng';
-                modal.style.display = 'block';
+        //         title.textContent = 'Thêm Người Dùng';
+        //         modal.style.display = 'block';
 
-                form.innerHTML = `
-            <label for="user_fullname">Họ tên:</label>
-            <input type="text" id="user_fullname" placeholder="Họ tên" class="form-control" required>
-            
-            <label for="email">Email:</label>
-            <input type="email" id="email" placeholder="Email" class="form-control" required>
-            
-            <label for="password">Mật khẩu:</label>
-            <input type="password" id="password" placeholder="Mật khẩu" class="form-control" required>
-            
-            <label for="phone_number">Số điện thoại:</label>
-            <input type="tel" id="phone_number" placeholder="Số điện thoại" class="form-control">
-            
-            <label for="user_address">Địa chỉ:</label>
-            <input type="text" id="user_address" placeholder="Địa chỉ" class="form-control">
-            
-            <label for="user_gender">Giới tính:</label>
-            <select id="user_gender" class="form-control">
-                <option value="MALE">Nam</option>
-                <option value="FEMALE">Nữ</option>
-                <option value="OTHER">Khác</option>
-            </select>
-            
-            <label for="role">Vai trò:</label>
-            <select id="role" class="form-control">
-                <option value="CUSTOMER">CUSTOMER</option>
-                <option value="ADMIN">ADMIN</option>
-            </select>
-            
-            <button type="submit" class="btn btn-primary mt-3">Lưu</button>
-        `;
+        //         form.innerHTML = `
+        //     <label for="user_fullname">Họ tên:</label>
+        //     <input type="text" id="user_fullname" placeholder="Họ tên" class="form-control" required>
 
-                form.onsubmit = function (e) {
-                    e.preventDefault();
-                    const formData = new FormData();
-                    formData.append('user_fullname', document.getElementById('user_fullname').value);
-                    formData.append('email', document.getElementById('email').value);
-                    formData.append('password', document.getElementById('password').value);
-                    formData.append('phone_number', document.getElementById('phone_number').value);
-                    formData.append('user_address', document.getElementById('user_address').value);
-                    formData.append('user_gender', document.getElementById('user_gender').value);
-                    formData.append('role', document.getElementById('role').value);
+        //     <label for="email">Email:</label>
+        //     <input type="email" id="email" placeholder="Email" class="form-control" required>
 
-                    fetch('save_user.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            alert(data.message);
-                            if (data.status === 'success') {
-                                closeModal();
-                                loadUsers();
-                            }
-                        });
-                };
-            }
-        }
+        //     <label for="password">Mật khẩu:</label>
+        //     <input type="password" id="password" placeholder="Mật khẩu" class="form-control" required>
+
+        //     <label for="phone_number">Số điện thoại:</label>
+        //     <input type="tel" id="phone_number" placeholder="Số điện thoại" class="form-control">
+
+        //     <label for="user_address">Địa chỉ:</label>
+        //     <input type="text" id="user_address" placeholder="Địa chỉ" class="form-control">
+
+        //     <label for="user_gender">Giới tính:</label>
+        //     <select id="user_gender" class="form-control">
+        //         <option value="MALE">Nam</option>
+        //         <option value="FEMALE">Nữ</option>
+        //         <option value="OTHER">Khác</option>
+        //     </select>
+
+        //     <label for="role">Vai trò:</label>
+        //     <select id="role" class="form-control">
+        //         <option value="CUSTOMER">CUSTOMER</option>
+        //         <option value="ADMIN">ADMIN</option>
+        //     </select>
+
+        //     <button type="submit" class="btn btn-primary mt-3">Lưu</button>
+        // `;
+
+        //         form.onsubmit = function (e) {
+        //             e.preventDefault();
+        //             const formData = new FormData();
+        //             formData.append('user_fullname', document.getElementById('user_fullname').value);
+        //             formData.append('email', document.getElementById('email').value);
+        //             formData.append('password', document.getElementById('password').value);
+        //             formData.append('phone_number', document.getElementById('phone_number').value);
+        //             formData.append('user_address', document.getElementById('user_address').value);
+        //             formData.append('user_gender', document.getElementById('user_gender').value);
+        //             formData.append('role', document.getElementById('role').value);
+
+        //             fetch('save_user.php', {
+        //                 method: 'POST',
+        //                 body: formData
+        //             })
+        //                 .then(response => response.json())
+        //                 .then(data => {
+        //                     alert(data.message);
+        //                     if (data.status === 'success') {
+        //                         closeModal();
+        //                         loadUsers();
+        //                     }
+        //                 });
+        //         };
+        //     }
+        // }
 
         // CRUD categories
 
         // CRUD brands
-
     </script>
     <div class="footer">
         <footer class="text-center text-lg-start bg-body-tertiary text-muted">
