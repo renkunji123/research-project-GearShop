@@ -1,28 +1,29 @@
 <?php
- $servername = "localhost";
- $username = "root";
- $password = "";
- $dbname = "ggshopdb";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "ggshopdb";
 
- $conn = new mysqli($servername, $username, $password, $dbname);
- if ($conn->connect_error) {
-     die("Kết nối thất bại: " . $conn->connect_error);
- }
-session_start(); 
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Kết nối thất bại: " . $conn->connect_error);
+}
+session_start();
 
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'ADMIN') {
     echo "Bạn không có quyền truy cập trang này.";
     exit();
 }
-    $sql = "SELECT p.product_id, p.product_name, p.product_description,  p.product_image, p.product_price, p.stock_quantity, c.category_name, b.brand_name 
+$sql = "SELECT p.product_id, p.product_name, p.product_description,  p.product_image, p.product_price, p.stock_quantity, c.category_name, b.brand_name 
             FROM products p 
             JOIN categories c ON p.category_id = c.category_id 
             JOIN brands b ON p.brand_id = b.brand_id";
-    $result = $conn->query($sql);
-    
+$result = $conn->query($sql);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,37 +31,79 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'ADMIN') {
     <title>GGshop Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         .modal {
-        display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4); overflow: auto;
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            overflow: auto;
         }
+
         .modal-content {
-        background-color: white; padding: 20px; border-radius: 5px; margin: 10% auto; width: 80%; max-width: 600px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 10% auto;
+            width: 80%;
+            max-width: 600px;
         }
+
         .close-btn {
-        color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
         }
+
         .close-btn:hover,
         .close-btn:focus {
-        color: black; text-decoration: none; cursor: pointer;
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
+
         label {
-        font-weight: bold; display: block; margin-top: 10px;
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
         }
-        input, textarea, select {
-        width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px;
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
+
         button {
-        background-color: #4CAF50; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;
+            background-color: #4CAF50;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
+
         button:hover {
-        background-color: #45a049;
+            background-color: #45a049;
         }
     </style>
 </head>
+
 <body>
     <header class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom">
         <!-- Danh sách liên kết điều hướng -->
@@ -75,53 +118,52 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'ADMIN') {
             <div class="row align-items-center">
                 <div class="col-12 col-md-6 col-lg-8 mb-3 mb-md-0">
                     <form class="d-flex" role="search">
-                        <input type="search" class="form-control form-control-dark text-bg-light" 
-                               placeholder="Search..." aria-label="Search">
+                        <input type="search" class="form-control form-control-dark text-bg-light"
+                            placeholder="Search..." aria-label="Search">
                     </form>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-end gap-2">
                     <a href="/Frontend/cart.html" class="btn btn-info d-flex align-items-center">
-                        <i class="bi bi-cart"></i> 
+                        <i class="bi bi-cart"></i>
                         <span class="ms-2 d-none d-md-inline">Cart</span>
                     </a>
-                <?php if (isset($_SESSION['user'])): ?>
-                    <div class="dropdown">
-                        <button class="btn btn-outline-secondary dropdown-toggle" 
-                                type="button" id="userDropdown" data-bs-toggle="dropdown" 
-                                aria-expanded="false">
-                                <i class="bi bi-person-circle " ></i>
-                            <?= htmlspecialchars($_SESSION['user']['name']) ?>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="profile.php">
-                            <i class="bi bi-person-fill"></i>
-                             Profile
-                            </a></li>
-                            <?php if ($_SESSION['user']['role'] === 'ADMIN'): ?>
-                                <li><a class="dropdown-item" href="admin_dashboard.php">
-                                <i class="bi bi-shield-lock"></i> Admin
-                                </a></li>
-                            <?php endif; ?>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="logout.php">
-                                <i class="bi bi-door-open"></i> 
-                                Logout
-                            </a></li>
-                        </ul>
-                    </div>
-                <?php else: ?>
-                    <button type="button" class="btn btn-outline-primary" 
-                            onclick="window.location.href='login.php';">
+                    <?php if (isset($_SESSION['user'])): ?>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="userDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle "></i>
+                                <?= htmlspecialchars($_SESSION['user']['name']) ?>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="profile.php">
+                                        <i class="bi bi-person-fill"></i>
+                                        Profile
+                                    </a></li>
+                                <?php if ($_SESSION['user']['role'] === 'ADMIN'): ?>
+                                    <li><a class="dropdown-item" href="admin_dashboard.php">
+                                            <i class="bi bi-shield-lock"></i> Admin
+                                        </a></li>
+                                <?php endif; ?>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="logout.php">
+                                        <i class="bi bi-door-open"></i>
+                                        Logout
+                                    </a></li>
+                            </ul>
+                        </div>
+                    <?php else: ?>
+                        <button type="button" class="btn btn-outline-primary" onclick="window.location.href='login.php';">
                             <i class="bi bi-box-arrow-in-right"></i> Login
-                    </button>
-                    <button type="button" class="btn btn-primary" 
-                            onclick="window.location.href='register.php';">
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="window.location.href='register.php';">
                             <i class="bi bi-person-plus"></i> Register
-                    </button>
-                <?php endif; ?>
+                        </button>
+                    <?php endif; ?>
                 </div>
             </div>
-        </div> 
+        </div>
     </header>
     <div class="admin-page">
         <h1>Quản lý sản phẩm và người dùng</h1>
@@ -135,27 +177,27 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'ADMIN') {
         <div class="tab-content" id="products" style="display: block;">
             <h2>Quản lý sản phẩm</h2>
             <button class="btn btn-primary add-btn" onclick="openModal('product')">➕ Thêm sản phẩm</button>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Ảnh</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Mô tả</th>
-                            <th>Giá</th>
-                            <th>Số lượng</th>
-                            <th>Danh mục</th>
-                            <th>Thương hiệu</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody id="product-list">
-                        <?php
-                        if ($result->num_rows > 0) {
-                            // Hiển thị các sản phẩm
-                            while($row = $result->fetch_assoc()) {
-                                $product_image = !empty($row['product_image']) ? $row['product_image'] : 'path/to/default_image.jpg';
-                                echo "<tr>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Ảnh</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Mô tả</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Danh mục</th>
+                        <th>Thương hiệu</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="product-list">
+                    <?php
+                    if ($result->num_rows > 0) {
+                        // Hiển thị các sản phẩm
+                        while ($row = $result->fetch_assoc()) {
+                            $product_image = !empty($row['product_image']) ? $row['product_image'] : 'path/to/default_image.jpg';
+                            echo "<tr>
                                         <td>" . $row['product_id'] . "</td>
                                         <td><img src='" . $product_image . "' alt='Product Image' style='width: 100px; height: 100px; object-fit: cover;'></td>
                                         <td>" . $row['product_name'] . "</td>
@@ -169,70 +211,70 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'ADMIN') {
                                             <button class='btn btn-danger' onclick='deleteProduct(" . $row['product_id'] . ")'>Xóa</button>
                                         </td>
                                     </tr>";
-                            }
-                        } else {
-                            echo "<tr><td colspan='7'>Không có sản phẩm nào.</td></tr>";
                         }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-            <div class="tab-content" id="users" style="display: none;">
-                <h2>Quản lý người dùng</h2>
-                <button class="btn btn-primary add-btn" onclick="openModal('user')">➕ Thêm người dùng</button>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Họ tên</th>
-                            <th>Email</th>
-                            <th>Số điện thoại</th>
-                            <th>Địa chỉ</th>
-                            <th>Giới tính</th>
-                            <th>Vai trò</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody id="user-list">
-                        
-                    </tbody>
-                </table>
-            </div>
-            <div class="tab-content" id="categories" style="display: none;">
-                <h2>Quản lý Danh mục</h2>
-                <button class="btn btn-primary add-btn" onclick="openModal('category')">➕ Thêm danh mục</button>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tên danh mục</th>
-                            <th>Mô tả</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody id="category-list">
-                    </tbody>
-                </table>
-            </div>
-            <div class="tab-content" id="brands" style="display: none;">
-                <h2>Quản lý Thương hiệu</h2>
-                <button class="btn btn-primary add-btn" onclick="openModal('brand')">➕ Thêm thương hiệu</button>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tên Thương hiệu</th>
-                            <th>Mô tả</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody id="brand-list">
-                    
-                    </tbody>
-                </table>
-            </div>
+                    } else {
+                        echo "<tr><td colspan='7'>Không có sản phẩm nào.</td></tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
-        <div class="tab-content" id="orders" style="display: none;">
+        <div class="tab-content" id="users" style="display: none;">
+            <h2>Quản lý người dùng</h2>
+            <button class="btn btn-primary add-btn" onclick="openModal('user')">➕ Thêm người dùng</button>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Họ tên</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Giới tính</th>
+                        <th>Vai trò</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="user-list">
+
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-content" id="categories" style="display: none;">
+            <h2>Quản lý Danh mục</h2>
+            <button class="btn btn-primary add-btn" onclick="openModal('category')">➕ Thêm danh mục</button>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên danh mục</th>
+                        <th>Mô tả</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="category-list">
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-content" id="brands" style="display: none;">
+            <h2>Quản lý Thương hiệu</h2>
+            <button class="btn btn-primary add-btn" onclick="openModal('brand')">➕ Thêm thương hiệu</button>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên Thương hiệu</th>
+                        <th>Mô tả</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="brand-list">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-content" id="orders" style="display: none;">
         <h2>Quản lý Đơn hàng</h2>
         <button class="btn btn-primary add-btn" onclick="openModal('order')">➕ Thêm đơn hàng</button>
         <table class="data-table">
@@ -249,7 +291,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'ADMIN') {
                     <th>Địa chỉ giao hàng</th>
                     <th>Ngày giao hàng</th>
                     <th>Trạng thái giao hàng</th>
-                    
+
                 </tr>
             </thead>
             <tbody id="order-list">
@@ -257,14 +299,14 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'ADMIN') {
             </tbody>
         </table>
     </div>
-        <div class="modal" id="admin-modal" style="display: none;">
-            <div class="modal-content">
-                <span class="close-btn" onclick="closeModal()">×</span>
-                <h3 id="modal-title">Thêm/Sửa Sản Phẩm</h3>
-                <form id="admin-form" method="POST" enctype="multipart/form-data">
-                </form>
-            </div>
+    <div class="modal" id="admin-modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">×</span>
+            <h3 id="modal-title">Thêm/Sửa Sản Phẩm</h3>
+            <form id="admin-form" method="POST" enctype="multipart/form-data">
+            </form>
         </div>
+    </div>
     </div>
     <script>
         function showTab(tabId) {
@@ -317,28 +359,28 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'ADMIN') {
                                 <button type="submit" class="btn" style="background-color: green; color: white;">Lưu</button>
                             `;
                             fetch('get_categories.php')
-                            .then(response => response.json())
-                            .then(categories => {
-                                const categorySelect = document.getElementById('category_id');
-                                categories.forEach(category => {
-                                    if (category.category_id != data.category_id) {
-                                        categorySelect.innerHTML += `<option value="${category.category_id}">${category.category_name}</option>`;
-                                    }
+                                .then(response => response.json())
+                                .then(categories => {
+                                    const categorySelect = document.getElementById('category_id');
+                                    categories.forEach(category => {
+                                        if (category.category_id != data.category_id) {
+                                            categorySelect.innerHTML += `<option value="${category.category_id}">${category.category_name}</option>`;
+                                        }
+                                    });
                                 });
-                            });
                             fetch('get_brands.php')
-                            .then(response => response.json())
-                            .then(brands => {
-                                const brandSelect = document.getElementById('brand_id');
-                                brands.forEach(brand => {
-                                    if (brand.brand_id != data.brand_id) {
-                                        brandSelect.innerHTML += `<option value="${brand.brand_id}">${brand.brand_name}</option>`;
-                                    }
+                                .then(response => response.json())
+                                .then(brands => {
+                                    const brandSelect = document.getElementById('brand_id');
+                                    brands.forEach(brand => {
+                                        if (brand.brand_id != data.brand_id) {
+                                            brandSelect.innerHTML += `<option value="${brand.brand_id}">${brand.brand_name}</option>`;
+                                        }
+                                    });
                                 });
-                            });
                         });
-                    } else {
-                        form.innerHTML = `
+                } else {
+                    form.innerHTML = `
                             <label for="product_image">Hình Ảnh:</label>
                             <input id="product_image" class="form-control" placeholder="Nhập URL hình ảnh">
 
@@ -363,24 +405,24 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'ADMIN') {
                             <input type="hidden" id="product_id">
                             <button type="submit" class="btn" style="background-color: green; color: white;">Lưu</button>
                         `;
-                        fetch('get_categories.php')
-                            .then(response => response.json())
-                            .then(categories => {
-                                const categorySelect = document.getElementById('category_id');
-                                categories.forEach(category => {
-                                    categorySelect.innerHTML += `<option value="${category.category_id}">${category.category_name}</option>`;
-                                });
+                    fetch('get_categories.php')
+                        .then(response => response.json())
+                        .then(categories => {
+                            const categorySelect = document.getElementById('category_id');
+                            categories.forEach(category => {
+                                categorySelect.innerHTML += `<option value="${category.category_id}">${category.category_name}</option>`;
                             });
+                        });
 
-                        fetch('get_brands.php')
-                            .then(response => response.json())
-                            .then(brands => {
-                                const brandSelect = document.getElementById('brand_id');
-                                brands.forEach(brand => {
-                                    brandSelect.innerHTML += `<option value="${brand.brand_id}">${brand.brand_name}</option>`;
-                                });
+                    fetch('get_brands.php')
+                        .then(response => response.json())
+                        .then(brands => {
+                            const brandSelect = document.getElementById('brand_id');
+                            brands.forEach(brand => {
+                                brandSelect.innerHTML += `<option value="${brand.brand_id}">${brand.brand_name}</option>`;
                             });
-                } 
+                        });
+                }
                 form.onsubmit = function (e) {
                     e.preventDefault();
                     const productName = document.getElementById('product_name').value;
@@ -404,21 +446,25 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'ADMIN') {
                         method: 'POST',
                         body: formData
                     }).then(response => response.json())
-                    .then(data => {
-                        alert(data.message);
-                        closeModal();
-                        location.reload(); 
-                    });
+                        .then(data => {
+                            alert(data.message);
+                            closeModal();
+                            location.reload();
+                        });
                 };
-            } else {
+            } else if (tyle === 'user'){
                 title.textContent = 'Thêm Người Dùng'; // Nếu bạn muốn cho chức năng thêm người dùng
                 form.innerHTML = `
                     <input type="text" id="user_name" placeholder="Tên người dùng" class="form-control" required>
                     <input type="email" id="user_email" placeholder="Email" class="form-control" required>
                     <button type="submit" class="btn btn-primary">Lưu</button>
                 `;
+            } else if() {
+
+            }else {
+
             }
-            
+
         }
         function closeModal() {
             const modal = document.getElementById('admin-modal');
@@ -433,22 +479,22 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'ADMIN') {
                     },
                     body: `product_id=${product_id}`,
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        alert(data.message);
-                        // Xóa dòng sản phẩm trong bảng
-                        const row = document.querySelector(`#product-list tr[data-product-id="${product_id}"]`);
-                        if (row) row.remove();
-                        location.reload();
-                    } else {
-                        alert(data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Có lỗi xảy ra:', error);
-                    alert('Không thể xóa sản phẩm. Vui lòng thử lại.');
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert(data.message);
+                            // Xóa dòng sản phẩm trong bảng
+                            const row = document.querySelector(`#product-list tr[data-product-id="${product_id}"]`);
+                            if (row) row.remove();
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Có lỗi xảy ra:', error);
+                        alert('Không thể xóa sản phẩm. Vui lòng thử lại.');
+                    });
             }
         }
         function loadCategories() {
@@ -613,6 +659,171 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'ADMIN') {
 
         // Gọi hàm loadOrders() khi tab được hiển thị
         document.querySelector('.tab-button[onclick="showTab(\'orders\')"]').addEventListener('click', loadOrders);
+
+        // CRUD User fuctions
+        function editUser(userId) {
+            fetch(`get_user.php?user_id=${userId}`)
+                .then(response => response.json())
+                .then(user => {
+                    const modal = document.getElementById('admin-modal');
+                    const form = document.getElementById('admin-form');
+                    const title = document.getElementById('modal-title');
+
+                    title.textContent = 'Sửa Người Dùng';
+                    modal.style.display = 'block';
+
+                    form.innerHTML = `
+                <input type="hidden" id="user_id" value="${user.user_id}">
+                <label for="user_fullname">Họ tên:</label>
+                <input type="text" id="user_fullname" value="${user.user_fullname}" placeholder="Họ tên" class="form-control" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" value="${user.email}" placeholder="Email" class="form-control" required>
+                
+                <label for="phone_number">Số điện thoại:</label>
+                <input type="tel" id="phone_number" value="${user.phone_number || ''}" placeholder="Số điện thoại" class="form-control">
+                
+                <label for="user_address">Địa chỉ:</label>
+                <input type="text" id="user_address" value="${user.user_address || ''}" placeholder="Địa chỉ" class="form-control">
+                
+                <label for="user_gender">Giới tính:</label>
+                <select id="user_gender" class="form-control">
+                    <option value="MALE" ${user.user_gender === 'MALE' ? 'selected' : ''}>Nam</option>
+                    <option value="FEMALE" ${user.user_gender === 'FEMALE' ? 'selected' : ''}>Nữ</option>
+                    <option value="OTHER" ${user.user_gender === 'OTHER' ? 'selected' : ''}>Khác</option>
+                </select>
+                
+                <label for="role">Vai trò:</label>
+                <select id="role" class="form-control">
+                    <option value="ADMIN" ${user.role === 'ADMIN' ? 'selected' : ''}>ADMIN</option>
+                    <option value="CUSTOMER" ${user.role === 'CUSTOMER' ? 'selected' : ''}>CUSTOMER</option>
+                </select>
+                
+                <button type="submit" class="btn btn-primary mt-3">Lưu</button>
+            `;
+
+                    form.onsubmit = function (e) {
+                        e.preventDefault();
+                        const formData = new FormData();
+                        formData.append('user_id', document.getElementById('user_id').value);
+                        formData.append('user_fullname', document.getElementById('user_fullname').value);
+                        formData.append('email', document.getElementById('email').value);
+                        formData.append('phone_number', document.getElementById('phone_number').value);
+                        formData.append('user_address', document.getElementById('user_address').value);
+                        formData.append('user_gender', document.getElementById('user_gender').value);
+                        formData.append('role', document.getElementById('role').value);
+
+                        fetch('save_user.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                alert(data.message);
+                                if (data.status === 'success') {
+                                    closeModal();
+                                    loadUsers();
+                                }
+                            });
+                    };
+                });
+        }
+
+        function deleteUser(userId) {
+            if (confirm("Bạn có chắc chắn muốn xóa người dùng này?")) {
+                const formData = new FormData();
+                formData.append('user_id', userId);
+
+                fetch('delete_user.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.status === 'success') {
+                            loadUsers();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Lỗi:', error);
+                        alert('Không thể xóa người dùng. Vui lòng thử lại.');
+                    });
+            }
+        }
+
+        function openModal(type) {
+            if (type === 'user') {
+                const modal = document.getElementById('admin-modal');
+                const form = document.getElementById('admin-form');
+                const title = document.getElementById('modal-title');
+
+                title.textContent = 'Thêm Người Dùng';
+                modal.style.display = 'block';
+
+                form.innerHTML = `
+            <label for="user_fullname">Họ tên:</label>
+            <input type="text" id="user_fullname" placeholder="Họ tên" class="form-control" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Email" class="form-control" required>
+            
+            <label for="password">Mật khẩu:</label>
+            <input type="password" id="password" placeholder="Mật khẩu" class="form-control" required>
+            
+            <label for="phone_number">Số điện thoại:</label>
+            <input type="tel" id="phone_number" placeholder="Số điện thoại" class="form-control">
+            
+            <label for="user_address">Địa chỉ:</label>
+            <input type="text" id="user_address" placeholder="Địa chỉ" class="form-control">
+            
+            <label for="user_gender">Giới tính:</label>
+            <select id="user_gender" class="form-control">
+                <option value="MALE">Nam</option>
+                <option value="FEMALE">Nữ</option>
+                <option value="OTHER">Khác</option>
+            </select>
+            
+            <label for="role">Vai trò:</label>
+            <select id="role" class="form-control">
+                <option value="CUSTOMER">CUSTOMER</option>
+                <option value="ADMIN">ADMIN</option>
+            </select>
+            
+            <button type="submit" class="btn btn-primary mt-3">Lưu</button>
+        `;
+
+                form.onsubmit = function (e) {
+                    e.preventDefault();
+                    const formData = new FormData();
+                    formData.append('user_fullname', document.getElementById('user_fullname').value);
+                    formData.append('email', document.getElementById('email').value);
+                    formData.append('password', document.getElementById('password').value);
+                    formData.append('phone_number', document.getElementById('phone_number').value);
+                    formData.append('user_address', document.getElementById('user_address').value);
+                    formData.append('user_gender', document.getElementById('user_gender').value);
+                    formData.append('role', document.getElementById('role').value);
+
+                    fetch('save_user.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message);
+                            if (data.status === 'success') {
+                                closeModal();
+                                loadUsers();
+                            }
+                        });
+                };
+            }
+        }
+
+        // CRUD categories
+
+        // CRUD brands
+
     </script>
     <div class="footer">
         <footer class="text-center text-lg-start bg-body-tertiary text-muted">
@@ -664,4 +875,5 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'ADMIN') {
                 </div>
             </section>
 </body>
+
 </html>
