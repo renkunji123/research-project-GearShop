@@ -1,42 +1,19 @@
 <?php
+ $servername = "localhost";
+ $username = "root";
+ $password = "";
+ $dbname = "ggshopdb";
+
+ $conn = new mysqli($servername, $username, $password, $dbname);
+ if ($conn->connect_error) {
+     die("Kết nối thất bại: " . $conn->connect_error);
+ }
 session_start(); 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Nhận thông tin đăng nhập từ form
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    // Kết nối cơ sở dữ liệu
-    $conn = new mysqli("localhost", "root", "", "ggshopdb");
-    if ($conn->connect_error) {
-        die("Kết nối thất bại: " . $conn->connect_error);
-    }
-    $sql = "SELECT * FROM users WHERE username = ? AND password = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $username, $password);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows == 1) {
-        $user = $result->fetch_assoc();
-        $_SESSION['user_id'] = $user['user_id'];
-        $_SESSION['user'] = array(
-            'name' => $user['name'],
-            'role' => $user['role']
-        );
-        header("Location: adminPage.php");
-        exit();
-    } else {
-        echo "Tên đăng nhập hoặc mật khẩu không đúng.";
-    }
+
+if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'ADMIN') {
+    echo "Bạn không có quyền truy cập trang này.";
+    exit();
 }
-
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "ggshopdb";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    if ($conn->connect_error) {
-        die("Kết nối thất bại: " . $conn->connect_error);
-    }
     $sql = "SELECT p.product_id, p.product_name, p.product_description,  p.product_image, p.product_price, p.stock_quantity, c.category_name, b.brand_name 
             FROM products p 
             JOIN categories c ON p.category_id = c.category_id 
@@ -272,7 +249,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <th>Địa chỉ giao hàng</th>
                     <th>Ngày giao hàng</th>
                     <th>Trạng thái giao hàng</th>
-                    <th>Thao tác</th>
+                    
                 </tr>
             </thead>
             <tbody id="order-list">
@@ -620,10 +597,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <td>${order.shipment_address}</td>
                                     <td>${order.delivery_date || 'Chưa giao'}</td>
                                     <td>${order.shipment_status}</td>
-                                    <td>
-                                        <button class='btn btn-warning' onclick="editOrder(${order.order_id})">Sửa</button>
-                                        <button class='btn btn-danger' onclick="deleteOrder(${order.order_id})">Xóa</button>
-                                    </td>
+                                    
                                 </tr>`;
                             orderList.insertAdjacentHTML('beforeend', row);
                         });
