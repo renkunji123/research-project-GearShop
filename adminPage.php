@@ -424,7 +424,7 @@ $result = $conn->query($sql);
                             });
                         });
                 }
-                form.onsubmit = function(e) {
+                form.onsubmit = function (e) {
                     e.preventDefault();
                     const productName = document.getElementById('product_name').value;
                     const productImage = document.getElementById('product_image').value;
@@ -444,9 +444,9 @@ $result = $conn->query($sql);
                     formData.append('brand_id', productBrand);
                     if (productId) formData.append('product_id', productId);
                     fetch('save_product.php', {
-                            method: 'POST',
-                            body: formData
-                        }).then(response => response.json())
+                        method: 'POST',
+                        body: formData
+                    }).then(response => response.json())
                         .then(data => {
                             alert(data.message);
                             closeModal();
@@ -488,7 +488,7 @@ $result = $conn->query($sql);
             
             <button type="submit" class="btn btn-primary mt-3">Lưu</button>
         `;
-        form.onsubmit = function (e) {
+                form.onsubmit = function (e) {
                     e.preventDefault();
                     const formData = new FormData();
                     formData.append('user_fullname', document.getElementById('user_fullname').value);
@@ -522,12 +522,12 @@ $result = $conn->query($sql);
         function deleteProduct(product_id) {
             if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
                 fetch('delete_product.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `product_id=${product_id}`,
-                    })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `product_id=${product_id}`,
+                })
                     .then(response => response.json())
                     .then(data => {
                         if (data.status === 'success') {
@@ -753,7 +753,7 @@ $result = $conn->query($sql);
                 <button type="submit" class="btn btn-primary mt-3">Lưu</button>
             `;
 
-                    form.onsubmit = function(e) {
+                    form.onsubmit = function (e) {
                         e.preventDefault();
                         const formData = new FormData();
                         formData.append('user_id', document.getElementById('user_id').value);
@@ -765,9 +765,9 @@ $result = $conn->query($sql);
                         formData.append('role', document.getElementById('role').value);
 
                         fetch('save_user.php', {
-                                method: 'POST',
-                                body: formData
-                            })
+                            method: 'POST',
+                            body: formData
+                        })
                             .then(response => response.json())
                             .then(data => {
                                 alert(data.message);
@@ -786,9 +786,9 @@ $result = $conn->query($sql);
                 formData.append('user_id', userId);
 
                 fetch('delete_user.php', {
-                        method: 'POST',
-                        body: formData
-                    })
+                    method: 'POST',
+                    body: formData
+                })
                     .then(response => response.json())
                     .then(data => {
                         alert(data.message);
