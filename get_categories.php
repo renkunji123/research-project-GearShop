@@ -6,26 +6,23 @@ $password = "";
 $dbname = "ggshopdb";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
-
-// Kiểm tra kết nối
 if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
+    die(json_encode(["error" => "Kết nối thất bại: " . $conn->connect_error]));
 }
 
-// Truy vấn danh sách categories
-$sql = "SELECT category_id, category_name FROM categories";
-$result = $conn->query($sql);
-
-$categories = [];
+$category_id = intval($_GET['category_id']);
+$sql = "SELECT * FROM categories WHERE category_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $category_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $categories[] = $row; // Thêm category vào danh sách
-    }
+    echo json_encode($result->fetch_assoc());
+} else {
+    echo json_encode(["error" => "Không tìm thấy danh mục"]);
 }
 
-// Trả về danh sách categories dưới dạng JSON
-echo json_encode($categories);
-
+$stmt->close();
 $conn->close();
 ?>
