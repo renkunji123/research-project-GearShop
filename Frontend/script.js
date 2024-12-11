@@ -105,13 +105,7 @@ increaseQty.addEventListener('click', () => {
     productQty.value = parseInt(productQty.value) + 1;
 });
 
-// Add to Cart
-addToCartBtn.addEventListener('click', () => {
-    const qty = productQty.value;
-    alert(`Added ${qty} item(s) to cart!`);
-    modal.style.display = 'none';
-    backdrop.style.display = 'none';
-});
+
 
 document.querySelectorAll('#increaseQty').forEach(button => {
   button.addEventListener('click', function () {
