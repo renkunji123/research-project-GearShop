@@ -276,7 +276,6 @@ $result = $conn->query($sql);
     </div>
     <div class="tab-content" id="orders" style="display: none;">
         <h2>Quản lý Đơn hàng</h2>
-        <button class="btn btn-primary add-btn" onclick="openModal('order')">➕ Thêm đơn hàng</button>
         <table class="data-table">
             <thead>
                 <tr>
@@ -350,7 +349,6 @@ $result = $conn->query($sql);
                                 
                                 <label for="category_id">Danh Mục:</label>
                                 <select id="category_id" class="form-control" required>
-                                    <option value='${data.category_id}'>${data.category_name} </option>
                                 </select>
                                 <label for="brand_id">Thương Hiệu:</label>
                                 <select id="brand_id" class="form-control" required>
@@ -364,7 +362,7 @@ $result = $conn->query($sql);
                                 .then(categories => {
                                     const categorySelect = document.getElementById('category_id');
                                     categories.forEach(category => {
-                                        if (category.category_id != data.category_id) {
+                                        if (categories.category_id != data.category_id) {
                                             categorySelect.innerHTML += `<option value="${category.category_id}">${category.category_name}</option>`;
                                         }
                                     });
@@ -398,7 +396,8 @@ $result = $conn->query($sql);
                             <input type="number" id="product_stock" class="form-control" placeholder="Số lượng" required>
                             
                             <label for="category_id">Danh Mục:</label>
-                            <select id="category_id" class="form-control" required></select>
+                            <select id="category_id" class="form-control" required>
+                            </select>
 
                             <label for="brand_id">Thương Hiệu:</label>
                             <select id="brand_id" class="form-control" required></select>
@@ -406,7 +405,7 @@ $result = $conn->query($sql);
                             <input type="hidden" id="product_id">
                             <button type="submit" class="btn" style="background-color: green; color: white;">Lưu</button>
                         `;
-                    fetch('get_categories.php')
+                    fetch('getCategories.php')
                         .then(response => response.json())
                         .then(categories => {
                             const categorySelect = document.getElementById('category_id');
@@ -871,7 +870,7 @@ $result = $conn->query($sql);
 
         // CRUD categories
         function editCategory(category_id) {
-            fetch(`get_categories.php?category_id=${category_id}`)
+            fetch(`edit_categories.php?category_id=${category_id}`)
                 .then(response => response.json())
                 .then(categories => {
                     const modal = document.getElementById('admin-modal');
@@ -944,7 +943,7 @@ $result = $conn->query($sql);
         }
         // CRUD brands
         function editBrand(brand_id) {
-            fetch(`get_brands.php?brand_id=${brand_id}`)
+            fetch(`edit_brands.php?brand_id=${brand_id}`)
                 .then(response => response.json())
                 .then(brands => {
                     const modal = document.getElementById('admin-modal');
