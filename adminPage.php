@@ -712,7 +712,7 @@ $result = $conn->query($sql);
                                     <td>${user.role}</td>
                                     <td>
                                         <button class='btn btn-warning' onclick="editUser(${user.user_id})">Sửa</button>
-                                        <button class='btn btn-danger' onclick="deleteUser(${user.user_id})">Xóa</button>
+                                        
                                     </td>
                                 </tr>`;
                             userList.insertAdjacentHTML('beforeend', row);
@@ -789,23 +789,19 @@ $result = $conn->query($sql);
                     form.innerHTML = `
                 <input type="hidden" id="user_id" value="${user.user_id}">
                 <label for="user_fullname">Họ tên:</label>
-                <input type="text" id="user_fullname" value="${user.user_fullname}" placeholder="Họ tên" class="form-control" required>
+                <input type="text" id="user_fullname" value="${user.user_fullname}" placeholder="Họ tên" class="form-control" readonly >
                 
                 <label for="email">Email:</label>
-                <input type="email" id="email" value="${user.email}" placeholder="Email" class="form-control" required>
+                <input type="email" id="email" value="${user.email}" placeholder="Email" class="form-control" readonly>
                 
                 <label for="phone_number">Số điện thoại:</label>
-                <input type="tel" id="phone_number" value="${user.phone_number || ''}" placeholder="Số điện thoại" class="form-control">
+                <input type="tel" id="phone_number" value="${user.phone_number || ''}" placeholder="Số điện thoại" class="form-control" readonly>
                 
                 <label for="user_address">Địa chỉ:</label>
-                <input type="text" id="user_address" value="${user.user_address || ''}" placeholder="Địa chỉ" class="form-control">
+                <input type="text" id="user_address" value="${user.user_address || ''}" placeholder="Địa chỉ" class="form-control" readonly>
                 
                 <label for="user_gender">Giới tính:</label>
-                <select id="user_gender" class="form-control">
-                    <option value="MALE" ${user.user_gender === 'MALE' ? 'selected' : ''}>Nam</option>
-                    <option value="FEMALE" ${user.user_gender === 'FEMALE' ? 'selected' : ''}>Nữ</option>
-                    <option value="OTHER" ${user.user_gender === 'OTHER' ? 'selected' : ''}>Khác</option>
-                </select>
+                <input type="text" id="user_gender" value="${user.user_gender || ''}" placeholder="Giới Tính" class="form-control" readonly>
                 
                 <label for="role">Vai trò:</label>
                 <select id="role" class="form-control">
