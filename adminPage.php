@@ -136,9 +136,9 @@ $result = $conn->query($sql);
                                         Profile
                                     </a></li>
                                 <?php if ($_SESSION['user']['role'] === 'ADMIN'): ?>
-                                    <li><a class="dropdown-item" href="admin_dashboard.php">
+                                    <!-- <li><a class="dropdown-item" href="admin_dashboard.php" >
                                             <i class="bi bi-shield-lock"></i> Admin
-                                        </a></li>
+                                        </a></li> -->
                                 <?php endif; ?>
                                 <li>
                                     <hr class="dropdown-divider">
