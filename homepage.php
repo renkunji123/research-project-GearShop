@@ -17,7 +17,6 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <script src="path/to/jquery.min.js"></script>
     <script>
         // Fetch product hotdeal
         fetch('fetch_products.php') // Chú ý sử dụng đường dẫn thích hợp
@@ -69,7 +68,8 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                                 })
                                 .then(response => response.text())
                                 .then(data => {
-                                    alert(data); // Hiển thị thông báo
+                                    alert(data);
+                                    loadCount(); // Hiển thị thông báo
                                 })
                                 .catch(error => console.error('Error:', error));
                         });
@@ -226,7 +226,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                 <!-- Các nút hành động -->
                 <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-end gap-2">
                     <!-- Nút Cart -->
-                    <a href="/Frontend/cart.html" class="btn btn-info d-flex align-items-center position-relative">
+                    <a href="cart.php" class="btn btn-info d-flex align-items-center position-relative">
                         <i class="bi bi-cart"></i>
                         <span class="ms-2 d-none d-md-inline">Cart</span>
                         <!-- Hiển thị số lượng sản phẩm trong giỏ hàng -->
@@ -801,7 +801,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                 closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
                 chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
 
-                document.addEventListener("DOMContentLoaded", function() {
+                document.addEventListener("DOMContentLoaded", function(loadCount) {
                     // Gửi yêu cầu lấy số lượng sản phẩm trong giỏ hàng
                     fetch('get_cart_count.php') // Đảm bảo file PHP này trả về số lượng giỏ hàng
                         .then(response => response.json())
