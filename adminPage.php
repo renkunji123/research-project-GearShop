@@ -123,10 +123,6 @@ $result = $conn->query($sql);
                     </form>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-end gap-2">
-                    <a href="/Frontend/cart.html" class="btn btn-info d-flex align-items-center">
-                        <i class="bi bi-cart"></i>
-                        <span class="ms-2 d-none d-md-inline">Cart</span>
-                    </a>
                     <?php if (isset($_SESSION['user'])): ?>
                         <div class="dropdown">
                             <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="userDropdown"
