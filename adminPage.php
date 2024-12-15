@@ -276,7 +276,6 @@ $result = $conn->query($sql);
     </div>
     <div class="tab-content" id="orders" style="display: none;">
         <h2>Quản lý Đơn hàng</h2>
-        <button class="btn btn-primary add-btn" onclick="openModal('order')">➕ Thêm đơn hàng</button>
         <table class="data-table">
             <thead>
                 <tr>
@@ -350,7 +349,6 @@ $result = $conn->query($sql);
                                 
                                 <label for="category_id">Danh Mục:</label>
                                 <select id="category_id" class="form-control" required>
-                                    <option value='${data.category_id}'>${data.category_name} </option>
                                 </select>
                                 <label for="brand_id">Thương Hiệu:</label>
                                 <select id="brand_id" class="form-control" required>
@@ -364,7 +362,7 @@ $result = $conn->query($sql);
                                 .then(categories => {
                                     const categorySelect = document.getElementById('category_id');
                                     categories.forEach(category => {
-                                        if (category.category_id != data.category_id) {
+                                        if (categories.category_id != data.category_id) {
                                             categorySelect.innerHTML += `<option value="${category.category_id}">${category.category_name}</option>`;
                                         }
                                     });
@@ -398,7 +396,8 @@ $result = $conn->query($sql);
                             <input type="number" id="product_stock" class="form-control" placeholder="Số lượng" required>
                             
                             <label for="category_id">Danh Mục:</label>
-                            <select id="category_id" class="form-control" required></select>
+                            <select id="category_id" class="form-control" required>
+                            </select>
 
                             <label for="brand_id">Thương Hiệu:</label>
                             <select id="brand_id" class="form-control" required></select>
@@ -406,7 +405,7 @@ $result = $conn->query($sql);
                             <input type="hidden" id="product_id">
                             <button type="submit" class="btn" style="background-color: green; color: white;">Lưu</button>
                         `;
-                    fetch('get_categories.php')
+                    fetch('getCategories.php')
                         .then(response => response.json())
                         .then(categories => {
                             const categorySelect = document.getElementById('category_id');
@@ -424,7 +423,7 @@ $result = $conn->query($sql);
                             });
                         });
                 }
-                form.onsubmit = function(e) {
+                form.onsubmit = function (e) {
                     e.preventDefault();
                     const productName = document.getElementById('product_name').value;
                     const productImage = document.getElementById('product_image').value;
@@ -444,9 +443,9 @@ $result = $conn->query($sql);
                     formData.append('brand_id', productBrand);
                     if (productId) formData.append('product_id', productId);
                     fetch('save_product.php', {
-                            method: 'POST',
-                            body: formData
-                        }).then(response => response.json())
+                        method: 'POST',
+                        body: formData
+                    }).then(response => response.json())
                         .then(data => {
                             alert(data.message);
                             closeModal();
@@ -457,38 +456,37 @@ $result = $conn->query($sql);
                 title.textContent = 'Thêm Người Dùng';
                 modal.style.display = 'block';
                 form.innerHTML = `
-                <label for="user_fullname">Họ tên:</label>
-                <input type="text" id="user_fullname" placeholder="Họ tên" class="form-control" required>
-                
-                <label for="email">Email:</label>
-                <input type="email" id="email" placeholder="Email" class="form-control" required>
-                
-                <label for="password">Mật khẩu:</label>
-                <input type="password" id="password" placeholder="Mật khẩu" class="form-control" required>
-                
-                <label for="phone_number">Số điện thoại:</label>
-                <input type="tel" id="phone_number" placeholder="Số điện thoại" class="form-control">
-                
-                <label for="user_address">Địa chỉ:</label>
-                <input type="text" id="user_address" placeholder="Địa chỉ" class="form-control">
-                
-                <label for="user_gender">Giới tính:</label>
-                <select id="user_gender" class="form-control">
-                    <option value="MALE">Nam</option>
-                    <option value="FEMALE">Nữ</option>
-                    <option value="OTHER">Khác</option>
-                </select>
-                
-                <label for="role">Vai trò:</label>
-                <select id="role" class="form-control">
-                    <option value="CUSTOMER">CUSTOMER</option>
-                    <option value="ADMIN">ADMIN</option>
-                </select>
-                
-                <button type="submit" class="btn btn-primary mt-3">Lưu</button>
-                `;
-
-                form.onsubmit = function(e) {
+            <label for="user_fullname">Họ tên:</label>
+            <input type="text" id="user_fullname" placeholder="Họ tên" class="form-control" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Email" class="form-control" required>
+            
+            <label for="password">Mật khẩu:</label>
+            <input type="password" id="password" placeholder="Mật khẩu" class="form-control" required>
+            
+            <label for="phone_number">Số điện thoại:</label>
+            <input type="tel" id="phone_number" placeholder="Số điện thoại" class="form-control">
+            
+            <label for="user_address">Địa chỉ:</label>
+            <input type="text" id="user_address" placeholder="Địa chỉ" class="form-control">
+            
+            <label for="user_gender">Giới tính:</label>
+            <select id="user_gender" class="form-control">
+                <option value="MALE">Nam</option>
+                <option value="FEMALE">Nữ</option>
+                <option value="OTHER">Khác</option>
+            </select>
+            
+            <label for="role">Vai trò:</label>
+            <select id="role" class="form-control">
+                <option value="CUSTOMER">CUSTOMER</option>
+                <option value="ADMIN">ADMIN</option>
+            </select>
+            
+            <button type="submit" class="btn btn-primary mt-3">Lưu</button>
+        `;
+                form.onsubmit = function (e) {
                     e.preventDefault();
                     const formData = new FormData();
                     formData.append('user_fullname', document.getElementById('user_fullname').value);
@@ -500,9 +498,9 @@ $result = $conn->query($sql);
                     formData.append('role', document.getElementById('role').value);
 
                     fetch('save_user.php', {
-                            method: 'POST',
-                            body: formData
-                        })
+                        method: 'POST',
+                        body: formData
+                    })
                         .then(response => response.json())
                         .then(data => {
                             alert(data.message);
@@ -512,40 +510,70 @@ $result = $conn->query($sql);
                             }
                         });
                 };
-            } else if (tyle ==='category') {
-                title.textContent = 'Thêm Người Dùng';
+            } else if (tyle === 'category') {
+                title.textContent = 'Thêm Danh Mục';
                 modal.style.display = 'block';
                 form.innerHTML = `
-                <label for="user_fullname">Họ tên:</label>
-                <input type="text" id="user_fullname" placeholder="Họ tên" class="form-control" required>
+                <label for="category_name">Tên danh mục: </label>
+                <input type="text" id="category_name" placeholder="Danh mục" class="form-control" required>
                 
-                <label for="email">Email:</label>
-                <input type="email" id="email" placeholder="Email" class="form-control" required>
-                
-                <label for="password">Mật khẩu:</label>
-                <input type="password" id="password" placeholder="Mật khẩu" class="form-control" required>
-                
-                <label for="phone_number">Số điện thoại:</label>
-                <input type="tel" id="phone_number" placeholder="Số điện thoại" class="form-control">
-                
-                <label for="user_address">Địa chỉ:</label>
-                <input type="text" id="user_address" placeholder="Địa chỉ" class="form-control">
-                
-                <label for="user_gender">Giới tính:</label>
-                <select id="user_gender" class="form-control">
-                    <option value="MALE">Nam</option>
-                    <option value="FEMALE">Nữ</option>
-                    <option value="OTHER">Khác</option>
-                </select>
-                
-                <label for="role">Vai trò:</label>
-                <select id="role" class="form-control">
-                    <option value="CUSTOMER">CUSTOMER</option>
-                    <option value="ADMIN">ADMIN</option>
-                </select>
-                
+                <label for="category_description">Mô tả danh mục:</label>
+                <input type="text" id="category_description" placeholder="Mô tả danh mục" class="form-control" required>
+
                 <button type="submit" class="btn btn-primary mt-3">Lưu</button>
                 `;
+                form.onsubmit = function (e) {
+                    e.preventDefault();
+                    const formData = new FormData();
+                    formData.append('category_name', document.getElementById('category_name').value);
+                    formData.append('category_description', document.getElementById('category_description').value);
+
+                    fetch('save_category.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message);
+                            if (data.status === 'success') {
+                                closeModal();
+                                loadUsers();
+                                location.reload();
+                            }
+                        });
+                };
+            } else if (tyle === 'brand') {
+                title.textContent = 'Thêm Thương Hiệu';
+                modal.style.display = 'block';
+                form.innerHTML = `
+                <label for="brand_name">Thương hiệu: </label>
+                <input type="text" id="brand_name" placeholder="Thương hiệu" class="form-control" required>
+                
+                <label for="brand_description">Mô tả thương hiệu: </label>
+                <input type="text" id="brand_description" placeholder="Mô tả thương hiệu" class="form-control" required>
+               
+                <button type="submit" class="btn btn-primary mt-3">Lưu</button>
+                `;
+                form.onsubmit = function (e) {
+                    e.preventDefault();
+                    const formData = new FormData();
+                    formData.append('brand_name', document.getElementById('brand_name').value);
+                    formData.append('brand_description', document.getElementById('brand_description').value);
+
+                    fetch('save_brand.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message);
+                            if (data.status === 'success') {
+                                closeModal();
+                                loadUsers();
+                                location.reload();
+                            }
+                        });
+                };
             }
         }
 
@@ -557,12 +585,12 @@ $result = $conn->query($sql);
         function deleteProduct(product_id) {
             if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
                 fetch('delete_product.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `product_id=${product_id}`,
-                    })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `product_id=${product_id}`,
+                })
                     .then(response => response.json())
                     .then(data => {
                         if (data.status === 'success') {
@@ -788,7 +816,7 @@ $result = $conn->query($sql);
                 <button type="submit" class="btn btn-primary mt-3">Lưu</button>
             `;
 
-                    form.onsubmit = function(e) {
+                    form.onsubmit = function (e) {
                         e.preventDefault();
                         const formData = new FormData();
                         formData.append('user_id', document.getElementById('user_id').value);
@@ -800,9 +828,9 @@ $result = $conn->query($sql);
                         formData.append('role', document.getElementById('role').value);
 
                         fetch('save_user.php', {
-                                method: 'POST',
-                                body: formData
-                            })
+                            method: 'POST',
+                            body: formData
+                        })
                             .then(response => response.json())
                             .then(data => {
                                 alert(data.message);
@@ -821,9 +849,9 @@ $result = $conn->query($sql);
                 formData.append('user_id', userId);
 
                 fetch('delete_user.php', {
-                        method: 'POST',
-                        body: formData
-                    })
+                    method: 'POST',
+                    body: formData
+                })
                     .then(response => response.json())
                     .then(data => {
                         alert(data.message);
@@ -840,77 +868,153 @@ $result = $conn->query($sql);
             }
         }
 
-        // function openModal(type) {
-        //     if (tyle === 'user') {
-        //         const modal = document.getElementById('admin-modal');
-        //         const form = document.getElementById('admin-form');
-        //         const title = document.getElementById('modal-title');
-
-        //         title.textContent = 'Thêm Người Dùng';
-        //         modal.style.display = 'block';
-
-        //         form.innerHTML = `
-        //     <label for="user_fullname">Họ tên:</label>
-        //     <input type="text" id="user_fullname" placeholder="Họ tên" class="form-control" required>
-
-        //     <label for="email">Email:</label>
-        //     <input type="email" id="email" placeholder="Email" class="form-control" required>
-
-        //     <label for="password">Mật khẩu:</label>
-        //     <input type="password" id="password" placeholder="Mật khẩu" class="form-control" required>
-
-        //     <label for="phone_number">Số điện thoại:</label>
-        //     <input type="tel" id="phone_number" placeholder="Số điện thoại" class="form-control">
-
-        //     <label for="user_address">Địa chỉ:</label>
-        //     <input type="text" id="user_address" placeholder="Địa chỉ" class="form-control">
-
-        //     <label for="user_gender">Giới tính:</label>
-        //     <select id="user_gender" class="form-control">
-        //         <option value="MALE">Nam</option>
-        //         <option value="FEMALE">Nữ</option>
-        //         <option value="OTHER">Khác</option>
-        //     </select>
-
-        //     <label for="role">Vai trò:</label>
-        //     <select id="role" class="form-control">
-        //         <option value="CUSTOMER">CUSTOMER</option>
-        //         <option value="ADMIN">ADMIN</option>
-        //     </select>
-
-        //     <button type="submit" class="btn btn-primary mt-3">Lưu</button>
-        // `;
-
-        //         form.onsubmit = function (e) {
-        //             e.preventDefault();
-        //             const formData = new FormData();
-        //             formData.append('user_fullname', document.getElementById('user_fullname').value);
-        //             formData.append('email', document.getElementById('email').value);
-        //             formData.append('password', document.getElementById('password').value);
-        //             formData.append('phone_number', document.getElementById('phone_number').value);
-        //             formData.append('user_address', document.getElementById('user_address').value);
-        //             formData.append('user_gender', document.getElementById('user_gender').value);
-        //             formData.append('role', document.getElementById('role').value);
-
-        //             fetch('save_user.php', {
-        //                 method: 'POST',
-        //                 body: formData
-        //             })
-        //                 .then(response => response.json())
-        //                 .then(data => {
-        //                     alert(data.message);
-        //                     if (data.status === 'success') {
-        //                         closeModal();
-        //                         loadUsers();
-        //                     }
-        //                 });
-        //         };
-        //     }
-        // }
-
         // CRUD categories
+        function editCategory(category_id) {
+            fetch(`edit_categories.php?category_id=${category_id}`)
+                .then(response => response.json())
+                .then(categories => {
+                    const modal = document.getElementById('admin-modal');
+                    const form = document.getElementById('admin-form');
+                    const title = document.getElementById('modal-title');
 
+                    title.textContent = 'Sửa Danh Mục';
+                    modal.style.display = 'block';
+
+                    form.innerHTML = `
+                <input type="hidden" id="category_id" value="${categories.category_id}">
+                <label for="category_name">Danh mục: </label>
+                <input type="text" id="category_name" value="${categories.category_name}" placeholder="Danh mục" class="form-control" required>
+                
+                <label for="category_description"Mô tả danh mục: </label>
+                <input type="text" id="category_description" value="${categories.category_description}" placeholder="Mô tả danh mục" class="form-control" required>
+                
+                <button type="submit" class="btn btn-primary mt-3">Lưu</button>
+            `;
+
+                    form.onsubmit = function (e) {
+                        e.preventDefault();
+                        const formData = new FormData();
+                        formData.append('category_id', document.getElementById('category_id').value);
+                        formData.append('category_name', document.getElementById('category_name').value);
+                        formData.append('category_description', document.getElementById('category_description').value);
+
+                        fetch('save_category.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                alert(data.message);
+                                if (data.status === 'success') {
+                                    closeModal();
+                                    loadUsers();
+                                    location.reload();
+                                }
+                            });
+                    };
+                });
+        }
+
+        function deleteCategory(category_id) {
+            if (confirm("Bạn có chắc chắn muốn xóa danh mục này?")) {
+                fetch('delete_category.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `category_id=${category_id}`,
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert(data.message);
+                            const row = document.querySelector(`#product-list tr[data-product-id="${category_id}"]`);
+                            if (row) row.remove();
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Có lỗi xảy ra:', error);
+                        alert('Không thể xóa sản phẩm. Vui lòng thử lại.');
+                    });
+            }
+        }
         // CRUD brands
+        function editBrand(brand_id) {
+            fetch(`edit_brands.php?brand_id=${brand_id}`)
+                .then(response => response.json())
+                .then(brands => {
+                    const modal = document.getElementById('admin-modal');
+                    const form = document.getElementById('admin-form');
+                    const title = document.getElementById('modal-title');
+
+                    title.textContent = 'Sửa Thương Hiệu';
+                    modal.style.display = 'block';
+
+                    form.innerHTML = `
+                <input type="hidden" id="brand_id" value="${brands.brand_id}">
+                <label for="brand_name">Thương hiệu: </label>
+                <input type="text" id="brand_name" value="${brands.brand_name}" placeholder="Thương hiệu" class="form-control" required>
+                
+                <label for="brand_description"Mô tả danh mục: </label>
+                <input type="text" id="brand_description" value="${brands.brand_description}" placeholder="Mô tả thương hiệu" class="form-control" required>
+                
+                <button type="submit" class="btn btn-primary mt-3">Lưu</button>
+            `;
+
+                    form.onsubmit = function (e) {
+                        e.preventDefault();
+                        const formData = new FormData();
+                        formData.append('brand_id', document.getElementById('brand_id').value);
+                        formData.append('brand_name', document.getElementById('brand_name').value);
+                        formData.append('brand_description', document.getElementById('brand_description').value);
+
+                        fetch('save_brand.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                alert(data.message);
+                                if (data.status === 'success') {
+                                    closeModal();
+                                    loadUsers();
+                                    location.reload();
+                                }
+                            });
+                    };
+                });
+        }
+
+        function deleteBrand(brand_id) {
+            if (confirm("Bạn có chắc chắn muốn xóa thương hiệu này?")) {
+                fetch('delete_brand.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `brand_id=${brand_id}`,
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert(data.message);
+                            const row = document.querySelector(`#product-list tr[data-product-id="${brand_id}"]`);
+                            if (row) row.remove();
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Có lỗi xảy ra:', error);
+                        alert('Không thể xóa sản phẩm. Vui lòng thử lại.');
+                    });
+            }
+        }
+        
     </script>
     <div class="footer">
         <footer class="text-center text-lg-start bg-body-tertiary text-muted">
