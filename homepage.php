@@ -33,7 +33,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">${product.product_name}</h5>
-                            <p class="card-text">$${product.product_price}</p>
+                            <p class="card-text">${product.product_price} VND</p>
                             <button class="btn btn-primary add-to-cart" 
                                 data-product-id="${product.product_id}"
                                 data-unit-price="${product.product_price}"
@@ -93,7 +93,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                             <div class="custom-card-body">
                                 <h5 class="card-title">${product.product_name}</h5>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <span class="custom-price">$${product.product_price}</span>
+                                    <span class="custom-price">${product.product_price} VND</span>
                                     <button class="btn btn-primary add-to-cart1" data-product-id="${product.product_id}"
                                 data-unit-price="${product.product_price}">➕🛒</button>
                                 </div>
@@ -151,7 +151,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                             <h5 class="custom-card-title">${product.product_name}</h5>
                             <p class="custom-card-text">${product.product_description}</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <span class="custom-price">$${product.product_price}</span>
+                                <span class="custom-price">${product.product_price} VND</span>
                                 <button class="btn btn-primary add-to-cart2" data-product-id="${product.product_id}"
                                 data-unit-price="${product.product_price}">➕🛒</button>
                             </div>

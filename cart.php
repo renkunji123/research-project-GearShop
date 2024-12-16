@@ -107,25 +107,81 @@ session_start();
 
         </div>
 
-
-
         <!-- Tổng cộng -->
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <a href="/Frontend/home_page.html" class="btn btn-outline-primary">Tiếp tục mua sắm</a>
-            </div>
-            <div class="col-md-6 text-end">
-                <h4>
-                    <div class="fw-bold" id="totalPrice">Tổng tiền: 0 VND</div>
-                </h4>
-                <button class="btn btn-primary btn-lg mt-3">Thanh toán</button>
-            </div>
+        <div>
+            <?php require_once("../research-project-GearShop/vnpay_php/config.php"); ?>
+            <div class="container">
+                <div class="table-responsive">
+                    <form action="../research-project-GearShop/vnpay_php/vnpay_create_payment.php" id="frmCreateOrder" method="post">
+                        <div class="container mt-4">
+                            <!-- Tiếp tục mua sắm -->
+                            <div class="row">
+                                <div class="col-md-6 text-start">
+                                    <a href="/Frontend/home_page.html" class="btn btn-outline-primary btn-lg">Tiếp tục mua sắm</a>
+                                </div>
 
+                                <!-- Tổng tiền -->
+                                <div class="col-md-6 text-end">
+                                    
+                                    <div class="input-group mb-3 ">
+                                        <span style="font-size: 20px;" class="fw-bold input-group-text">Tổng Tiền</span>
+                                        <input class="form-control fw-bold" style="font-size: 20px;" data-val="true" data-val-number="The field Amount must be a number." data-val-required="The Amount field is required." id="amount" max="100000000" min="1" name="amount" type="number" readonly />
+                                        <span style="font-size: 20px;" class="fw-bold input-group-text">VND</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cách thanh toán -->
+                            <div class="form-group mb-3">
+                                <h5 class="fw-bold">Cách 1: Chuyển hướng sang Cổng VNPAY chọn phương thức thanh toán</h5>
+                                <div class="form-check">
+                                    <input type="radio" checked="true" id="bankCode1" name="bankCode" class="form-check-input" value="">
+                                    <label for="bankCode1" class="form-check-label">Cổng thanh toán VNPAYQR</label>
+                                </div>
+
+                                <h5 class="fw-bold mt-3">Cách 2: Tách phương thức tại site của đơn vị kết nối</h5>
+                                <div class="form-check">
+                                    <input type="radio" id="bankCode2" name="bankCode" class="form-check-input" value="VNPAYQR">
+                                    <label for="bankCode2" class="form-check-label">Thanh toán bằng ứng dụng hỗ trợ VNPAYQR</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" id="bankCode3" name="bankCode" class="form-check-input" value="VNBANK">
+                                    <label for="bankCode3" class="form-check-label">Thanh toán qua thẻ ATM/Tài khoản nội địa</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" id="bankCode4" name="bankCode" class="form-check-input" value="INTCARD">
+                                    <label for="bankCode4" class="form-check-label">Thanh toán qua thẻ quốc tế</label>
+                                </div>
+                            </div>
+
+                            <!-- Ngôn ngữ giao diện -->
+                            <div class="form-group mb-3" hidden>
+                                <h5 class="fw-bold">Chọn ngôn ngữ giao diện thanh toán:</h5>
+                                <div class="form-check">
+                                    <input type="radio" checked="true" id="language-vn" name="language" class="form-check-input" value="vn">
+                                    <label for="language-vn" class="form-check-label">Tiếng Việt</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" id="language-en" name="language" class="form-check-input" value="en">
+                                    <label for="language-en" class="form-check-label">Tiếng Anh</label>
+                                </div>
+                            </div>
+
+                            <!-- Nút Thanh toán -->
+                            <div class="col-md-12 text-end">
+                                <button type="submit" class=" btn btn-primary btn-lg mt-4 ">Thanh toán</button>
+                            </div>
+                        </div>
+
+                </div>
+                </form>
+            </div>
         </div>
+
+
     </div>
 
-
-
+    </div>
     <div class="footer">
         <!-- Footer -->
         <footer class="text-center text-lg-start bg-body-tertiary text-muted">
@@ -272,27 +328,27 @@ session_start();
                                     total += item.cart_item_quantity * item.product_price;
 
                                     cartContainer.innerHTML += `
-                        <div class="row align-items-center mb-4 border-bottom pb-3">
-                            <div class="col-2">
-                                <img src="${item.product_image}" alt="${item.product_name}" class="img-fluid rounded shadow-sm">
-                            </div>
-                            <div class="col-4">
-                                <h5 class="mb-1 fw-bold">${item.product_name}</h5>
-                            </div>
-                            <div class="col-2">
-                                <span class="price text-success fw-bold fs-5">${item.product_price} $</span>
-                            </div>
-                            <div class="col-2">
-                                <input type="number" class="form-control mx-2 text-center" value="${item.cart_item_quantity}" min="1" onchange="updateCart(${item.product_id}, this.value)">
-                            </div>
-                            <div class="col-2 text-end">
-                                <button class="btn btn-danger btn-sm" onclick="removeFromCart(${item.product_id},${item.cart_id})">Xóa</button>
-                            </div>
-                        </div>`;
+                                    <div class="row align-items-center mb-4 border-bottom pb-3">
+                                        <div class="col-2">
+                                            <img src="${item.product_image}" alt="${item.product_name}" class="img-fluid rounded shadow-sm">
+                                        </div>
+                                        <div class="col-4">
+                                            <h5 class="mb-1 fw-bold">${item.product_name}</h5>
+                                        </div>
+                                        <div class="col-2">
+                                            <span class="price text-success fw-bold fs-5">${item.product_price} $</span>
+                                        </div>
+                                        <div class="col-2">
+                                            <input type="number" class="form-control mx-2 text-center" value="${item.cart_item_quantity}" min="1" onchange="updateCart(${item.product_id}, this.value)">
+                                        </div>
+                                        <div class="col-2 text-end">
+                                            <button class="btn btn-danger btn-sm" onclick="removeFromCart(${item.product_id},${item.cart_id})">Xóa</button>
+                                        </div>
+                                    </div>`;
                                 });
 
                                 // Cập nhật tổng tiền
-                                document.getElementById('totalPrice').innerHTML = `Tổng tiền: ${total.toLocaleString()} $`;
+                                document.getElementById('amount').value = total;
                             }
                         })
                         .catch(error => {
@@ -336,7 +392,6 @@ session_start();
                             location.reload();
                         });
                 }
-                
             </script>
 
 </body>
