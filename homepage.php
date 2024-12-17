@@ -228,7 +228,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                     <!-- Nút Cart -->
                     <a href="cart.php" class="btn btn-info d-flex align-items-center position-relative">
                         <i class="bi bi-cart"></i>
-                        <span class="ms-2 d-none d-md-inline">Giỏ Hàng</span>
+                        
                         <!-- Hiển thị số lượng sản phẩm trong giỏ hàng -->
                         <span id="cart-count" class="badge bg-danger position-absolute top-0 start-100 translate-middle badge rounded-pill">
                             0 <!-- Đây là giá trị mặc định -->

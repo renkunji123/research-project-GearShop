@@ -49,7 +49,7 @@ session_start();
                     <!-- Nút Cart -->
                     <a href="cart.php" class="btn btn-info d-flex align-items-center position-relative">
                         <i class="bi bi-cart"></i>
-                        <span class="ms-2 d-none d-md-inline">Giỏ Hàng</span>
+                       
                         <!-- Hiển thị số lượng sản phẩm trong giỏ hàng -->
                         <span id="cart-count" class="badge bg-danger position-absolute top-0 start-100 translate-middle badge rounded-pill">
                             0 <!-- Đây là giá trị mặc định -->
@@ -122,7 +122,7 @@ session_start();
 
                                 <!-- Tổng tiền -->
                                 <div class="col-md-6 text-end">
-
+                                    <input type="hidden" name="user_id" value="<?= htmlspecialchars($_SESSION['user']['id']) ?>" />
                                     <div class="input-group mb-3 ">
                                         <span style="font-size: 20px;" class="fw-bold input-group-text">Tổng Tiền</span>
                                         <input class="form-control fw-bold" style="font-size: 20px;" data-val="true" data-val-number="The field Amount must be a number." data-val-required="The Amount field is required." id="amount" max="100000000" min="1" name="amount" type="number" readonly />
