@@ -28,7 +28,7 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>GGshop Home</title>
+    <title>GGshop Trang Chủ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet"
@@ -108,11 +108,11 @@ $result = $conn->query($sql);
     <header class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom">
         <!-- Danh sách liên kết điều hướng -->
         <ul class="nav me-auto">
-            <li><a href="homepage.php" class="nav-link px-2 link-secondary">Home</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
+            <li><a href="homepage.php" class="nav-link px-2 link-secondary">Trang Chủ</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Nổi Bật</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Thanh Toán</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Thông Tin</a></li>
         </ul>
         <div class="container-fluid">
             <div class="row align-items-center">
@@ -133,7 +133,7 @@ $result = $conn->query($sql);
                             <ul class="dropdown-menu" aria-labelledby="userDropdown">
                                 <li><a class="dropdown-item" href="profile.php">
                                         <i class="bi bi-person-fill"></i>
-                                        Profile
+                                        Trang Cá Nhân
                                     </a></li>
                                 <?php if ($_SESSION['user']['role'] === 'ADMIN'): ?>
                                     <!-- <li><a class="dropdown-item" href="admin_dashboard.php" >
@@ -145,16 +145,16 @@ $result = $conn->query($sql);
                                 </li>
                                 <li><a class="dropdown-item" href="logout.php">
                                         <i class="bi bi-door-open"></i>
-                                        Logout
+                                        Đăng Xuất
                                     </a></li>
                             </ul>
                         </div>
                     <?php else: ?>
                         <button type="button" class="btn btn-outline-primary" onclick="window.location.href='login.php';">
-                            <i class="bi bi-box-arrow-in-right"></i> Login
+                            <i class="bi bi-box-arrow-in-right"></i> Đăng Nhập
                         </button>
                         <button type="button" class="btn btn-primary" onclick="window.location.href='register.php';">
-                            <i class="bi bi-person-plus"></i> Register
+                            <i class="bi bi-person-plus"></i> Đăng Ký
                         </button>
                     <?php endif; ?>
                 </div>
@@ -1012,7 +1012,7 @@ $result = $conn->query($sql);
         <footer class="text-center text-lg-start bg-body-tertiary text-muted">
             <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
                 <div class="me-5 d-none d-lg-block">
-                    <span>Get connected with us on social networks:</span>
+                    <span>Kết Nối Với Chúng Tôi Thông Qua Mạng Xã Hội</span>
                 </div>
                 <div>
                     <a href="" class="me-4 text-reset"><i class="fab fa-facebook-f"></i></a>
@@ -1028,27 +1028,26 @@ $result = $conn->query($sql);
                     <div class="row mt-3">
                         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                             <h6 class="text-uppercase fw-bold mb-4">
-                                <i class="fas fa-gem me-3"></i>Company name
+                                <i class="fas fa-gem me-3"></i>Tên Công Ty
                             </h6>
-                            <p>Here you can use rows and columns to organize your footer content. Lorem ipsum
-                                dolor sit amet, consectetur adipisicing elit.</p>
+                            <p>GGSHOP COMPANY</p>
                         </div>
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <h6 class="text-uppercase fw-bold mb-4">Products</h6>
-                            <p><a href="#!" class="text-reset">Angular</a></p>
-                            <p><a href="#!" class="text-reset">React</a></p>
-                            <p><a href="#!" class="text-reset">Vue</a></p>
-                            <p><a href="#!" class="text-reset">Laravel</a></p>
+                            <h6 class="text-uppercase fw-bold mb-4">Sản Phẩm</h6>
+                            <p><a href="#!" class="text-reset">Bàn Phím</a></p>
+                            <p><a href="#!" class="text-reset">Chuột</a></p>
+                            <p><a href="#!" class="text-reset">Tai Nghe</a></p>
+                            <p><a href="#!" class="text-reset">Các Sản Phẩm Khác</a></p>
                         </div>
                         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <h6 class="text-uppercase fw-bold mb-4">Useful links</h6>
-                            <p><a href="#!" class="text-reset">Pricing</a></p>
-                            <p><a href="#!" class="text-reset">Settings</a></p>
-                            <p><a href="#!" class="text-reset">Orders</a></p>
-                            <p><a href="#!" class="text-reset">Help</a></p>
+                            <h6 class="text-uppercase fw-bold mb-4">Hỗ Trợ</h6>
+                            <p><a href="#!" class="text-reset">Thanh Toán</a></p>
+                            <p><a href="#!" class="text-reset">Cài Đặt</a></p>
+                            <p><a href="#!" class="text-reset">Đặt Hàng</a></p>
+                            <p><a href="#!" class="text-reset">Hỗ Trợ</a></p>
                         </div>
                         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                            <h6 class="text-uppercase fw-bold mb-4">Liên Lạc</h6>
                             <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
                             <p><i class="fas fa-envelope me-3"></i>info@example.com</p>
                             <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>

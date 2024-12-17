@@ -190,7 +190,7 @@ $conn->close();
 <body>
   <div class="login-container">
     <form class="login-form" method="POST" action="">
-      <h2>Login to GGShop</h2>
+      <h2>Đăng Nhập Vào GGShop</h2>
       <?php
             if (isset($message)) {
                 echo "<div class='alert $message_type'>$message</div>";
@@ -203,21 +203,21 @@ $conn->close();
 
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        <input type="email" id="email" name="email" placeholder="Nhập Email Của Bạn" required>
       </div>
 
       <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <label for="password">Mật Khẩu</label>
+        <input type="password" id="password" name="password" placeholder="Nhập Mật Khẩu Của Bạn" required>
       </div>
 
       <div class="button-group">
-        <button type="submit" class="login-button">Login</button>
-        <button type="button" class="register-button" onclick="window.location.href='register.php';">Register</button>
+        <button type="submit" class="login-button">Đăng Nhập</button>
+        <button type="button" class="register-button" onclick="window.location.href='register.php';">Đăng Ký</button>
       </div>
 
       <div class="form-footer">
-        <p>Doesn't have an account? <a href="register.php">Click here</a></p>
+        <p>Nếu Bạn Chưa Có Tài Khoản <a href="register.php">Đăng Ký</a></p>
       </div>
     </form>
   </div>

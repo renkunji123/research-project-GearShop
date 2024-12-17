@@ -26,11 +26,11 @@ session_start();
 
         <!-- Danh sách liên kết điều hướng -->
         <ul class="nav me-auto">
-            <li><a href="homepage.php" class="nav-link px-2 link-secondary">Home</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
+            <li><a href="homepage.php" class="nav-link px-2 link-secondary">Trang Chủ</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Nổi Bật</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Thanh Toán</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Thông Tin</a></li>
         </ul>
 
         <!-- Khu vực tìm kiếm và các nút -->
@@ -49,7 +49,7 @@ session_start();
                     <!-- Nút Cart -->
                     <a href="cart.php" class="btn btn-info d-flex align-items-center position-relative">
                         <i class="bi bi-cart"></i>
-                        <span class="ms-2 d-none d-md-inline">Cart</span>
+                        <span class="ms-2 d-none d-md-inline">Giỏ Hàng</span>
                         <!-- Hiển thị số lượng sản phẩm trong giỏ hàng -->
                         <span id="cart-count" class="badge bg-danger position-absolute top-0 start-100 translate-middle badge rounded-pill">
                             0 <!-- Đây là giá trị mặc định -->
@@ -72,7 +72,7 @@ session_start();
                                     </a></li>
                                 <?php if ($_SESSION['user']['role'] === 'ADMIN'): ?>
                                     <li><a class="dropdown-item" href="adminPage.php">
-                                            <i class="bi bi-shield-lock"></i> Admin
+                                            <i class="bi bi-shield-lock"></i> Quản Trị Viên
                                         </a></li>
                                 <?php endif; ?>
                                 <li>
@@ -80,7 +80,7 @@ session_start();
                                 </li>
                                 <li><a class="dropdown-item" href="logout.php">
                                         <i class="bi bi-door-open"></i>
-                                        Logout
+                                        Đăng Xuất
                                     </a></li>
                             </ul>
                         </div>
@@ -88,11 +88,11 @@ session_start();
                         <!-- Nếu người dùng chưa đăng nhập -->
                         <button type="button" class="btn btn-outline-primary"
                             onclick="window.location.href='login.php';">
-                            <i class="bi bi-box-arrow-in-right"></i> Login
+                            <i class="bi bi-box-arrow-in-right"></i> Đăng Nhập
                         </button>
                         <button type="button" class="btn btn-primary"
                             onclick="window.location.href='register.php';">
-                            <i class="bi bi-person-plus"></i> Register
+                            <i class="bi bi-person-plus"></i> Đăng Ký
                         </button>
                     <?php endif; ?>
                 </div>
@@ -189,7 +189,7 @@ session_start();
             <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
                 <!-- Left -->
                 <div class="me-5 d-none d-lg-block">
-                    <span>Get connected with us on social networks:</span>
+                    <span>Kết Nối Với Chúng Tôi Thông Qua Mạng Xã Hội:</span>
                 </div>
                 <!-- Left -->
                 <div></div>
@@ -227,11 +227,10 @@ session_start();
                         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                             <!-- Content -->
                             <h6 class="text-uppercase fw-bold mb-4">
-                                <i class="fas fa-gem me-3"></i>Company name
+                                <i class="fas fa-gem me-3"></i>Company Name
                             </h6>
                             <p>
-                                Here you can use rows and columns to organize your footer content. Lorem ipsum
-                                dolor sit amet, consectetur adipisicing elit.
+                                GGSHOP COMPANY
                             </p>
                         </div>
                         <!-- Grid column -->
@@ -240,19 +239,19 @@ session_start();
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                             <!-- Links -->
                             <h6 class="text-uppercase fw-bold mb-4">
-                                Products
+                                Sản Phẩm
                             </h6>
                             <p>
-                                <a href="#!" class="text-reset">Angular</a>
+                                <a href="#!" class="text-reset">Bàn Phím</a>
                             </p>
                             <p>
-                                <a href="#!" class="text-reset">React</a>
+                                <a href="#!" class="text-reset">Chuột</a>
                             </p>
                             <p>
-                                <a href="#!" class="text-reset">Vue</a>
+                                <a href="#!" class="text-reset">Tai Nghe</a>
                             </p>
                             <p>
-                                <a href="#!" class="text-reset">Laravel</a>
+                                <a href="#!" class="text-reset">Và Các Sản Phẩm Khác</a>
                             </p>
                         </div>
                         <!-- Grid column -->
@@ -261,27 +260,27 @@ session_start();
                         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                             <!-- Links -->
                             <h6 class="text-uppercase fw-bold mb-4">
-                                Useful links
+                                Liên Kết Hỗ Trợ
                             </h6>
                             <p>
-                                <a href="#!" class="text-reset">Pricing</a>
+                                <a href="#!" class="text-reset">Thanh Toán</a>
                             </p>
                             <p>
-                                <a href="#!" class="text-reset">Settings</a>
+                                <a href="#!" class="text-reset">Cài Đặt</a>
                             </p>
                             <p>
-                                <a href="#!" class="text-reset">Orders</a>
+                                <a href="#!" class="text-reset">Đặt Hàng</a>
                             </p>
                             <p>
-                                <a href="#!" class="text-reset">Help</a>
+                                <a href="#!" class="text-reset">Hỗ Trợ</a>
                             </p>
                         </div>
 
                         <!-- Grid column -->
                         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                             <!-- Links -->
-                            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-                            <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+                            <h6 class="text-uppercase fw-bold mb-4">Liên Lạc</h6>
+                            <p><i class="fas fa-home me-3"></i> F601 F Tower</p>
                             <p>
                                 <i class="fas fa-envelope me-3"></i>
                                 info@example.com

@@ -11,7 +11,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>GGshop Home</title>
+    <title>GGShop Trang Chủ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -206,11 +206,11 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
         </a> -->
         <!-- Danh sách liên kết điều hướng -->
         <ul class="nav me-auto">
-            <li><a href="homepage.php" class="nav-link px-2 link-secondary">Home</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
+            <li><a href="homepage.php" class="nav-link px-2 link-secondary">Trang Chủ</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Nổi Bật</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Thanh Toán</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Thông Tin</a></li>
         </ul>
         <!-- Khu vực tìm kiếm và các nút -->
         <div class="container-fluid">
@@ -228,7 +228,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                     <!-- Nút Cart -->
                     <a href="cart.php" class="btn btn-info d-flex align-items-center position-relative">
                         <i class="bi bi-cart"></i>
-                        <span class="ms-2 d-none d-md-inline">Cart</span>
+                        <span class="ms-2 d-none d-md-inline">Giỏ Hàng</span>
                         <!-- Hiển thị số lượng sản phẩm trong giỏ hàng -->
                         <span id="cart-count" class="badge bg-danger position-absolute top-0 start-100 translate-middle badge rounded-pill">
                             0 <!-- Đây là giá trị mặc định -->
@@ -251,7 +251,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                                     </a></li>
                                 <?php if ($_SESSION['user']['role'] === 'ADMIN'): ?>
                                     <li><a class="dropdown-item" href="adminPage.php">
-                                            <i class="bi bi-shield-lock"></i> Admin
+                                            <i class="bi bi-shield-lock"></i> Quản Trị Viên
                                         </a></li>
                                 <?php endif; ?>
                                 <li>
@@ -259,7 +259,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                                 </li>
                                 <li><a class="dropdown-item" href="logout.php">
                                         <i class="bi bi-door-open"></i>
-                                        Logout
+                                        Đăng Xuất
                                     </a></li>
                             </ul>
                         </div>
@@ -267,11 +267,11 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                         <!-- Nếu người dùng chưa đăng nhập -->
                         <button type="button" class="btn btn-outline-primary"
                             onclick="window.location.href='login.php';">
-                            <i class="bi bi-box-arrow-in-right"></i> Login
+                            <i class="bi bi-box-arrow-in-right"></i> Đăng Nhập
                         </button>
                         <button type="button" class="btn btn-primary"
                             onclick="window.location.href='register.php';">
-                            <i class="bi bi-person-plus"></i> Register
+                            <i class="bi bi-person-plus"></i> Đăng Ký
                         </button>
                     <?php endif; ?>
                 </div>
@@ -287,30 +287,30 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                         <li class="menu-item mb-3">
                             <div class="d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
                                 data-bs-target="#gamingGear">
-                                <span>Gaming Gear</span>
+                                <span>Các Sản Phẩm Gaming</span>
                                 <i class="bi bi-chevron-down"></i>
                             </div>
                             <ul class="collapse list-unstyled ps-3 mt-2" id="gamingGear">
-                                <li><a href="#" class="text-decoration-none">Keyboard</a></li>
-                                <li><a href="#" class="text-decoration-none">Mouse</a></li>
-                                <li><a href="#" class="text-decoration-none">Headset</a></li>
+                                <li><a href="#" class="text-decoration-none">Bàn Phím</a></li>
+                                <li><a href="#" class="text-decoration-none">Chuột</a></li>
+                                <li><a href="#" class="text-decoration-none">Tai Nghe</a></li>
                             </ul>
                         </li>
                         <li class="menu-item mb-3">
                             <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
-                                <span>VGA</span>
+                                <span>Card Đồ Họa</span>
                                 <i class="bi bi-chevron-right"></i>
                             </a>
                         </li>
                         <li class="menu-item mb-3">
                             <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
-                                <span>Main Board</span>
+                                <span>Bo Mạch Chủ</span>
                                 <i class="bi bi-chevron-right"></i>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
-                                <span>Monitor</span>
+                                <span>Màn Hình</span>
                                 <i class="bi bi-chevron-right"></i>
                             </a>
                         </li>
@@ -336,12 +336,12 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                     <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
                         data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
+                        <span class="visually-hidden">Trước</span>
                     </button>
                     <button class="carousel-control-next" type="button" data-bs-target="#productCarousel"
                         data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
+                        <span class="visually-hidden">Tiếp</span>
                     </button>
                 </div>
             </div>
@@ -351,9 +351,9 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
 
 
     <div class="ai-search">
-        <a>AI SEARCH</a> <br>
+        <a>Tìm Kiếm Sản Phẩm Với Sự Hỗ Trợ Của AI </a> <br>
         <input class="getPrice" placeholder="Please input price"></input> <br>
-        <label for="dropdownTextbox">Choose an option or type your own:</label> <br>
+        <label for="dropdownTextbox">Hãy Đưa Ra Tiêu Chí Của Bạn:</label> <br>
 
         <input list="options1" id="dropdownTextbox1" name="dropdownTextbox1" placeholder="Select gear type">
         <datalist id="options1">
@@ -369,14 +369,14 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
             <option value="Cheapest">
             <option value="All">
         </datalist> <br>
-        <button class="aiSearchButton">ai-search</button>
-        <div id="loading" style="display: none;">Loading...</div>
+        <button class="aiSearchButton">Tìm Kiếm Cùng AI</button>
+        <div id="loading" style="display: none;">Đang Tìm Kiếm...</div>
 
         <div id="results" style="margin-top: 20px; font-weight: bold;"></div>
     </div>
     </div>
     <div class="hot-deal">
-        <h1>Hot deal</h1>
+        <h1>Hot Deal</h1>
         <div class="container-fluid py-4">
             <div class="product-scroll-container" role="region" aria-label="Product List">
                 <div class="d-flex overflow-auto product-wrapper" tabindex="0">
@@ -390,16 +390,16 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h2>Featured Products</h2>
+                        <h2>Sản Phẩm Nổi Bật</h2>
                         <div class="dropdown">
                             <button class="btn btn-outline-secondary dropdown-toggle" type="button"
                                 data-bs-toggle="dropdown">
-                                Sort By
+                                Sắp Xếp Theo
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Price: Low to High</a></li>
-                                <li><a class="dropdown-item" href="#">Price: High to Low</a></li>
-                                <li><a class="dropdown-item" href="#">Rating</a></li>
+                                <li><a class="dropdown-item" href="#">Giá: Từ Thấp Tới Cao</a></li>
+                                <li><a class="dropdown-item" href="#">Giá: Từ Cao Tới Thấp</a></li>
+                                <li><a class="dropdown-item" href="#">Đánh Giá</a></li>
                             </ul>
                         </div>
                     </div>
@@ -421,16 +421,16 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h2>Product Display</h2>
+                        <h2>Sản Phẩm</h2>
                         <div class="dropdown">
                             <button class="btn btn-outline-secondary dropdown-toggle" type="button"
                                 data-bs-toggle="dropdown">
-                                Sort By
+                                Sắp Xếp
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Price: Low to High</a></li>
-                                <li><a class="dropdown-item" href="#">Price: High to Low</a></li>
-                                <li><a class="dropdown-item" href="#">Rating</a></li>
+                                <li><a class="dropdown-item" href="#">Giá: Từ Thấp Tới Cao</a></li>
+                                <li><a class="dropdown-item" href="#">Giá: Từ Cao Tới Thấp</a></li>
+                                <li><a class="dropdown-item" href="#">Đánh Giá</a></li>
                             </ul>
                         </div>
                     </div>
@@ -448,7 +448,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
             <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
                 <!-- Left -->
                 <div class="me-5 d-none d-lg-block">
-                    <span>Get connected with us on social networks:</span>
+                    <span>Kết Nối Với Chúng Tôi Qua Các Nền Tảng Mạng Xã Hội:</span>
                 </div>
                 <!-- Left -->
                 <div></div>
@@ -483,11 +483,10 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                             <!-- Content -->
                             <h6 class="text-uppercase fw-bold mb-4">
-                                <i class="fas fa-gem me-3"></i>Company name
+                                <i class="fas fa-gem me-3"></i>Company Name
                             </h6>
                             <p>
-                                Here you can use rows and columns to organize your footer content. Lorem ipsum
-                                dolor sit amet, consectetur adipisicing elit.
+                                GGSHOP COMPANY
                             </p>
                         </div>
                         <!-- Grid column -->
@@ -496,19 +495,19 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                             <!-- Links -->
                             <h6 class="text-uppercase fw-bold mb-4">
-                                Products
+                                Sản Phẩm
                             </h6>
                             <p>
-                                <a href="#!" class="text-reset">Angular</a>
+                                <a href="#!" class="text-reset">Bàn Phím</a>
                             </p>
                             <p>
-                                <a href="#!" class="text-reset">React</a>
+                                <a href="#!" class="text-reset">Chuột</a>
                             </p>
                             <p>
-                                <a href="#!" class="text-reset">Vue</a>
+                                <a href="#!" class="text-reset">Tai Nghe</a>
                             </p>
                             <p>
-                                <a href="#!" class="text-reset">Laravel</a>
+                                <a href="#!" class="text-reset">Các Sản Phẩm Khác</a>
                             </p>
                         </div>
                         <!-- Grid column -->
@@ -517,19 +516,19 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                             <!-- Links -->
                             <h6 class="text-uppercase fw-bold mb-4">
-                                Useful links
+                                Liên Kết Hỗ Trợ
                             </h6>
                             <p>
-                                <a href="#!" class="text-reset">Pricing</a>
+                                <a href="#!" class="text-reset">Thanh Toán</a>
                             </p>
                             <p>
-                                <a href="#!" class="text-reset">Settings</a>
+                                <a href="#!" class="text-reset">Cài Đặt</a>
                             </p>
                             <p>
-                                <a href="#!" class="text-reset">Orders</a>
+                                <a href="#!" class="text-reset">Đặt Hàng</a>
                             </p>
                             <p>
-                                <a href="#!" class="text-reset">Help</a>
+                                <a href="#!" class="text-reset">Hỗ Trợ</a>
                             </p>
                         </div>
                         <!-- Grid column -->
@@ -538,7 +537,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                             <!-- Links -->
                             <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-                            <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+                            <p><i class="fas fa-home me-3"></i> F601 F Tower</p>
                             <p>
                                 <i class="fas fa-envelope me-3"></i>
                                 info@example.com
@@ -614,7 +613,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                 <div class="modal-body">
                     <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e" class="img-fluid mb-3"
                         alt="Wireless Headphones">
-                    <p>Wireless headphones with noise cancellation.</p>
+                    <p>Tai Nghe Không Dây Với Công Nghệ Khử Tiếng Ồn</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="price">$299.99</span>
                         <div class="quantity d-flex align-items-center">

@@ -195,48 +195,48 @@ $conn->close();
         ?>
 
       <form class="registration-form" method="POST" action="">
-        <h2>Registration for GGShop</h2>
+        <h2>Đăng Ký Tài Khoản GGShop</h2>
 
         <div class="form-group">
-          <label for="full-name">Full Name</label>
-          <input type="text" id="full-name" name="full_name" placeholder="Enter your name" required>
+          <label for="full-name">Tên Đầy Đủ</label>
+          <input type="text" id="full-name" name="full_name" placeholder="Nhập Tên Của Bạn" required>
         </div>
 
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+          <input type="email" id="email" name="email" placeholder="Nhập Email Của Bạn" required>
         </div>
 
         <div class="form-group">
-          <label for="address">Address</label>
-          <input type="text" id="address" name="address" placeholder="Enter your address" required>
+          <label for="address">Địa Chỉ</label>
+          <input type="text" id="address" name="address" placeholder="Hãy Cho Chúng Tôi Biết Địa Chỉ Của Bạn" required>
         </div>
 
         <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input type="text" id="phone" name="phone" placeholder="Enter your number" required>
+          <label for="phone">Số Liên Lạc</label>
+          <input type="text" id="phone" name="phone" placeholder="Hãy Nhập Số Điện Thoại Của Bạn" required>
         </div>
 
         <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" placeholder="Enter your password" required>
+          <label for="password">Mật Khẩu</label>
+          <input type="password" id="password" name="password" placeholder="Hãy Nhập Mật Khẩu" required>
         </div>
 
         <div class="form-group">
-          <label for="confirm-password">Confirm Password</label>
-          <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm your password" required>
+          <label for="confirm-password">Xác Minh Mật Khẩu</label>
+          <input type="password" id="confirm-password" name="confirm_password" placeholder="Nhập Lại Mật Khẩu" required>
         </div>
 
         <div class="form-group">
-          <label>Gender</label>
+          <label>Giới Tính</label>
           <div class="radio-group">
-            <label><input type="radio" name="gender" value="male">  Male</label>
-            <label><input type="radio" name="gender" value="female">  Female</label>
-            <label><input type="radio" name="gender" value="other">  Other</label>
+            <label><input type="radio" name="gender" value="male"> Nam</label>
+            <label><input type="radio" name="gender" value="female">  Nữ </label>
+            <label><input type="radio" name="gender" value="other"> Khác </label>
           </div>
         </div>
 
-        <button type="submit" class="submit-button">Register</button>
+        <button type="submit" class="submit-button">Đăng Ký</button>
       </form>
     </div>
   </div>  
