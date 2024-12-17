@@ -245,9 +245,9 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                                 <?= htmlspecialchars($_SESSION['user']['name']) ?>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="profile.php">
+                                <li><a class="dropdown-item" href="profile/profile.php">
                                         <i class="bi bi-person-fill"></i>
-                                        Profile
+                                        Hồ sơ
                                     </a></li>
                                 <?php if ($_SESSION['user']['role'] === 'ADMIN'): ?>
                                     <li><a class="dropdown-item" href="adminPage.php">
@@ -352,17 +352,17 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
 
     <div class="ai-search">
         <a>Tìm Kiếm Sản Phẩm Với Sự Hỗ Trợ Của AI </a> <br>
-        <input class="getPrice" placeholder="Please input price"></input> <br>
+        <input class="getPrice" placeholder="Hãy nhập ngân sách"></input> <br>
         <label for="dropdownTextbox">Hãy Đưa Ra Tiêu Chí Của Bạn:</label> <br>
 
-        <input list="options1" id="dropdownTextbox1" name="dropdownTextbox1" placeholder="Select gear type">
+        <input list="options1" id="dropdownTextbox1" name="dropdownTextbox1" placeholder="Chọn loại sản phẩm">
         <datalist id="options1">
             <option value="Keyboard">
             <option value="mouse/wireless mouse">
             <option value="headphone">
             <option value="earphone">
         </datalist>
-        <input list="options2" id="dropdownTextbox2" name="dropdownTextbox2" placeholder="Select option">
+        <input list="options2" id="dropdownTextbox2" name="dropdownTextbox2" placeholder="Lựa chọn tiêu chí">
         <datalist id="options2">
             <option value="Performance">
             <option value="Outlook">
