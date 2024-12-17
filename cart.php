@@ -117,12 +117,12 @@ session_start();
                             <!-- Tiếp tục mua sắm -->
                             <div class="row">
                                 <div class="col-md-6 text-start">
-                                    <a href="../homepage.php" class="btn btn-outline-primary btn-lg">Tiếp tục mua sắm</a>
+                                    <a href="../research-project-GearShop/homepage.php" class="btn btn-outline-primary btn-lg">Tiếp tục mua sắm</a>
                                 </div>
 
                                 <!-- Tổng tiền -->
                                 <div class="col-md-6 text-end">
-                                    
+
                                     <div class="input-group mb-3 ">
                                         <span style="font-size: 20px;" class="fw-bold input-group-text">Tổng Tiền</span>
                                         <input class="form-control fw-bold" style="font-size: 20px;" data-val="true" data-val-number="The field Amount must be a number." data-val-required="The Amount field is required." id="amount" max="100000000" min="1" name="amount" type="number" readonly />
@@ -166,10 +166,17 @@ session_start();
                                     <label for="language-en" class="form-check-label">Tiếng Anh</label>
                                 </div>
                             </div>
-
-                            <!-- Nút Thanh toán -->
-                            <div class="col-md-12 text-end">
-                                <button type="submit" class=" btn btn-primary btn-lg mt-4 ">Thanh toán</button>
+                            <div class="row">
+                                <!-- Nút Thanh toán -->
+                                <div class="col-md-4 text-start">
+                                    <button type="submit" class=" btn btn-primary btn-lg  ">Thanh toán Online</button>
+                                </div>
+                                <div class="col-md-4 text-center mt-3">
+                                    <p class="fw-bold">Hoặc</p>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    <button type="submit" class=" btn btn-success btn-lg ">Thanh toán COD</button>
+                                </div>
                             </div>
                         </div>
 

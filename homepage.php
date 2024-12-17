@@ -653,7 +653,6 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                     // Hiển thị "Loading..."
                     document.getElementById("loading").style.display = "block";
                     document.getElementById("results").innerHTML = "";
-
                     try {
                         // Tạo prompt từ các trường đầu vào
                         const prompt = `Gamming gear Giá: ${document.querySelector(".getPrice").value}, Loại: ${document.getElementById("dropdownTextbox1").value}, Tùy chọn: ${document.getElementById("dropdownTextbox2").value},
