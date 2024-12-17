@@ -29,7 +29,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                     <div class="card h-100">
                         <img src="${product.product_image}" class="card-img-top" alt="${product.product_name}">
                         <div >
-                            <a href="product_view.php?product_id=${product.product_id}" class="btn quick-view btn-light">Quick View</a>
+                            <a href="product_view.php?product_id=${product.product_id}" class="btn quick-view btn-light">Xem</a>
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">${product.product_name}</h5>
@@ -88,7 +88,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                         <div class="custom-card">
                             <img src="${product.product_image}" class="card-img-top" alt="${product.product_name}">
                              <div >
-                                <a href="product_view.php?product_id=${product.product_id}" class="btn quick-view btn-light">Quick View</a>
+                                <a href="product_view.php?product_id=${product.product_id}" class="btn quick-view btn-light">Xem</a>
                             </div>
                             <div class="custom-card-body">
                                 <h5 class="card-title">${product.product_name}</h5>
@@ -145,7 +145,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                     <div class="custom-card">
                         <img src="${product.product_image}" class="custom-card-img-top" alt="${product.product_name}">
                         <div >
-                            <a href="product_view.php?product_id=${product.product_id}" class="btn quick-view btn-light">Quick View</a>
+                            <a href="product_view.php?product_id=${product.product_id}" class="btn quick-view btn-light">Xem</a>
                         </div>
                         <div class="custom-card-body">
                             <h5 class="custom-card-title">${product.product_name}</h5>
@@ -642,7 +642,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                 } from "@google/generative-ai";
 
                 // Fetch your API_KEY
-                const API_KEY = "AIzaSyDCYRoR8EN8hiq8H7_ol1sHkJCBZ5lS2MU";
+                const API_KEY = "AIzaSyAhx758ZkXz1zb8yOmHGmgDZF0Ip4EeP2w";
                 // Reminder: This should only be for local testing
 
                 // Access your API key (see "Set up your API key" above)

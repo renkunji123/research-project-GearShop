@@ -84,7 +84,7 @@ $conn->close();
         <!-- Total Section -->
         <div class="row mt-4">
             <div class="col-md-6">
-                <a href="../research-project-GearShop/Frontend/home_page.html" class="btn btn-outline-primary">Tiếp tục mua sắm</a>
+                <a href="../research-project-GearShop/homepage.php" class="btn btn-outline-primary">Tiếp tục mua sắm</a>
             </div>
             <div class="col-md-6 text-end">
                 <h4 class="fw-bold">Tổng tiền: <?php echo number_format($product['product_price'], 0, ',', '.'); ?> $</h4>

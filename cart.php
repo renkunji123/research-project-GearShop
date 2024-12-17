@@ -117,7 +117,7 @@ session_start();
                             <!-- Tiếp tục mua sắm -->
                             <div class="row">
                                 <div class="col-md-6 text-start">
-                                    <a href="/Frontend/home_page.html" class="btn btn-outline-primary btn-lg">Tiếp tục mua sắm</a>
+                                    <a href="../homepage.php" class="btn btn-outline-primary btn-lg">Tiếp tục mua sắm</a>
                                 </div>
 
                                 <!-- Tổng tiền -->
