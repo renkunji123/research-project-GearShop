@@ -1,0 +1,238 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <header class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom">
+        <!-- Logo -->
+        <!-- <a href="/" class="d-flex align-items-center text-dark text-decoration-none me-4">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                <use xlink:href="#bootstrap"></use>
+            </svg>
+        </a> -->
+
+        <!-- Danh sách liên kết điều hướng -->
+        <ul class="nav me-auto">
+            <li><a href="../homepage.php" class="nav-link px-2 link-secondary">Home</a></li>
+            <!-- <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">About</a></li> -->
+        </ul>
+
+        <?php if (isset($_SESSION['user'])): ?>
+            <!-- Nếu người dùng đã đăng nhập -->
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="userDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-circle "></i>
+                    <?= htmlspecialchars($_SESSION['user']['name']) ?>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                    <li><a class="dropdown-item" href="profile.php">
+                            <i class="bi bi-person-fill"></i>
+                            Hồ sơ
+                        </a></li>
+                    <?php if ($_SESSION['user']['role'] === 'ADMIN'): ?>
+                        <li><a class="dropdown-item" href="adminPage.php">
+                                <i class="bi bi-shield-lock"></i> Quản Trị Viên
+                            </a></li>
+                    <?php endif; ?>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="logout.php">
+                            <i class="bi bi-door-open"></i>
+                            Đăng Xuất
+                        </a></li>
+                </ul>
+            </div>
+
+        <?php endif; ?>
+
+        <!-- Khu vực tìm kiếm và các nút -->
+        <!-- <div class="d-flex align-items-center gap-3"> -->
+        <!-- Ô tìm kiếm -->
+        <!-- <form class="col-8 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                <input type="search" class="form-control form-control-dark text-bg-light" placeholder="Search..."
+                    aria-label="Search">
+            </form> -->
+
+        <!-- Nút Login -->
+        <!-- <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                Login
+            </button> -->
+
+        <!-- Nút Sign-up -->
+        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
+                Re
+            </button> -->
+        <!-- </div> -->
+    </header>
+    <div class="profile-container">
+        <!-- Header -->
+        <div class="profile-header">
+            <h2 class="profile-name">Nguyễn Văn A</h2>
+            <p class="profile-role">Quản trị viên</p>
+        </div>
+
+        <!-- Details -->
+        <div class="profile-details">
+            <div class="detail-item">
+                <h4>Email</h4>
+                <p>nguyenvana@example.com</p>
+            </div>
+            <div class="detail-item">
+                <h4>Số điện thoại</h4>
+                <p>+84 123 456 789</p>
+            </div>
+            <div class="detail-item">
+                <h4>Địa chỉ</h4>
+                <p>123 Đường ABC, Quận 1, TP.HCM</p>
+            </div>
+            <div class="detail-item">
+                <h4>Giới tính</h4>
+                <select class="gender-select">
+                    <option value="male" selected>Nam</option>
+                    <option value="female">Nữ</option>
+                    <option value="other">Khác</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Password Change -->
+        <div class="password-change">
+            <h4>Đổi mật khẩu</h4>
+            <input type="password" id="old-password" class="form-control" placeholder="Mật khẩu cũ">
+            <input type="password" id="new-password" class="form-control" placeholder="Mật khẩu mới">
+            <input type="password" id="confirm-password" class="form-control" placeholder="Nhập lại mật khẩu mới">
+            <!-- Thông báo lỗi -->
+            <p id="error-message" class="error-message" style="display: none;">Mật khẩu mới và xác nhận không trùng
+                khớp!</p>
+            <!-- Thông báo thành công -->
+            <p id="success-message" class="success-message" style="display: none;">Mật khẩu đã được cập nhật thành công!
+            </p>
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="profile-actions">
+        <button class="btn btn-info save-btn" onclick="saveChanges()">Lưu thay đổi</button>
+        <button class="btn btn-secondary logout-btn">Đăng xuất</button>
+    </div>
+    </div>
+
+
+    <div class="footer">
+        <!-- Footer -->
+        <footer class="text-center text-lg-start bg-body-tertiary text-muted">
+            <!-- Section: Social media -->
+            <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+                <!-- Left -->
+                <div class="me-5 d-none d-lg-block">
+                    <span>Get connected with us on social networks:</span>
+                </div>
+                <!-- Left -->
+                <div></div>
+                <!-- Right -->
+                <div>
+                    <a href="" class="me-4 text-reset">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="" class="me-4 text-reset">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="" class="me-4 text-reset">
+                        <i class="fab fa-google"></i>
+                    </a>
+                    <a href="" class="me-4 text-reset">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="" class="me-4 text-reset">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="" class="me-4 text-reset">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+                <!-- Right -->
+            </section>
+            <!-- Section: Social media -->
+
+            <!-- Section: Links  -->
+            <section class="">
+                <div class="container text-center text-md-start mt-5">
+                    <!-- Grid row -->
+                    <div class="row mt-3">
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                            <!-- Content -->
+                            <h6 class="text-uppercase fw-bold mb-4">
+                                <i class="fas fa-gem me-3"></i>Company name
+                            </h6>
+                            <p>
+                                Here you can use rows and columns to organize your footer content. Lorem ipsum
+                                dolor sit amet, consectetur adipisicing elit.
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold mb-4">
+                                Products
+                            </h6>
+                            <p><a href="#!" class="text-reset">Angular</a></p>
+                            <p><a href="#!" class="text-reset">React</a></p>
+                            <p><a href="#!" class="text-reset">Vue</a></p>
+                            <p><a href="#!" class="text-reset">Laravel</a></p>
+                        </div>
+                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold mb-4">
+                                Useful links
+                            </h6>
+                            <p><a href="#!" class="text-reset">Pricing</a></p>
+                            <p><a href="#!" class="text-reset">Settings</a></p>
+                            <p><a href="#!" class="text-reset">Orders</a></p>
+                            <p><a href="#!" class="text-reset">Help</a></p>
+                        </div>
+                        <!-- Grid column -->
+                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                            <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+                            <p>
+                                <i class="fas fa-envelope me-3"></i>
+                                info@example.com
+                            </p>
+                            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+                            <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+                        </div>
+                        <!-- Grid column -->
+                    </div>
+                    <!-- Grid row -->
+                </div>
+            </section>
+
+
+
+    </div>
+    <div class="quick-view-backdrop" id="backdrop"></div>
+    <script>
+    </script>
+</body>
+
+</html>
