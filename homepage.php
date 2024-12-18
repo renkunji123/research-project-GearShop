@@ -207,10 +207,10 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
         <!-- Danh sách liên kết điều hướng -->
         <ul class="nav me-auto">
             <li><a href="homepage.php" class="nav-link px-2 link-secondary">Trang Chủ</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Nổi Bật</a></li>
+            <!-- <li><a href="#" class="nav-link px-2 link-dark">Nổi Bật</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">Thanh Toán</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Thông Tin</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Thông Tin</a></li> -->
         </ul>
         <!-- Khu vực tìm kiếm và các nút -->
         <div class="container-fluid">
