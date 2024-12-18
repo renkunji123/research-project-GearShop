@@ -11,20 +11,16 @@ session_start();
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
     <header class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom">
-        <!-- Logo -->
         <a href="/" class="d-flex align-items-center text-dark text-decoration-none me-4">
             <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
                 <use xlink:href="#bootstrap"></use>
             </svg>
         </a>
-
-        <!-- Danh sách liên kết điều hướng -->
         <ul class="nav me-auto">
             <li><a href="homepage.php" class="nav-link px-2 link-secondary">Trang Chủ</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">Nổi Bật</a></li>
@@ -32,32 +28,21 @@ session_start();
             <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">Thông Tin</a></li>
         </ul>
-
-        <!-- Khu vực tìm kiếm và các nút -->
         <div class="container-fluid">
             <div class="row align-items-center">
-                <!-- Ô tìm kiếm -->
                 <div class="col-12 col-md-6 col-lg-8 mb-3 mb-md-0">
                     <form class="d-flex" role="search">
                         <input type="search" class="form-control form-control-dark text-bg-light"
                             placeholder="Search..." aria-label="Search">
                     </form>
                 </div>
-
-                <!-- Các nút hành động -->
                 <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-end gap-2">
-                    <!-- Nút Cart -->
                     <a href="cart.php" class="btn btn-info d-flex align-items-center position-relative">
                         <i class="bi bi-cart"></i>
-                       
-                        <!-- Hiển thị số lượng sản phẩm trong giỏ hàng -->
-                        <span id="cart-count" class="badge bg-danger position-absolute top-0 start-100 translate-middle badge rounded-pill">
-                            0 <!-- Đây là giá trị mặc định -->
+                        <span id="cart-count" class="badge bg-danger position-absolute top-0 start-100 translate-middle badge rounded-pill">0 <!-- Đây là giá trị mặc định -->
                         </span>
                     </a>
-                    <!-- Kiểm tra trạng thái đăng nhập -->
                     <?php if (isset($_SESSION['user'])): ?>
-                        <!-- Nếu người dùng đã đăng nhập -->
                         <div class="dropdown">
                             <button class="btn btn-outline-secondary dropdown-toggle"
                                 type="button" id="userDropdown" data-bs-toggle="dropdown"
@@ -78,14 +63,11 @@ session_start();
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="logout.php">
-                                        <i class="bi bi-door-open"></i>
-                                        Đăng Xuất
-                                    </a></li>
+                                <li><a class="dropdown-item" href="logout.php"><i class="bi bi-door-open"></i>Đăng Xuất</a>
+                                </li>
                             </ul>
                         </div>
                     <?php else: ?>
-                        <!-- Nếu người dùng chưa đăng nhập -->
                         <button type="button" class="btn btn-outline-primary"
                             onclick="window.location.href='login.php';">
                             <i class="bi bi-box-arrow-in-right"></i> Đăng Nhập
@@ -99,28 +81,20 @@ session_start();
             </div>
         </div>
     </header>
-
     <div class="container my-5">
         <h2 class="mb-4">Giỏ hàng của bạn</h2>
-
         <div class="cart-items bg-light p-3 rounded" id="cart-items">
-
         </div>
-
-        <!-- Tổng cộng -->
         <div>
             <?php require_once("../research-project-GearShop/vnpay_php/config.php"); ?>
             <div class="container">
                 <div class="table-responsive">
                     <form action="../research-project-GearShop/vnpay_php/vnpay_create_payment.php" id="frmCreateOrder" method="post">
                         <div class="container mt-4">
-                            <!-- Tiếp tục mua sắm -->
                             <div class="row">
                                 <div class="col-md-6 text-start">
                                     <a href="../research-project-GearShop/homepage.php" class="btn btn-outline-primary btn-lg">Tiếp tục mua sắm</a>
                                 </div>
-
-                                <!-- Tổng tiền -->
                                 <div class="col-md-6 text-end">
                                     <input type="hidden" name="user_id" value="<?= htmlspecialchars($_SESSION['user']['id']) ?>" />
                                     <div class="input-group mb-3 ">
@@ -130,8 +104,6 @@ session_start();
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Cách thanh toán -->
                             <div class="form-group mb-3">
                                 <h5 class="fw-bold">Cách 1: Chuyển hướng sang Cổng VNPAY chọn phương thức thanh toán</h5>
                                 <div class="form-check">
@@ -153,8 +125,6 @@ session_start();
                                     <label for="bankCode4" class="form-check-label">Thanh toán qua thẻ quốc tế</label>
                                 </div>
                             </div>
-
-                            <!-- Ngôn ngữ giao diện -->
                             <div class="form-group mb-3" hidden>
                                 <h5 class="fw-bold">Chọn ngôn ngữ giao diện thanh toán:</h5>
                                 <div class="form-check">
@@ -167,9 +137,8 @@ session_start();
                                 </div>
                             </div>
                             <div class="row">
-                                <!-- Nút Thanh toán -->
                                 <div class="col-md-4 text-start">
-                                    <button type="submit" class=" btn btn-primary btn-lg  ">Thanh toán Online</button>
+                                    <button type="submit" id="payOnline" class=" btn btn-primary btn-lg  ">Thanh toán Online</button>
                                 </div>
                                 <div class="col-md-4 text-center mt-3">
                                     <p class="fw-bold">Hoặc</p>
@@ -184,144 +153,71 @@ session_start();
                 </form>
             </div>
         </div>
-
-
     </div>
-
     </div>
     <div class="footer">
-        <!-- Footer -->
         <footer class="text-center text-lg-start bg-body-tertiary text-muted">
-            <!-- Section: Social media -->
             <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-                <!-- Left -->
                 <div class="me-5 d-none d-lg-block">
                     <span>Kết Nối Với Chúng Tôi Thông Qua Mạng Xã Hội:</span>
                 </div>
-                <!-- Left -->
-                <div></div>
-                <!-- Right -->
                 <div>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-google"></i>
-                    </a>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-github"></i>
-                    </a>
+                    <a href="" class="me-4 text-reset"><i class="fab fa-facebook-f"></i></a>
+                    <a href="" class="me-4 text-reset"><i class="fab fa-twitter"></i></a>
+                    <a href="" class="me-4 text-reset"><i class="fab fa-google"></i></a>
+                    <a href="" class="me-4 text-reset"><i class="fab fa-instagram"></i></a>
+                    <a href="" class="me-4 text-reset"><i class="fab fa-linkedin"></i></a>
+                    <a href="" class="me-4 text-reset"><i class="fab fa-github"></i></a>
                 </div>
-                <!-- Right -->
             </section>
-            <!-- Section: Social media -->
-
-            <!-- Section: Links  -->
             <section class="">
                 <div class="container text-center text-md-start mt-5">
-                    <!-- Grid row -->
                     <div class="row mt-3">
-                        <!-- Grid column -->
                         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                            <!-- Content -->
-                            <h6 class="text-uppercase fw-bold mb-4">
-                                <i class="fas fa-gem me-3"></i>Company Name
-                            </h6>
-                            <p>
-                                GGSHOP COMPANY
-                            </p>
+                            <h6 class="text-uppercase fw-bold mb-4"><i class="fas fa-gem me-3"></i>Company Name</h6>
+                            <p>GGSHOP COMPANY</p>
                         </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <!-- Links -->
-                            <h6 class="text-uppercase fw-bold mb-4">
-                                Sản Phẩm
-                            </h6>
-                            <p>
-                                <a href="#!" class="text-reset">Bàn Phím</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Chuột</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Tai Nghe</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Và Các Sản Phẩm Khác</a>
-                            </p>
+                            <h6 class="text-uppercase fw-bold mb-4">Sản Phẩm</h6>
+                            <p><a href="#!" class="text-reset">Bàn Phím</a></p>
+                            <p><a href="#!" class="text-reset">Chuột</a></p>
+                            <p><a href="#!" class="text-reset">Tai Nghe</a></p>
+                            <p><a href="#!" class="text-reset">Và Các Sản Phẩm Khác</a></p>
                         </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
                         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <!-- Links -->
-                            <h6 class="text-uppercase fw-bold mb-4">
-                                Liên Kết Hỗ Trợ
-                            </h6>
-                            <p>
-                                <a href="#!" class="text-reset">Thanh Toán</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Cài Đặt</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Đặt Hàng</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Hỗ Trợ</a>
+                            <h6 class="text-uppercase fw-bold mb-4">Liên Kết Hỗ Trợ</h6>
+                            <p><a href="#!" class="text-reset">Thanh Toán</a></p>
+                            <p><a href="#!" class="text-reset">Cài Đặt</a></p>
+                            <p><a href="#!" class="text-reset">Đặt Hàng</a>
+                            <p><a href="#!" class="text-reset">Hỗ Trợ</a>
                             </p>
                         </div>
-
-                        <!-- Grid column -->
                         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                            <!-- Links -->
                             <h6 class="text-uppercase fw-bold mb-4">Liên Lạc</h6>
                             <p><i class="fas fa-home me-3"></i> F601 F Tower</p>
-                            <p>
-                                <i class="fas fa-envelope me-3"></i>
-                                info@example.com
-                            </p>
+                            <p><i class="fas fa-envelope me-3"></i>info@example.com</p>
                             <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
                             <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
                         </div>
-                        <!-- Grid column -->
                     </div>
-                    <!-- Grid row -->
                 </div>
             </section>
-            <!-- chatbot -->
-
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
-                    // Gửi yêu cầu lấy số lượng sản phẩm trong giỏ hàng
                     fetch('get_cart_count.php') // Đảm bảo file PHP này trả về số lượng giỏ hàng
                         .then(response => response.json())
                         .then(data => {
-                            // Cập nhật số lượng sản phẩm vào phần tử hiển thị trên nút cart
                             const cartCountElement = document.getElementById('cart-count');
                             cartCountElement.textContent = data.totalItems;
                         })
                         .catch(error => console.error('Error fetching cart count:', error));
                 });
                 document.addEventListener("DOMContentLoaded", function() {
-                    // Gửi yêu cầu đến get_cart.php để lấy dữ liệu giỏ hàng
                     fetch('get_cart.php')
                         .then(response => response.json())
                         .then(data => {
                             const cartContainer = document.getElementById('cart-items');
                             cartContainer.innerHTML = ''; // Xóa nội dung cũ
-
                             if (data.error) {
                                 cartContainer.innerHTML = `<p>${data.error}</p>`;
                             } else if (data.length === 0) {
@@ -332,7 +228,6 @@ session_start();
                                 data.forEach(item => {
                                     if (!cartId) cartId = item.cart_id;
                                     total += item.cart_item_quantity * item.product_price;
-
                                     cartContainer.innerHTML += `
                                     <div class="row align-items-center mb-4 border-bottom pb-3">
                                         <div class="col-2">
@@ -352,8 +247,6 @@ session_start();
                                         </div>
                                     </div>`;
                                 });
-
-                                // Cập nhật tổng tiền
                                 document.getElementById('amount').value = total;
                             }
                         })
@@ -363,16 +256,13 @@ session_start();
                         });
                 });
 
-                // Cập nhật số lượng trong giỏ hàng
                 function updateCart(productId, newQuantity) {
                     console.log(`Cập nhật sản phẩm ${productId} với số lượng mới: ${newQuantity}`);
-                    // Gửi yêu cầu cập nhật lên server (API cần triển khai thêm nếu chưa có)
                 }
 
                 function removeFromCart(productId, cartId) {
                     console.log(`Xóa sản phẩm ${productId} khỏi giỏ hàng`);
                     console.log(`Xóa giỏ hàng với cartId ${cartId}`);
-
                     fetch('remove_from_cart.php', {
                             method: 'POST',
                             headers: {
@@ -384,7 +274,6 @@ session_start();
                         .then(data => {
                             if (data.success) {
                                 alert(data.message);
-                                // Cập nhật lại giao diện, có thể gọi lại hàm loadCart()
                                 loadCart();
                                 location.reload();
                             } else {
@@ -398,8 +287,45 @@ session_start();
                             location.reload();
                         });
                 }
-            </script>
+                const userId = "<?php echo isset($_SESSION['id']) ? $_SESSION['id'] : ''; ?>";
+                const address = "<?php echo isset($_SESSION['address']) ? $_SESSION['address'] : ''; ?>";
 
+                const currentDate = new Date(); // Lấy ngày hiện tại
+                // Format ngày thành chuỗi (ví dụ: YYYY-MM-DD)
+                const formattedDate = currentDate.toISOString().split('T')[0];
+                document.getElementById('payOnline').addEventListener('click', function(event) {
+                    e.preventDefault();
+                    const formData = new FormData();
+                    formData.append('user_id', userId);
+                    formData.append('order_date', formattedDate);
+                    formData.append('total_amount', document.getElementById('amount'));
+                    formData.append('order_status', 'COMPLETED');
+                    formData.append('payment_method_id', '1');
+                    formData.append('payment_date', formattedDate);
+                    formData.append('payment_status', 'COMPLETED');
+                    formData.append('shipment_address', address);
+                    formData.append('shipment_status', 'IN_TRANSIT');
+
+                    if (amount > 0) {
+                        fetch('add_order.php'), {
+                                method: 'POST',
+                                body: formData
+                            }
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === 'success') {
+                                    alert(data.message);
+                                    window.location.href = ''; // Điều hướng tới trang "Cảm ơn"
+                                } else {
+                                    alert(data.message);
+                                }
+                            })
+                            .catch(error => console.error('Error:', error));
+                    } else {
+                        alert('Số tiền không hợp lệ.');
+                    }
+                });
+            </script>
 </body>
 
 </html>

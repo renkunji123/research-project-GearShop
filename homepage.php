@@ -207,10 +207,10 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
         <!-- Danh sách liên kết điều hướng -->
         <ul class="nav me-auto">
             <li><a href="homepage.php" class="nav-link px-2 link-secondary">Trang Chủ</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Nổi Bật</a></li>
+            <!-- <li><a href="#" class="nav-link px-2 link-dark">Nổi Bật</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">Thanh Toán</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Thông Tin</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Thông Tin</a></li> -->
         </ul>
         <!-- Khu vực tìm kiếm và các nút -->
         <div class="container-fluid">
@@ -228,7 +228,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                     <!-- Nút Cart -->
                     <a href="cart.php" class="btn btn-info d-flex align-items-center position-relative">
                         <i class="bi bi-cart"></i>
-                        
+
                         <!-- Hiển thị số lượng sản phẩm trong giỏ hàng -->
                         <span id="cart-count" class="badge bg-danger position-absolute top-0 start-100 translate-middle badge rounded-pill">
                             0 <!-- Đây là giá trị mặc định -->
@@ -357,10 +357,10 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
 
         <input list="options1" id="dropdownTextbox1" name="dropdownTextbox1" placeholder="Chọn loại sản phẩm">
         <datalist id="options1">
-            <option value="Keyboard">
-            <option value="mouse/wireless mouse">
-            <option value="headphone">
-            <option value="earphone">
+            <option value="Bàn phím gaming">
+            <option value="chuột gaming">
+            <option value="tai nghe gaming">
+
         </datalist>
         <input list="options2" id="dropdownTextbox2" name="dropdownTextbox2" placeholder="Lựa chọn tiêu chí">
         <datalist id="options2">
@@ -655,15 +655,16 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                     document.getElementById("results").innerHTML = "";
                     try {
                         // Tạo prompt từ các trường đầu vào
-                        const prompt = `Gamming gear Giá: ${document.querySelector(".getPrice").value}, Loại: ${document.getElementById("dropdownTextbox1").value}, Tùy chọn: ${document.getElementById("dropdownTextbox2").value},
+                        const prompt = `Gamming gear Giá khoảng dưới : ${document.querySelector(".getPrice").value} vnd, Loại: ${document.getElementById("dropdownTextbox1").value}, Tùy chọn: ${document.getElementById("dropdownTextbox2").value},hãy đưa ra thông tin của sản phẩm nếu bạn biết và luôn luôn đưa ra link sản phẩm phù hợp hoặc gần giống với yêu cầu( link không đặt trong dấu ngoặc hay bất kì dấu đóng mở nào nếu không có sản phẩm đạt yêu cầu thì cứ gợi ý sản phẩm khác): link chuột Logitecg G Pro X Superlight giá 6.065.500 vnd thuộc nhóm tất cả tiêu chí của cửa hàng: http://localhost/research-project-GearShop/product_view.php?product_id=33 , bàn phím Logitech G613 giá 2970500 vnd thuộc nhóm tất cả tiêu chí : http://localhost/research-project-GearShop/product_view.php?product_id=38 , tai nghe Logitech G733 giá 2833000 vnd thuộc nhóm tất cả tiêu chí: http://localhost/research-project-GearShop/product_view.php?product_id=43 ,  màn hình ViewSonic Gaming giá 8027750vnd thuộc nhóm tất cả tiêu chí: http://localhost/research-project-GearShop/product_view.php?product_id=52 , bàn  Ikea UTMANING giá: 5250000 vnd thuộc nhóm tất cả tiêu chí: http://localhost/research-project-GearShop/product_view.php?product_id=53, ghế Ikea UTESPELARE giá: 1487500 vnd thuộc nhóm tất cả tiêu chí: http://localhost/research-project-GearShop/product_view.php?product_id=58 "
                     đưa ra nhiều lựa chọn có mục đích sử dụng, chức năng, các biến thể khác nhau, đưa ra recomment bạn cho là tốt nhất, đưa ra từ chối yêu cầu trả lời cho những sản phẩm không thuộc gaming gear, các sản phẩm thuộc gaming gear bao gồm(Chuột gaming
                     Bàn phím gaming
+                    Chuột gaming
                     Tai nghe gaming
                     Màn hình gaming
                     Ghế gaming
                     Bàn gaming,
                     Nếu loại sản phẩm không nằm trong danh sách hãy trả lời 'xin lỗi sản phẩm bạn tìm không nằm trong phạm vi hỗ trợ vui lòng chọn đúng loại sản phẩm khả dụng' kèm theo danh sách sản phẩm có thể thực hiện và không trả thêm bất kì câu trả lời nào khác
-                    ),
+                     ),
                 `;
 
                         // Khởi tạo mô hình AI
@@ -692,10 +693,15 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
 
                 function convertMarkdownToHTML(markdown) {
                     return markdown
-                        .replace(/^##\s+(.*)/gm, "<h2>$1</h2>")
-                        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // Chuyển đổi in đậm
-                        .replace(/^\s*-\s+(.*)/gm, "<ul><li>$1</li></ul>") // Gạch đầu dòng
-                        .replace(/\n/g, "<br>"); // Xuống dòng
+                        .replace(/[\[\]()]/g, " ")
+                        .replace(/\n/g, " <br> ")
+                        .replace(/^##\s+(.*)/gm, " <h2>$1</h2> ")
+                        .replace(/\*\*(.*?)\*\*/g, " <strong>$1</strong> ") // Chuyển đổi in đậm
+                        .replace(/^\s*-\s+(.*)/gm, " <ul><li>$1</li></ul> ")
+                        // Gạch đầu dòng
+                        .replace(/(https?:\/\/[^\s]+)/g, (url) => {
+                            return `<a href="${url}" target="_blank" style="color: blue; text-decoration: underline;">${url}</a>`; // Xuống dòng // Xuống dòng; 
+                        })
                 }
 
                 // Chatbot script
@@ -739,7 +745,13 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                                 role: "user",
                                 parts: [{
                                     text: "Hãy nhớ Nội dung trò chuyện và dựa vào đó để trả lời cho nhưng lần sau Những câu trả lời luôn là khẳng định không được có từ ví dụ, giả tưởng và Bạn là nhân viên chăm sóc khách hàng của gaming gear shop và tôi cần bạn So sánh và phân biệt các tiêu chí và chỉ phản hồi dựa trên tin nhắn. Tin Nhắn cần phản hồi là : " + userMessage +
-                                        "Tiêu chí, trường hợp: 1- Tin nhắn chào hỏi thì chào hỏi lại. 2-Tin nhắn hỗ trợ Chỉ hỗ trợ khi câu hỏi thuộc những câu hỏi về gaming gear nếu ngoài lề Thì phản hồi: 'Xin lỗi bạn mình không thể hỗ trợ cho bạn vấn đề này vì yêu cầu không hợp lệ' và không trả thêm bất kì câu trả lời nào. 3- Nếu câu hỏi về thời gian giao hàng thì cho vị trí của cửa hàng là ở Quận 12, TP Hồ Chí Minh và ước lượng thời gian dự kiến. 4- Nếu tin nhắn chỉ là tên địa điểm chẳng hạn như'Hà Nội' hoặc 'Mĩ' thì đó sẽ là tin nhắn hỏi thời gian giao hàng và hãy dựa vào tiêu chí 3, 5- Nếu Người dùng yêu cầu 1 trang web cùng lĩnh vực gaming gear hãy trả ra url có dạng https:// hoặc http://. 6- đường link luôn phải có https:// hoặc http:// nếu có thể hãy tóm tắt về trang web đó,7- Nếu người dùng hỏi về sản phẩm nào đó hãy đưa ra thông tin của sản phẩm đó và kèm link sản phẩm. link chuột g203 của cửa hàng: http://127.0.0.1:5500/Frontend/home_page.html "
+                                        `Tiêu chí, trường hợp: 1- Tin nhắn chào hỏi thì chào hỏi lại. 2-Tin nhắn hỗ trợ Chỉ hỗ trợ khi câu hỏi thuộc những câu hỏi về gaming gear nếu ngoài lề Thì phản hồi: 'Xin lỗi bạn mình không thể hỗ trợ cho bạn vấn đề này vì yêu cầu không hợp lệ' và không trả thêm bất kì câu trả lời nào. 3- Nếu câu hỏi về thời gian giao hàng thì cho vị trí của cửa hàng là ở Quận 12, TP Hồ Chí Minh và ước lượng thời gian dự kiến. 4- Nếu tin nhắn chỉ là tên địa điểm chẳng hạn như'Hà Nội' hoặc 'Mĩ' thì đó sẽ là tin nhắn hỏi thời gian giao hàng và hãy dựa vào tiêu chí 3, 5- Nếu Người dùng yêu cầu 1 trang web cùng lĩnh vực gaming gear hãy trả ra url có dạng https:// hoặc http://. 6- đường link luôn phải có https:// hoặc http:// nếu có thể hãy tóm tắt về trang web đó,7- Nếu người dùng hỏi về sản phẩm nào đó hãy đưa ra thông tin của sản phẩm đó và kèm link sản phẩm. 
+                                        link chuột Logitecg G Pro X Superlight của cửa hàng: http://localhost/research-project-GearShop/product_view.php?product_id=33 , 
+                                        bàn phím Logitech G613: http://localhost/research-project-GearShop/product_view.php?product_id=38 ,
+                                        tai nghe Logitech G733: http://localhost/research-project-GearShop/product_view.php?product_id=43 ,
+                                        màn hình ViewSonic Gaming: http://localhost/research-project-GearShop/product_view.php?product_id=52 ,
+                                        bàn  Ikea UTMANING: http://localhost/research-project-GearShop/product_view.php?product_id=53,
+                                        ghế Ikea UTESPELARE: http://localhost/research-project-GearShop/product_view.php?product_id=58 `
                                 }],
                             }, ],
                         }),
@@ -749,7 +761,6 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                         const response = await fetch(API_URL, requestOptions);
                         const data = await response.json();
                         if (!response.ok) throw new Error(data.error.message);
-
                         // messageElement.textContent = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1");
                         const rawResponse = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1");
                         const formattedResponse = rawResponse.replace(/(https?:\/\/[^\s]+)/g, (url) => {
@@ -798,7 +809,6 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                 sendChatBtn.addEventListener("click", handleChat);
                 closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
                 chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
-
                 document.addEventListener("DOMContentLoaded", function(loadCount) {
                     // Gửi yêu cầu lấy số lượng sản phẩm trong giỏ hàng
                     fetch('get_cart_count.php') // Đảm bảo file PHP này trả về số lượng giỏ hàng
