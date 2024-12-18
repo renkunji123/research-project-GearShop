@@ -448,7 +448,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
             <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
                 <!-- Left -->
                 <div class="me-5 d-none d-lg-block">
-                    <span>Kết Nối Với Chúng Tôi Qua Các Nền Tảng Mạng Xã Hội:</span>
+                    <!-- <span>Kết Nối Với Chúng Tôi Qua Các Nền Tảng Mạng Xã Hội:</span> -->
                 </div>
                 <!-- Left -->
                 <div></div>
@@ -481,7 +481,6 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                     <div class="row mt-3">
                         <!-- Grid column -->
                         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                            <!-- Content -->
                             <h6 class="text-uppercase fw-bold mb-4">
                                 <i class="fas fa-gem me-3"></i>Company Name
                             </h6>
@@ -492,8 +491,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                         <!-- Grid column -->
 
                         <!-- Grid column -->
-                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <!-- Links -->
+                        <!-- <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                             <h6 class="text-uppercase fw-bold mb-4">
                                 Sản Phẩm
                             </h6>
@@ -509,12 +507,10 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                             <p>
                                 <a href="#!" class="text-reset">Các Sản Phẩm Khác</a>
                             </p>
-                        </div>
+                        </div> -->
                         <!-- Grid column -->
-
                         <!-- Grid column -->
-                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <!-- Links -->
+                        <!-- <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                             <h6 class="text-uppercase fw-bold mb-4">
                                 Liên Kết Hỗ Trợ
                             </h6>
@@ -530,7 +526,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                             <p>
                                 <a href="#!" class="text-reset">Hỗ Trợ</a>
                             </p>
-                        </div>
+                        </div> -->
                         <!-- Grid column -->
 
                         <!-- Grid column -->

@@ -27,10 +27,6 @@ session_start();
         <!-- Danh sách liên kết điều hướng -->
         <ul class="nav me-auto">
             <li><a href="homepage.php" class="nav-link px-2 link-secondary">Trang Chủ</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Nổi Bật</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Thanh Toán</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Thông Tin</a></li>
         </ul>
 
         <!-- Khu vực tìm kiếm và các nút -->
@@ -66,9 +62,9 @@ session_start();
                                 <?= htmlspecialchars($_SESSION['user']['name']) ?>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="profile.php">
+                                <li><a class="dropdown-item" href="profile/profile.php">
                                         <i class="bi bi-person-fill"></i>
-                                        Profile
+                                        Hồ Sơ
                                     </a></li>
                                 <?php if ($_SESSION['user']['role'] === 'ADMIN'): ?>
                                     <li><a class="dropdown-item" href="adminPage.php">
@@ -196,7 +192,7 @@ session_start();
             <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
                 <!-- Left -->
                 <div class="me-5 d-none d-lg-block">
-                    <span>Kết Nối Với Chúng Tôi Thông Qua Mạng Xã Hội:</span>
+                    <!-- <span>Kết Nối Với Chúng Tôi Thông Qua Mạng Xã Hội:</span> -->
                 </div>
                 <!-- Left -->
                 <div></div>
@@ -243,8 +239,7 @@ session_start();
                         <!-- Grid column -->
 
                         <!-- Grid column -->
-                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <!-- Links -->
+                        <!-- <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                             <h6 class="text-uppercase fw-bold mb-4">
                                 Sản Phẩm
                             </h6>
@@ -260,12 +255,11 @@ session_start();
                             <p>
                                 <a href="#!" class="text-reset">Và Các Sản Phẩm Khác</a>
                             </p>
-                        </div>
+                        </div> -->
                         <!-- Grid column -->
 
                         <!-- Grid column -->
-                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <!-- Links -->
+                        <!-- <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                             <h6 class="text-uppercase fw-bold mb-4">
                                 Liên Kết Hỗ Trợ
                             </h6>
@@ -281,7 +275,7 @@ session_start();
                             <p>
                                 <a href="#!" class="text-reset">Hỗ Trợ</a>
                             </p>
-                        </div>
+                        </div> -->
 
                         <!-- Grid column -->
                         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
