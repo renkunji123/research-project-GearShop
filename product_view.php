@@ -76,7 +76,7 @@ $conn->close();
 
                 <!-- Action Buttons -->
                 <div class="mt-3">
-                    <button class="btn btn-primary">Thêm vào giỏ hàng</button>
+                    <button class="btn btn-primary add-to-cart">Thêm vào giỏ hàng</button>
                 </div>
             </div>
         </div>

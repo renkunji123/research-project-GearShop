@@ -3,6 +3,7 @@ session_start();
 $isLoggedIn = isset($_SESSION['user']);
 $userName = $isLoggedIn ? $_SESSION['user']['name'] : null;
 $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -212,14 +213,26 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
             <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">Thông Tin</a></li> -->
         </ul>
+        <div class="col-12 col-md-6 col-lg-8 mb-3 mb-md-0">
+    <form class="d-flex" role="search" method="GET" action="search.php">
+        <input 
+            type="search" 
+            name="keyword" 
+            class="form-control form-control-dark text-bg-light" 
+            placeholder="Search..." 
+            aria-label="Search"
+        >
+        <button type="submit" class="btn btn-primary ms-2">Search</button>
+    </form>
+                </div>
         <!-- Khu vực tìm kiếm và các nút -->
         <div class="container-fluid">
             <div class="row align-items-center">
                 <!-- Ô tìm kiếm -->
                 <div class="col-12 col-md-6 col-lg-8 mb-3 mb-md-0">
                     <form class="d-flex" role="search">
-                        <input type="search" class="form-control form-control-dark text-bg-light"
-                            placeholder="Search..." aria-label="Search">
+                        <!-- <input type="search" class="form-control form-control-dark text-bg-light"
+                            placeholder="Search..." aria-label="Search"> -->
                     </form>
                 </div>
 
