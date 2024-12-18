@@ -3,7 +3,110 @@ session_start();
 $isLoggedIn = isset($_SESSION['user']);
 $userName = $isLoggedIn ? $_SESSION['user']['name'] : null;
 $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
+// Kiểm tra xem có từ khóa gửi đến hay không
+$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 
+// Kết nối với cơ sở dữ liệu
+$conn = new mysqli("localhost", "root", "", "ggshopdb");
+
+// Kiểm tra kết nối
+if ($conn->connect_error) {
+    die("Kết nối thất bại: " . $conn->connect_error);
+}
+
+// Lấy từ khóa tìm kiếm từ URL
+// $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+
+// if ($keyword) {
+//     $sql = "SELECT product_id, product_name, product_description, product_image, product_price 
+//             FROM products 
+//             WHERE product_name LIKE ? OR product_description LIKE ?";
+//     $stmt = $conn->prepare($sql);
+
+//     if (!$stmt) {
+//         die("Lỗi trong câu truy vấn SQL: " . $conn->error);
+//     }
+//     $searchTerm = "%" . $keyword . "%";
+//     $stmt->bind_param("ss", $searchTerm, $searchTerm);
+
+//     $stmt->execute();
+//     $stmt->bind_result($product_id, $product_name, $product_description, $product_image, $product_price);
+
+//     $found = false; 
+
+//     while ($stmt->fetch()) {
+//     $found = true;
+//     echo "<div class='col-md-4 mb-4'>"; // Bootstrap class: col for grid system
+//     echo "    <div class='card h-100 shadow-sm'>"; // Card layout
+//     echo "        <img src='images/" . htmlspecialchars($product_image) . "' class='card-img-top' alt='" . htmlspecialchars($product_name) . "' />";
+//     echo "        <div class='card-body'>"; // Card body for content
+//     echo "            <h5 class='card-title'>" . htmlspecialchars($product_name) . "</h5>";
+//     echo "            <p class='card-text'>" . nl2br(htmlspecialchars($product_description)) . "</p>";
+//     echo "        </div>";
+//     echo "        <div class='card-footer bg-white'>"; // Card footer for price
+//     echo "            <p class='text-danger fw-bold'>Giá: " . number_format($product_price, 0) . " VND</p>";
+//     echo "        </div>";
+//     echo "    </div>";
+//     echo "</div>";
+// }
+
+
+//     if (!$found) {
+//         echo "Không có sản phẩm nào khớp với từ khóa.";
+//     }
+// } else {
+//     echo "Vui lòng nhập từ khóa tìm kiếm.";
+// }
+// $conn->close();
+$productHTML = ""; // Tạo biến để lưu HTML của sản phẩm
+$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+
+if ($keyword) {
+    // Truy vấn cơ sở dữ liệu
+    $sql = "SELECT product_id, product_name, product_description, product_image, product_price 
+            FROM products 
+            WHERE product_name LIKE ? OR product_description LIKE ?";
+    $stmt = $conn->prepare($sql);
+
+    if (!$stmt) {
+        die("Lỗi trong câu truy vấn SQL: " . $conn->error);
+    }
+
+    $searchTerm = "%" . $keyword . "%";
+    $stmt->bind_param("ss", $searchTerm, $searchTerm);
+
+    $stmt->execute();
+    $stmt->bind_result($product_id, $product_name, $product_description, $product_image, $product_price);
+
+    $found = false;
+    while ($stmt->fetch()) {
+        $found = true;
+        // Lưu HTML sản phẩm vào biến
+        $productHTML .= "<div class='col-12 col-md-6 col-lg-4 mb-4'>";
+        $productHTML .= "    <div class='product-card' style='height: 500px'>";
+        $productHTML .= "        <img src='" . htmlspecialchars($product_image) . "' alt='" . htmlspecialchars($product_name) . "' class='img-fluid' style='height: 200px'>";
+        $productHTML .= "    <a href='product_view.php?product_id=" . htmlspecialchars($product_id) . "' class='btn quick-view btn-light'>Xem</a>";
+        $productHTML .= "        <div class='product-info'>";
+        $productHTML .= "            <h5 class='product-title'>" . htmlspecialchars($product_name) . "</h5>";
+        $productHTML .= "            <p class='product-description' style='height: 150px'>" . htmlspecialchars($product_description) . "</p>";
+        // $productHTML .= "            <p class='product-price text-danger'>Giá: " . number_format($product_price, 2) . " VND</p>";
+        $productHTML .= "        <div class='d-flex justify-content-between align-items-center'>";
+        $productHTML .= "           <span class='custom-price'>". number_format($product_price) . " VND</span>";
+        $productHTML .= "           <button class='btn btn-primary add-to-cart2' ". htmlspecialchars($product_id) ."";
+        $productHTML .= "           data-unit-price=". number_format($product_price) .">➕🛒</button>";
+        $productHTML .= "        </div>";
+        $productHTML .= "        </div>";
+        $productHTML .= "    </div>";
+        $productHTML .= "</div>";
+    }
+
+    if (!$found) {
+        $productHTML = "<div class='col-12'><p class='text-warning'>Không có sản phẩm nào khớp với từ khóa '<strong>" . htmlspecialchars($keyword) . "</strong>'.</p></div>";
+    }
+
+    $stmt->close();
+}
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -136,7 +239,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                 console.error('Có lỗi xảy ra khi lấy dữ liệu:', error);
             });
         // Hàm để tải dữ liệu sản phẩm và chèn vào trong HTML
-        fetch('fetch_products.php')
+        /*fetch('fetch_products.php')
             .then(response => response.json()) // Chuyển dữ liệu nhận về từ PHP thành định dạng JSON
             .then(data => {
                 const productList = document.querySelector('.product-list');
@@ -161,7 +264,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                 </div>
                 `;
                     productList.innerHTML += productCard;
-                });
+                });*/
                 // Thêm sự kiện cho nút "Add to Cart"2
                 document.querySelectorAll('.add-to-cart2').forEach(button => {
                     if (!button.hasEventListener) { // Nếu sự kiện chưa được thêm
@@ -195,9 +298,50 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                 console.error('Có lỗi xảy ra khi lấy dữ liệu:', error);
             });
     </script>
+
+    <title>Tìm Kiếm Sản Phẩm</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .search-container {
+            margin-top: 30px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .product-card img {
+            max-height: 200px;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .no-results {
+            color: #dc3545;
+            font-size: 18px;
+        }
+    </style>
 </head>
 
 <body>
+
     <header class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom">
         <!-- Logo
         <a href="/" class="d-flex align-items-center text-dark text-decoration-none me-4">
@@ -208,12 +352,13 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
         <!-- Danh sách liên kết điều hướng -->
         <ul class="nav me-auto">
             <li><a href="homepage.php" class="nav-link px-2 link-secondary">Trang Chủ</a></li>
-            <!-- <li><a href="#" class="nav-link px-2 link-dark">Nổi Bật</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Thanh Toán</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Thông Tin</a></li> -->
+            
         </ul>
-        <div class="col-12 col-md-6 col-lg-8 mb-3 mb-md-0">
+        <!-- Khu vực tìm kiếm và các nút -->
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <!-- Ô tìm kiếm -->
+                <!-- <div class="col-12 col-md-6 col-lg-8 mb-3 mb-md-0">
     <form class="d-flex" role="search" method="GET" action="search.php">
         <input 
             type="search" 
@@ -224,18 +369,42 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
         >
         <button type="submit" class="btn btn-primary ms-2">Search</button>
     </form>
-                </div>
-        <!-- Khu vực tìm kiếm và các nút -->
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <!-- Ô tìm kiếm -->
+                </div> -->
                 <div class="col-12 col-md-6 col-lg-8 mb-3 mb-md-0">
-                    <form class="d-flex" role="search">
-                        <!-- <input type="search" class="form-control form-control-dark text-bg-light"
-                            placeholder="Search..." aria-label="Search"> -->
-                    </form>
-                </div>
+    <form class="d-flex" role="search" method="GET" action="search.php" id="searchForm">
+        <input 
+            type="search" 
+            name="keyword" 
+            class="form-control form-control-dark text-bg-light" 
+            placeholder="Search..." 
+            aria-label="Search" 
+            id="searchInput"
+        >
+        <button type="submit" class="btn btn-primary ms-2" id="searchButton">Search</button>
+    </form>
+</div>
 
+<script>
+    // Thêm sự kiện cho nút search
+    document.getElementById('searchButton').addEventListener('click', function(event) {
+        // Ngừng việc gửi form mặc định
+        event.preventDefault();
+
+        // Lấy giá trị nhập vào ô tìm kiếm
+        var searchQuery = document.getElementById('searchInput').value.trim();
+
+        // Kiểm tra xem ô tìm kiếm có trống không
+        if (searchQuery === "") {
+            alert("Vui lòng nhập từ khóa tìm kiếm.");
+        } else {
+            // Nếu có từ khóa, gửi form
+            document.getElementById('searchForm').submit();
+        }
+    });
+</script>
+
+
+                
                 <!-- Các nút hành động -->
                 <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-end gap-2">
                     <!-- Nút Cart -->
@@ -361,75 +530,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
         </div>
     </div>
 
-
-
-    <div class="ai-search">
-        <a>Tìm Kiếm Sản Phẩm Với Sự Hỗ Trợ Của AI </a> <br>
-        <input class="getPrice" placeholder="Hãy nhập ngân sách"></input> <br>
-        <label for="dropdownTextbox">Hãy Đưa Ra Tiêu Chí Của Bạn:</label> <br>
-
-        <input list="options1" id="dropdownTextbox1" name="dropdownTextbox1" placeholder="Chọn loại sản phẩm">
-        <datalist id="options1">
-            <option value="Keyboard">
-            <option value="mouse/wireless mouse">
-            <option value="headphone">
-            <option value="earphone">
-        </datalist>
-        <input list="options2" id="dropdownTextbox2" name="dropdownTextbox2" placeholder="Lựa chọn tiêu chí">
-        <datalist id="options2">
-            <option value="Performance">
-            <option value="Outlook">
-            <option value="Cheapest">
-            <option value="All">
-        </datalist> <br>
-        <button class="aiSearchButton">Tìm Kiếm Cùng AI</button>
-        <div id="loading" style="display: none;">Đang Tìm Kiếm...</div>
-
-        <div id="results" style="margin-top: 20px; font-weight: bold;"></div>
-    </div>
-    </div>
-    <div class="hot-deal">
-        <h1>Hot Deal</h1>
-        <div class="container-fluid py-4">
-            <div class="product-scroll-container" role="region" aria-label="Product List">
-                <div class="d-flex overflow-auto product-wrapper" tabindex="0">
-                    <!-- Hot deal product -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="product-type-1">
-        <div class="container-fluid py-4">
-            <div class="row mb-4">
-                <div class="col-12">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h2>Sản Phẩm Nổi Bật</h2>
-                        <div class="dropdown">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                data-bs-toggle="dropdown">
-                                Sắp Xếp Theo
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Giá: Từ Thấp Tới Cao</a></li>
-                                <li><a class="dropdown-item" href="#">Giá: Từ Cao Tới Thấp</a></li>
-                                <li><a class="dropdown-item" href="#">Đánh Giá</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="product-scroll" tabindex="0">
-                        <div class="product-container d-flex">
-                            <!-- feature products -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="product-type-2">
+    <!-- <div class="product-type-2">
         <div class="custom-container py-4">
             <div class="row mb-4">
                 <div class="col-12">
@@ -450,10 +551,34 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                 </div>
             </div>
             <div class="row custom-product-grid product-list">
-                <!-- product list view -->
             </div>
         </div>
+    </div> -->
+    <div class="product-type-2">
+    <div class="custom-container py-4">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Sản Phẩm</h2>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            Sắp Xếp
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Giá: Từ Thấp Tới Cao</a></li>
+                            <li><a class="dropdown-item" href="#">Giá: Từ Cao Tới Thấp</a></li>
+                            <li><a class="dropdown-item" href="#">Đánh Giá</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row custom-product-grid product-list">
+            <?php echo $productHTML; ?> <!-- Hiển thị kết quả tìm kiếm ở đây -->
+        </div>
     </div>
+</div>
+
     <div class="footer">
         <!-- Footer -->
         <footer class="text-center text-lg-start bg-body-tertiary text-muted">
