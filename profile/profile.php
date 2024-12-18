@@ -230,7 +230,7 @@ try {
                             <i class="bi bi-person-fill"></i> Hồ Sơ
                         </a></li>
                     <?php if ($_SESSION['user']['role'] === 'ADMIN'): ?>
-                        <li><a class="dropdown-item" href="adminPage.php">
+                        <li><a class="dropdown-item" href="../adminPage.php">
                                 <i class="bi bi-shield-lock"></i> Quản Trị Viên
                             </a></li>
                     <?php endif; ?>

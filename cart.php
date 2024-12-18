@@ -23,10 +23,6 @@ session_start();
         </a>
         <ul class="nav me-auto">
             <li><a href="homepage.php" class="nav-link px-2 link-secondary">Trang Chủ</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Nổi Bật</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Thanh Toán</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Thông Tin</a></li>
         </ul>
         <div class="container-fluid">
             <div class="row align-items-center">
@@ -51,9 +47,9 @@ session_start();
                                 <?= htmlspecialchars($_SESSION['user']['name']) ?>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="profile.php">
+                                <li><a class="dropdown-item" href="profile/profile.php">
                                         <i class="bi bi-person-fill"></i>
-                                        Profile
+                                        Hồ Sơ
                                     </a></li>
                                 <?php if ($_SESSION['user']['role'] === 'ADMIN'): ?>
                                     <li><a class="dropdown-item" href="adminPage.php">
@@ -159,7 +155,7 @@ session_start();
         <footer class="text-center text-lg-start bg-body-tertiary text-muted">
             <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
                 <div class="me-5 d-none d-lg-block">
-                    <span>Kết Nối Với Chúng Tôi Thông Qua Mạng Xã Hội:</span>
+                    <!-- <span>Kết Nối Với Chúng Tôi Thông Qua Mạng Xã Hội:</span> -->
                 </div>
                 <div>
                     <a href="" class="me-4 text-reset"><i class="fab fa-facebook-f"></i></a>
@@ -177,6 +173,7 @@ session_start();
                             <h6 class="text-uppercase fw-bold mb-4"><i class="fas fa-gem me-3"></i>Company Name</h6>
                             <p>GGSHOP COMPANY</p>
                         </div>
+<<<<<<< HEAD
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                             <h6 class="text-uppercase fw-bold mb-4">Sản Phẩm</h6>
                             <p><a href="#!" class="text-reset">Bàn Phím</a></p>
@@ -192,6 +189,50 @@ session_start();
                             <p><a href="#!" class="text-reset">Hỗ Trợ</a>
                             </p>
                         </div>
+=======
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <!-- <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <h6 class="text-uppercase fw-bold mb-4">
+                                Sản Phẩm
+                            </h6>
+                            <p>
+                                <a href="#!" class="text-reset">Bàn Phím</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Chuột</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Tai Nghe</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Và Các Sản Phẩm Khác</a>
+                            </p>
+                        </div> -->
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <!-- <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <h6 class="text-uppercase fw-bold mb-4">
+                                Liên Kết Hỗ Trợ
+                            </h6>
+                            <p>
+                                <a href="#!" class="text-reset">Thanh Toán</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Cài Đặt</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Đặt Hàng</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Hỗ Trợ</a>
+                            </p>
+                        </div> -->
+
+                        <!-- Grid column -->
+>>>>>>> 0b42eee0add56495559b55f500b710d20867ee83
                         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                             <h6 class="text-uppercase fw-bold mb-4">Liên Lạc</h6>
                             <p><i class="fas fa-home me-3"></i> F601 F Tower</p>

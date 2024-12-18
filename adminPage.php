@@ -108,11 +108,7 @@ $result = $conn->query($sql);
     <header class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom">
         <!-- Danh sách liên kết điều hướng -->
         <ul class="nav me-auto">
-            <li><a href="homepage.php" class="nav-link px-2 link-secondary">Trang Chủ</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Nổi Bật</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Thanh Toán</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Thông Tin</a></li>
+            <li><a href="homepage.php" class="nav-link px-2 link-secondary">Trang Chủ</a></li>   
         </ul>
         <div class="container-fluid">
             <div class="row align-items-center">
@@ -1012,7 +1008,7 @@ $result = $conn->query($sql);
         <footer class="text-center text-lg-start bg-body-tertiary text-muted">
             <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
                 <div class="me-5 d-none d-lg-block">
-                    <span>Kết Nối Với Chúng Tôi Thông Qua Mạng Xã Hội</span>
+                    <!-- <span>Kết Nối Với Chúng Tôi Thông Qua Mạng Xã Hội</span> -->
                 </div>
                 <div>
                     <a href="" class="me-4 text-reset"><i class="fab fa-facebook-f"></i></a>
@@ -1032,7 +1028,7 @@ $result = $conn->query($sql);
                             </h6>
                             <p>GGSHOP COMPANY</p>
                         </div>
-                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                             <h6 class="text-uppercase fw-bold mb-4">Sản Phẩm</h6>
                             <p><a href="#!" class="text-reset">Bàn Phím</a></p>
                             <p><a href="#!" class="text-reset">Chuột</a></p>
@@ -1045,7 +1041,7 @@ $result = $conn->query($sql);
                             <p><a href="#!" class="text-reset">Cài Đặt</a></p>
                             <p><a href="#!" class="text-reset">Đặt Hàng</a></p>
                             <p><a href="#!" class="text-reset">Hỗ Trợ</a></p>
-                        </div>
+                        </div> -->
                         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                             <h6 class="text-uppercase fw-bold mb-4">Liên Lạc</h6>
                             <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
