@@ -19,7 +19,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <script>
         // Fetch product hotdeal
-        fetch('fetch_products.php') // Chú ý sử dụng đường dẫn thích hợp
+        fetch('../Backend/fetch_products.php') // Chú ý sử dụng đường dẫn thích hợp
             .then(response => response.json())
             .then(data => {
                 let hotDealProductsContainer = document.querySelector('.product-wrapper');
@@ -58,7 +58,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                             const quantity = 1; // Giả sử mỗi lần thêm chỉ có 1 sản phẩm
 
                             // Gửi yêu cầu thêm sản phẩm vào giỏ hàng
-                            fetch('add_to_cart.php', {
+                            fetch('../Backend/add_to_cart.php', {
                                     method: 'POST',
                                     body: new URLSearchParams({
                                         'product_id': productId,
@@ -78,7 +78,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
             })
 
 
-        fetch('fetch_products.php') // Đảm bảo rằng đường dẫn đúng với cấu trúc thư mục của bạn
+        fetch('../Backend/fetch_products.php') // Đảm bảo rằng đường dẫn đúng với cấu trúc thư mục của bạn
             .then(response => response.json())
             .then(data => {
                 let featureProductContainer = document.querySelector('.product-container');
@@ -114,7 +114,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                             const quantity = 1; // Giả sử mỗi lần thêm chỉ có 1 sản phẩm
 
                             // Gửi yêu cầu thêm sản phẩm vào giỏ hàng
-                            fetch('add_to_cart.php', {
+                            fetch('../Backend/add_to_cart.php', {
                                     method: 'POST',
                                     body: new URLSearchParams({
                                         'product_id': productId,
@@ -135,7 +135,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                 console.error('Có lỗi xảy ra khi lấy dữ liệu:', error);
             });
         // Hàm để tải dữ liệu sản phẩm và chèn vào trong HTML
-        fetch('fetch_products.php')
+        fetch('../Backend/fetch_products.php')
             .then(response => response.json()) // Chuyển dữ liệu nhận về từ PHP thành định dạng JSON
             .then(data => {
                 const productList = document.querySelector('.product-list');
@@ -173,7 +173,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                             const quantity = 1; // Giả sử mỗi lần thêm chỉ có 1 sản phẩm
 
                             // Gửi yêu cầu thêm sản phẩm vào giỏ hàng
-                            fetch('add_to_cart.php', {
+                            fetch('../Backend/add_to_cart.php', {
                                     method: 'POST',
                                     body: new URLSearchParams({
                                         'product_id': productId,
@@ -206,7 +206,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
         </a> -->
         <!-- Danh sách liên kết điều hướng -->
         <ul class="nav me-auto">
-            <li><a href="homepage.php" class="nav-link px-2 link-secondary">Trang Chủ</a></li>
+            <li><a href="../Frontend/homepage.php" class="nav-link px-2 link-secondary">Trang Chủ</a></li>
             <!-- <li><a href="#" class="nav-link px-2 link-dark">Nổi Bật</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">Thanh Toán</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
@@ -226,7 +226,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                 <!-- Các nút hành động -->
                 <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-end gap-2">
                     <!-- Nút Cart -->
-                    <a href="cart.php" class="btn btn-info d-flex align-items-center position-relative">
+                    <a href="../Frontend/cart.php" class="btn btn-info d-flex align-items-center position-relative">
                         <i class="bi bi-cart"></i>
 
                         <!-- Hiển thị số lượng sản phẩm trong giỏ hàng -->
@@ -245,19 +245,19 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                                 <?= htmlspecialchars($_SESSION['user']['name']) ?>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="profile/profile.php">
+                                <li><a class="dropdown-item" href="profile.php">
                                         <i class="bi bi-person-fill"></i>
                                         Hồ sơ
                                     </a></li>
                                 <?php if ($_SESSION['user']['role'] === 'ADMIN'): ?>
-                                    <li><a class="dropdown-item" href="adminPage.php">
+                                    <li><a class="dropdown-item" href="../Frontend/adminPage.php">
                                             <i class="bi bi-shield-lock"></i> Quản Trị Viên
                                         </a></li>
                                 <?php endif; ?>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="logout.php">
+                                <li><a class="dropdown-item" href="../Backend/logout.php">
                                         <i class="bi bi-door-open"></i>
                                         Đăng Xuất
                                     </a></li>
@@ -266,11 +266,11 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                     <?php else: ?>
                         <!-- Nếu người dùng chưa đăng nhập -->
                         <button type="button" class="btn btn-outline-primary"
-                            onclick="window.location.href='login.php';">
+                            onclick="window.location.href='../Frontend/login.php';">
                             <i class="bi bi-box-arrow-in-right"></i> Đăng Nhập
                         </button>
                         <button type="button" class="btn btn-primary"
-                            onclick="window.location.href='register.php';">
+                            onclick="window.location.href='../Frontend/register.php';">
                             <i class="bi bi-person-plus"></i> Đăng Ký
                         </button>
                     <?php endif; ?>
@@ -651,7 +651,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                     document.getElementById("results").innerHTML = "";
                     try {
                         // Tạo prompt từ các trường đầu vào
-                        const prompt = `Gamming gear Giá khoảng dưới : ${document.querySelector(".getPrice").value} vnd, Loại: ${document.getElementById("dropdownTextbox1").value}, Tùy chọn: ${document.getElementById("dropdownTextbox2").value},hãy đưa ra thông tin của sản phẩm nếu bạn biết và luôn luôn đưa ra link sản phẩm phù hợp hoặc gần giống với yêu cầu( link không đặt trong dấu ngoặc hay bất kì dấu đóng mở nào nếu không có sản phẩm đạt yêu cầu thì cứ gợi ý sản phẩm khác): link chuột Logitecg G Pro X Superlight giá 6.065.500 vnd thuộc nhóm tất cả tiêu chí của cửa hàng: http://localhost/research-project-GearShop/product_view.php?product_id=33 , bàn phím Logitech G613 giá 2970500 vnd thuộc nhóm tất cả tiêu chí : http://localhost/research-project-GearShop/product_view.php?product_id=38 , tai nghe Logitech G733 giá 2833000 vnd thuộc nhóm tất cả tiêu chí: http://localhost/research-project-GearShop/product_view.php?product_id=43 ,  màn hình ViewSonic Gaming giá 8027750vnd thuộc nhóm tất cả tiêu chí: http://localhost/research-project-GearShop/product_view.php?product_id=52 , bàn  Ikea UTMANING giá: 5250000 vnd thuộc nhóm tất cả tiêu chí: http://localhost/research-project-GearShop/product_view.php?product_id=53, ghế Ikea UTESPELARE giá: 1487500 vnd thuộc nhóm tất cả tiêu chí: http://localhost/research-project-GearShop/product_view.php?product_id=58 "
+                        const prompt = `Gamming gear Giá khoảng dưới : ${document.querySelector(".getPrice").value} vnd, Loại: ${document.getElementById("dropdownTextbox1").value}, Tùy chọn: ${document.getElementById("dropdownTextbox2").value},hãy đưa ra thông tin của sản phẩm nếu bạn biết và luôn luôn đưa ra link sản phẩm phù hợp hoặc gần giống với yêu cầu( link không đặt trong dấu ngoặc hay bất kì dấu đóng mở nào nếu không có sản phẩm đạt yêu cầu thì cứ gợi ý sản phẩm khác): link chuột Logitecg G Pro X Superlight giá 6.065.500 vnd thuộc nhóm tất cả tiêu chí của cửa hàng: http://localhost/research-project-GearShop/Frontend/product_view.php?product_id=33 , bàn phím Logitech G613 giá 2970500 vnd thuộc nhóm tất cả tiêu chí : http://localhost/research-project-GearShop/Frontend/product_view.php?product_id=38 , tai nghe Logitech G733 giá 2833000 vnd thuộc nhóm tất cả tiêu chí: http://localhost/research-project-GearShop/Frontend/product_view.php?product_id=43 ,  màn hình ViewSonic Gaming giá 8027750vnd thuộc nhóm tất cả tiêu chí: http://localhost/research-project-GearShop/Frontend/product_view.php?product_id=52 , bàn  Ikea UTMANING giá: 5250000 vnd thuộc nhóm tất cả tiêu chí: http://localhost/research-project-GearShop/Frontend/product_view.php?product_id=53, ghế Ikea UTESPELARE giá: 1487500 vnd thuộc nhóm tất cả tiêu chí: http://localhost/research-project-GearShop/Frontend/product_view.php?product_id=58 "
                     đưa ra nhiều lựa chọn có mục đích sử dụng, chức năng, các biến thể khác nhau, đưa ra recomment bạn cho là tốt nhất, đưa ra từ chối yêu cầu trả lời cho những sản phẩm không thuộc gaming gear, các sản phẩm thuộc gaming gear bao gồm(Chuột gaming
                     Bàn phím gaming
                     Chuột gaming
@@ -742,12 +742,12 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                                 parts: [{
                                     text: "Hãy nhớ Nội dung trò chuyện và dựa vào đó để trả lời cho nhưng lần sau Những câu trả lời luôn là khẳng định không được có từ ví dụ, giả tưởng và Bạn là nhân viên chăm sóc khách hàng của gaming gear shop và tôi cần bạn So sánh và phân biệt các tiêu chí và chỉ phản hồi dựa trên tin nhắn. Tin Nhắn cần phản hồi là : " + userMessage +
                                         `Tiêu chí, trường hợp: 1- Tin nhắn chào hỏi thì chào hỏi lại. 2-Tin nhắn hỗ trợ Chỉ hỗ trợ khi câu hỏi thuộc những câu hỏi về gaming gear nếu ngoài lề Thì phản hồi: 'Xin lỗi bạn mình không thể hỗ trợ cho bạn vấn đề này vì yêu cầu không hợp lệ' và không trả thêm bất kì câu trả lời nào. 3- Nếu câu hỏi về thời gian giao hàng thì cho vị trí của cửa hàng là ở Quận 12, TP Hồ Chí Minh và ước lượng thời gian dự kiến. 4- Nếu tin nhắn chỉ là tên địa điểm chẳng hạn như'Hà Nội' hoặc 'Mĩ' thì đó sẽ là tin nhắn hỏi thời gian giao hàng và hãy dựa vào tiêu chí 3, 5- Nếu Người dùng yêu cầu 1 trang web cùng lĩnh vực gaming gear hãy trả ra url có dạng https:// hoặc http://. 6- đường link luôn phải có https:// hoặc http:// nếu có thể hãy tóm tắt về trang web đó,7- Nếu người dùng hỏi về sản phẩm nào đó hãy đưa ra thông tin của sản phẩm đó và kèm link sản phẩm. 
-                                        link chuột Logitecg G Pro X Superlight của cửa hàng: http://localhost/research-project-GearShop/product_view.php?product_id=33 , 
-                                        bàn phím Logitech G613: http://localhost/research-project-GearShop/product_view.php?product_id=38 ,
-                                        tai nghe Logitech G733: http://localhost/research-project-GearShop/product_view.php?product_id=43 ,
-                                        màn hình ViewSonic Gaming: http://localhost/research-project-GearShop/product_view.php?product_id=52 ,
-                                        bàn  Ikea UTMANING: http://localhost/research-project-GearShop/product_view.php?product_id=53,
-                                        ghế Ikea UTESPELARE: http://localhost/research-project-GearShop/product_view.php?product_id=58 `
+                                        link chuột Logitecg G Pro X Superlight của cửa hàng: http://localhost/research-project-GearShop/Frontend/product_view.php?product_id=33 , 
+                                        bàn phím Logitech G613: http://localhost/research-project-GearShop/Frontend/product_view.php?product_id=38 ,
+                                        tai nghe Logitech G733: http://localhost/research-project-GearShop/Frontend/product_view.php?product_id=43 ,
+                                        màn hình ViewSonic Gaming: http://localhost/research-project-GearShop/Frontend/product_view.php?product_id=52 ,
+                                        bàn  Ikea UTMANING: http://localhost/research-project-GearShop/Frontend/product_view.php?product_id=53,
+                                        ghế Ikea UTESPELARE: http://localhost/research-project-GearShop/Frontend/product_view.php?product_id=58 `
                                 }],
                             }, ],
                         }),
@@ -807,7 +807,7 @@ $userRole = $isLoggedIn ? $_SESSION['user']['role'] : null;
                 chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
                 document.addEventListener("DOMContentLoaded", function(loadCount) {
                     // Gửi yêu cầu lấy số lượng sản phẩm trong giỏ hàng
-                    fetch('get_cart_count.php') // Đảm bảo file PHP này trả về số lượng giỏ hàng
+                    fetch('../Backend/get_cart_count.php') // Đảm bảo file PHP này trả về số lượng giỏ hàng
                         .then(response => response.json())
                         .then(data => {
                             // Cập nhật số lượng sản phẩm vào phần tử hiển thị trên nút cart

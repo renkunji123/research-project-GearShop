@@ -59,7 +59,7 @@ session_start();
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="logout.php"><i class="bi bi-door-open"></i>Đăng Xuất</a>
+                                <li><a class="dropdown-item" href="../Backend/logout.php"><i class="bi bi-door-open"></i>Đăng Xuất</a>
                                 </li>
                             </ul>
                         </div>
@@ -82,7 +82,7 @@ session_start();
         <div class="cart-items bg-light p-3 rounded" id="cart-items">
         </div>
         <div>
-            <?php require_once("../research-project-GearShop/vnpay_php/config.php"); ?>
+            <?php require_once("../vnpay_php/config.php"); ?>
             <div class="container">
                 <div class="table-responsive">
                     <form action="../research-project-GearShop/vnpay_php/vnpay_create_payment.php" id="frmCreateOrder" method="post">
@@ -245,7 +245,7 @@ session_start();
             </section>
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
-                    fetch('get_cart_count.php') // Đảm bảo file PHP này trả về số lượng giỏ hàng
+                    fetch('../Backend/get_cart_count.php') // Đảm bảo file PHP này trả về số lượng giỏ hàng
                         .then(response => response.json())
                         .then(data => {
                             const cartCountElement = document.getElementById('cart-count');
@@ -254,7 +254,7 @@ session_start();
                         .catch(error => console.error('Error fetching cart count:', error));
                 });
                 document.addEventListener("DOMContentLoaded", function() {
-                    fetch('get_cart.php')
+                    fetch('../Backend/get_cart.php')
                         .then(response => response.json())
                         .then(data => {
                             const cartContainer = document.getElementById('cart-items');
@@ -304,7 +304,7 @@ session_start();
                 function removeFromCart(productId, cartId) {
                     console.log(`Xóa sản phẩm ${productId} khỏi giỏ hàng`);
                     console.log(`Xóa giỏ hàng với cartId ${cartId}`);
-                    fetch('remove_from_cart.php', {
+                    fetch('../Backend/remove_from_cart.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -348,7 +348,7 @@ session_start();
                     formData.append('shipment_status', 'IN_TRANSIT');
 
                     if (amount > 0) {
-                        fetch('add_order.php'), {
+                        fetch('../Backend/add_order.php'), {
                                 method: 'POST',
                                 body: formData
                             }

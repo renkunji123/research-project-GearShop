@@ -108,7 +108,7 @@ $result = $conn->query($sql);
     <header class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom">
         <!-- Danh sách liên kết điều hướng -->
         <ul class="nav me-auto">
-            <li><a href="homepage.php" class="nav-link px-2 link-secondary">Trang Chủ</a></li>   
+            <li><a href="../Frontend/homepage.php" class="nav-link px-2 link-secondary">Trang Chủ</a></li>   
         </ul>
         <div class="container-fluid">
             <div class="row align-items-center">
@@ -641,7 +641,7 @@ $result = $conn->query($sql);
         document.querySelector('.tab-button[onclick="showTab(\'categories\')"]').addEventListener('click', loadCategories);
 
         function loadBrands() {
-            fetch('getBrands.php')
+            fetch('../Backend/getBrands.php')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Lỗi khi lấy dữ liệu từ API');

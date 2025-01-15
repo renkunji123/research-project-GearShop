@@ -7,6 +7,6 @@ session_unset();
 session_destroy();
 
 // Chuyển hướng về trang chủ hoặc trang login
-header("Location: homepage.php");
+header("Location: ../Frontend/homepage.php");
 exit();
 ?>

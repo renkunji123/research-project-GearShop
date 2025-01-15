@@ -71,7 +71,7 @@ $conn->close();
                 <p><strong>Mô tả:</strong> <?php echo $product['product_description']; ?></p>
                 <p class="text-muted"><strong>Danh mục:</strong> <?php echo $product['category_name']; ?></p> <!-- Tên danh mục -->
                 <p class="text-muted"><strong>Thương hiệu:</strong> <?php echo $product['brand_name']; ?></p> <!-- Tên thương hiệu -->
-                <p class="text-success fw-bold fs-4"><strong>Giá:</strong> <?php echo number_format($product['product_price'], 0, ',', '.'); ?> $</p>
+                <p class="text-success fw-bold fs-4"><strong>Giá:</strong> <?php echo number_format($product['product_price'], 0, ',', '.'); ?> VND</p>
                 <p class="text-muted"><strong>Tồn kho:</strong> <?php echo $product['stock_quantity']; ?> Sản Phẩm</p>
 
                 <!-- Action Buttons -->
@@ -84,10 +84,10 @@ $conn->close();
         <!-- Total Section -->
         <div class="row mt-4">
             <div class="col-md-6">
-                <a href="../research-project-GearShop/homepage.php" class="btn btn-outline-primary">Tiếp tục mua sắm</a>
+                <a href="../Frontend/homepage.php" class="btn btn-outline-primary">Tiếp tục mua sắm</a>
             </div>
             <div class="col-md-6 text-end">
-                <h4 class="fw-bold">Tổng tiền: <?php echo number_format($product['product_price'], 0, ',', '.'); ?> $</h4>
+                <h4 class="fw-bold">Tổng tiền: <?php echo number_format($product['product_price'], 0, ',', '.'); ?> VND</h4>
                 <button class="btn btn-primary btn-lg mt-3">Thanh toán</button>
             </div>
         </div>
